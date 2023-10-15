@@ -4,6 +4,7 @@ import { Combatant } from '../../../interfaces/Combatant';
 import { actionGenerator } from '../../../testing/generators/actionGenerator';
 import { BattleScreenProps } from '../BattleScreen';
 import { updateCombatantInArray } from '../functions/updateCombatantInArray';
+import { useHandleMode } from './useHandleMode';
 
 export type BattleMode = 'COLLECTING' | 'HANDLING';
 export interface UseBattleScreen {
@@ -36,16 +37,13 @@ export const useBattleScreen = ({
 		return currentCombatants.every((c) => !c.nextAction);
 	}, [currentCombatants]);
 
-	useEffect(() => {
-		if (mode === 'COLLECTING' && allCombatantsHaveMoves) {
-			setMode('HANDLING');
-		}
-	}, [allCombatantsHaveMoves, mode]);
-	useEffect(() => {
-		if (mode === 'HANDLING' && noCombatantsHaveMoves) {
-			setMode('COLLECTING');
-		}
-	}, [mode, noCombatantsHaveMoves]);
+	useHandleMode({
+		mode,
+		allCombatantsHaveMoves,
+		noCombatantsHaveMoves,
+		setMode,
+	});
+
 	useEffect(() => {
 		if (allPlayerCombatantsHaveMoves && !allCombatantsHaveMoves) {
 			setCurrentCombatants(

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-
+import './modal.css';
 export const Modal = ({
 	open,
 

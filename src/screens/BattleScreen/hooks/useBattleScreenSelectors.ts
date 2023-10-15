@@ -8,20 +8,24 @@ export const useBattleScreenSelectors = ({
 	currentCombatants: Combatant[];
 	playerId: string;
 }) => {
+	const allCombatantsOnField = useMemo(() => {
+		return currentCombatants.filter((c) => c.state === 'ONFIELD');
+	}, [currentCombatants]);
 	const allPlayerCombatantsHaveMoves = useMemo(() => {
-		return currentCombatants
+		return allCombatantsOnField
 			.filter((c) => c.pokemon.ownerId === playerId)
 			.every((c) => c.nextAction);
-	}, [currentCombatants, playerId]);
+	}, [allCombatantsOnField, playerId]);
 
 	const allCombatantsHaveMoves = useMemo(() => {
-		return currentCombatants.every((c) => c.nextAction);
-	}, [currentCombatants]);
+		return allCombatantsOnField.every((c) => c.nextAction);
+	}, [allCombatantsOnField]);
 	const noCombatantsHaveMoves = useMemo(() => {
-		return currentCombatants.every((c) => !c.nextAction);
-	}, [currentCombatants]);
+		return allCombatantsOnField.every((c) => !c.nextAction);
+	}, [allCombatantsOnField]);
 
 	return {
+		allCombatantsOnField,
 		allCombatantsHaveMoves,
 		allPlayerCombatantsHaveMoves,
 		noCombatantsHaveMoves,

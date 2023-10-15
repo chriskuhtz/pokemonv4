@@ -11,7 +11,7 @@ export const BattleScreenContent = ({
 	allyId,
 }: BattleScreenProps): JSX.Element => {
 	const {
-		currentCombatants,
+		allCombatantsOnField,
 		selectNextActionForCombatant,
 		mode,
 		handleActionForCombatant,
@@ -26,19 +26,19 @@ export const BattleScreenContent = ({
 			<div className="devInfo">MODE: {mode}</div>
 
 			<PlayerSide
-				playerSide={currentCombatants.filter(
+				playerSide={allCombatantsOnField.filter(
 					(c) => c.pokemon.ownerId === playerId || c.pokemon.ownerId === allyId
 				)}
-				allCombatants={currentCombatants}
+				allCombatants={allCombatantsOnField}
 				selectNextActionForCombatant={selectNextActionForCombatant}
 			/>
 			<ActionHandlerModal
 				mode={mode}
-				currentCombatants={currentCombatants}
+				allCombatantsOnField={allCombatantsOnField}
 				handleActionForCombatant={handleActionForCombatant}
 			/>
 			<OpponentSide
-				combatants={currentCombatants.filter((c) =>
+				combatants={allCombatantsOnField.filter((c) =>
 					opponentIds.includes(c.pokemon.ownerId)
 				)}
 			/>

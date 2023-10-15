@@ -9,7 +9,7 @@ import { useHandleMode } from './useHandleMode';
 
 export type BattleMode = 'COLLECTING' | 'HANDLING';
 export interface UseBattleScreen {
-	currentCombatants: Combatant[];
+	allCombatantsOnField: Combatant[];
 	selectNextActionForCombatant: (id: string, action: Action) => void;
 	handleActionForCombatant: (id: string) => void;
 	mode: BattleMode;
@@ -29,6 +29,7 @@ export const useBattleScreen = ({
 		allCombatantsHaveMoves,
 		allPlayerCombatantsHaveMoves,
 		noCombatantsHaveMoves,
+		allCombatantsOnField,
 	} = useBattleScreenSelectors({
 		currentCombatants,
 		playerId,
@@ -56,7 +57,7 @@ export const useBattleScreen = ({
 		});
 
 	return {
-		currentCombatants,
+		allCombatantsOnField,
 		selectNextActionForCombatant,
 		mode,
 		handleActionForCombatant,

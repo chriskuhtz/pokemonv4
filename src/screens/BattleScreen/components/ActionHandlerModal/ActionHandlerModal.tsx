@@ -4,15 +4,15 @@ import { UseBattleScreen } from '../../hooks/useBattleScreen';
 
 export const ActionHandlerModal = ({
 	mode,
-	currentCombatants,
+	allCombatantsOnField,
 	handleActionForCombatant,
 }: Pick<
 	UseBattleScreen,
-	'mode' | 'currentCombatants' | 'handleActionForCombatant'
+	'mode' | 'allCombatantsOnField' | 'handleActionForCombatant'
 >): JSX.Element => {
 	const combatantsInCorrectOrder = useMemo(() => {
-		return currentCombatants.filter((c) => c.nextAction);
-	}, [currentCombatants]);
+		return allCombatantsOnField.filter((c) => c.nextAction);
+	}, [allCombatantsOnField]);
 
 	const nextCombatant = useMemo(() => {
 		return combatantsInCorrectOrder[0];

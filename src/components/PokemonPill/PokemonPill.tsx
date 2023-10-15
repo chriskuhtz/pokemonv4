@@ -27,7 +27,7 @@ export const PokemonPill = ({
 						{pokemon.name}({battleStatus})
 					</p>
 					<p>
-						{pokemon.hp.current}/{pokemon.hp.max}
+						{pokemon.maxHp - pokemon.damage}/{pokemon.maxHp}
 					</p>
 				</div>
 			}

@@ -18,7 +18,7 @@ export const ActionHandlerModal = ({
 		return combatantsInCorrectOrder[0];
 	}, [combatantsInCorrectOrder]);
 
-	if (mode === 'COLLECTING' || !nextCombatant) {
+	if (mode !== 'HANDLING' || !nextCombatant) {
 		return <></>;
 	}
 

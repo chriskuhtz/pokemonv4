@@ -9,7 +9,11 @@ export const OpponentSide = ({
 	return (
 		<div className="opponentSide">
 			{combatants.map((c) => (
-				<PokemonPill pokemon={c.pokemon} onClick={() => {}} />
+				<PokemonPill
+					pokemon={c.pokemon}
+					onClick={() => {}}
+					rightSide={c.nextAction?.name}
+				/>
 			))}
 		</div>
 	);

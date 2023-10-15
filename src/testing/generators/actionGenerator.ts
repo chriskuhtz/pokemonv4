@@ -1,5 +1,5 @@
 import { Action } from '../../interfaces/Action';
 
 export const actionGenerator = (data?: Partial<Action>): Action => {
-	return { name: 'testAction', ...data };
+	return { target: 'NO_ONE', name: 'testAction', ...data };
 };

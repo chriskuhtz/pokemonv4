@@ -27,7 +27,7 @@ export const BattleScreenErrorHandler = ({
 			/>
 		);
 	}
-	if (initialCombatants.every((c) => c.ownerId !== playerId)) {
+	if (initialCombatants.every((c) => c.pokemon.ownerId !== playerId)) {
 		return (
 			<ErrorMessage
 				message={'no combatant has playerId'}
@@ -35,7 +35,9 @@ export const BattleScreenErrorHandler = ({
 			/>
 		);
 	}
-	if (initialCombatants.every((c) => !opponentIds.includes(c.ownerId))) {
+	if (
+		initialCombatants.every((c) => !opponentIds.includes(c.pokemon.ownerId))
+	) {
 		return (
 			<ErrorMessage
 				message={'no combatant has a valid opponent owner id'}

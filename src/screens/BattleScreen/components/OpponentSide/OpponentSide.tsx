@@ -5,5 +5,5 @@ export const OpponentSide = ({
 }: {
 	combatants: Combatant[];
 }): JSX.Element => {
-	return <div>{combatants.map((c) => c.name)}</div>;
+	return <div>{combatants.map((c) => c.pokemon.name)}</div>;
 };

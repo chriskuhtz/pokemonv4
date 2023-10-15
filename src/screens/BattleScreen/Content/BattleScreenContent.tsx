@@ -17,12 +17,12 @@ export const BattleScreenContent = ({
 		<div className="battleScreen">
 			<PlayerSide
 				combatants={currentCombatants.filter(
-					(c) => c.ownerId === playerId || c.ownerId === allyId
+					(c) => c.pokemon.ownerId === playerId || c.pokemon.ownerId === allyId
 				)}
 			/>
 			<OpponentSide
 				combatants={currentCombatants.filter((c) =>
-					opponentIds.includes(c.ownerId)
+					opponentIds.includes(c.pokemon.ownerId)
 				)}
 			/>
 		</div>

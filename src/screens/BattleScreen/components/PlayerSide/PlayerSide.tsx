@@ -6,5 +6,7 @@ export const PlayerSide = ({
 	combatants: Combatant[];
 }): JSX.Element => {
 	console.log(combatants);
-	return <div className="playerSide">{combatants.map((c) => c.name)}</div>;
+	return (
+		<div className="playerSide">{combatants.map((c) => c.pokemon.name)}</div>
+	);
 };

@@ -9,6 +9,7 @@ export type BattleMode = 'COLLECTING' | 'HANDLING';
 export interface UseBattleScreen {
 	currentCombatants: Combatant[];
 	selectNextActionForCombatant: (id: string, action: Action) => void;
+	handleActionForCombatant: (id: string) => void;
 	mode: BattleMode;
 }
 
@@ -44,7 +45,7 @@ export const useBattleScreen = ({
 		if (mode === 'HANDLING' && noCombatantsHaveMoves) {
 			setMode('COLLECTING');
 		}
-	}, [allCombatantsHaveMoves, mode]);
+	}, [mode, noCombatantsHaveMoves]);
 	useEffect(() => {
 		if (allPlayerCombatantsHaveMoves && !allCombatantsHaveMoves) {
 			setCurrentCombatants(
@@ -78,6 +79,29 @@ export const useBattleScreen = ({
 		},
 		[currentCombatants]
 	);
+	const handleActionForCombatant = useCallback(
+		(id: string) => {
+			const combatant = currentCombatants.find((c) => c.id === id);
 
-	return { currentCombatants, selectNextActionForCombatant, mode };
+			if (!combatant) {
+				console.error('could not find combatant', id, currentCombatants);
+				return;
+			}
+			const updatedCombatant = { ...combatant, nextAction: undefined };
+
+			const updatedCombatants = updateCombatantInArray(
+				currentCombatants,
+				updatedCombatant
+			);
+			setCurrentCombatants(updatedCombatants);
+		},
+		[currentCombatants]
+	);
+
+	return {
+		currentCombatants,
+		selectNextActionForCombatant,
+		mode,
+		handleActionForCombatant,
+	};
 };

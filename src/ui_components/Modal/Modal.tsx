@@ -10,9 +10,9 @@ export const Modal = ({
 }: {
 	open: boolean;
 
-	onCancel: () => void;
+	onCancel?: () => void;
 	modalContent: ReactNode;
-	modalTitle: ReactNode;
+	modalTitle?: ReactNode;
 }): JSX.Element => {
 	if (!open) {
 		return <></>;
@@ -21,8 +21,8 @@ export const Modal = ({
 		<div className="modal">
 			<div className="modalContent">
 				<div className="modalHeader">
-					<div>{modalTitle}</div>
-					<button onClick={onCancel}>X</button>
+					{modalTitle && <div>{modalTitle}</div>}
+					{onCancel && <button onClick={onCancel}>X</button>}
 				</div>
 
 				{modalContent}

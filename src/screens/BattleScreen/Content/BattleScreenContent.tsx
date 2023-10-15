@@ -1,18 +1,15 @@
-import { useState } from 'react';
-import { Combatant } from '../../../interfaces/Combatant';
 import { BattleScreenProps } from '../BattleScreen';
 import '../battleScreen.css';
 import { OpponentSide } from '../components/OpponentSide/OpponentSide';
 import { PlayerSide } from '../components/PlayerSide/PlayerSide';
+import { useBattleScreen } from '../hooks/useBattleScreen';
 export const BattleScreenContent = ({
 	initialCombatants,
 	opponentIds,
 	playerId,
 	allyId,
 }: BattleScreenProps): JSX.Element => {
-	const [currentCombatants, setCurrentCombatants] =
-		useState<Combatant[]>(initialCombatants);
-
+	const { currentCombatants } = useBattleScreen(initialCombatants);
 	return (
 		<div className="battleScreen">
 			<PlayerSide

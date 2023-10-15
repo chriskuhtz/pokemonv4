@@ -18,7 +18,14 @@ export const PokemonPill = ({
 					src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.dexId}.png`}
 				/>
 			}
-			center={pokemon.name}
+			center={
+				<div>
+					<p>{pokemon.name}</p>
+					<p>
+						{pokemon.hp.current}/{pokemon.hp.max}
+					</p>
+				</div>
+			}
 			rightSide={rightSide}
 			onClick={onClick}
 		/>

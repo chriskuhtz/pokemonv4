@@ -1,5 +1,5 @@
 import { Combatant } from '../../interfaces/Combatant';
-import { ErrorMessage } from '../../ui_components/ErrorMessage/ErrorMessage';
+import { BattleScreenErrorHandler } from './ErrorHandler/BattleScreenErrorHandler';
 
 export interface BattleScreenProps {
 	initialCombatants: Combatant[];
@@ -12,15 +12,14 @@ export const BattleScreen = ({
 	initialCombatants,
 	opponentIds,
 	playerId,
+	allyId,
 }: BattleScreenProps): JSX.Element => {
-	if (opponentIds.length === 0) {
-		return (
-			<ErrorMessage
-				message={'missing opponent ids'}
-				log={JSON.stringify({ initialCombatants, opponentIds, playerId })}
-			/>
-		);
-	}
-
-	return <div>{initialCombatants.map((c) => c.name)}</div>;
+	return (
+		<BattleScreenErrorHandler
+			initialCombatants={initialCombatants}
+			opponentIds={opponentIds}
+			playerId={playerId}
+			allyId={allyId}
+		/>
+	);
 };

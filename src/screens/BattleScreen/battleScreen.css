@@ -1,0 +1,6 @@
+.battleScreen {
+	display: flex;
+	justify-content: space-between;
+	border: 1px solid saddlebrown;
+	height: 100dvh;
+}

@@ -16,6 +16,17 @@ export const BattleScreenErrorHandler = ({
 			/>
 		);
 	}
+	if (
+		opponentIds.includes(playerId) ||
+		(allyId && opponentIds.includes(allyId))
+	) {
+		return (
+			<ErrorMessage
+				message={'opponent ids includes a friendly id'}
+				log={JSON.stringify({ initialCombatants, opponentIds, playerId })}
+			/>
+		);
+	}
 	if (initialCombatants.every((c) => c.ownerId !== playerId)) {
 		return (
 			<ErrorMessage

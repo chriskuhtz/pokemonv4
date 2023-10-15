@@ -6,6 +6,11 @@ export const StoryBook = (): JSX.Element => {
 		<div>
 			<h1>Playground</h1>
 			<PokemonPill pokemon={pokemonGenerator()} onClick={() => {}} />
+			<PokemonPill
+				pokemon={pokemonGenerator()}
+				onClick={() => {}}
+				rightSide={'testContent'}
+			/>
 		</div>
 	);
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
+import './index.css';
 import { BattleScreen } from './screens/BattleScreen/BattleScreen';
 import { OPPOID, TRAINERID } from './testing/constants/trainerIds';
 import { combatantGenerator } from './testing/generators/combatantGenerator';

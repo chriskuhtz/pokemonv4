@@ -1,5 +1,6 @@
+import { Pokemon } from './Pokemon';
+
 export interface Combatant {
-	name: string;
+	pokemon: Pokemon;
 	id: string;
-	ownerId: string;
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Combatant } from '../../interfaces/Combatant';
 import { UseBattleScreen } from '../../screens/BattleScreen/hooks/useBattleScreen';
+import { actionGenerator } from '../../testing/generators/actionGenerator';
 import { Modal } from '../../ui_components/Modal/Modal';
 
 export const ChooseActionModal = ({
@@ -24,7 +25,7 @@ export const ChooseActionModal = ({
 					<button
 						onClick={() => {
 							setOpen(false);
-							selectAction(combatant.id, { name: 'Attacku' });
+							selectAction(combatant.id, actionGenerator());
 							//assign action to combatant
 						}}
 					>

@@ -50,7 +50,12 @@ export const useBattleScreen = ({
 		if (allPlayerCombatantsHaveMoves && !allCombatantsHaveMoves) {
 			setCurrentCombatants(
 				currentCombatants.map((c) => {
-					return { ...c, nextAction: actionGenerator() };
+					return {
+						...c,
+						nextAction: actionGenerator({
+							target: currentCombatants[0].id,
+						}),
+					};
 				})
 			);
 		}

@@ -4,21 +4,24 @@ import { Combatant } from '../../../../interfaces/Combatant';
 import { UseBattleScreen } from '../../hooks/useBattleScreen';
 import './playerSide.css';
 export const PlayerSide = ({
-	combatants,
+	playerSide,
+	allCombatants,
 	selectNextActionForCombatant,
 }: {
-	combatants: Combatant[];
+	playerSide: Combatant[];
+	allCombatants: Combatant[];
 	selectNextActionForCombatant: UseBattleScreen['selectNextActionForCombatant'];
 }): JSX.Element => {
 	return (
 		<div className="playerSide">
-			{combatants.map((c) => (
+			{playerSide.map((c) => (
 				<PokemonPill
 					pokemon={c.pokemon}
 					rightSide={
 						c.nextAction?.name ?? (
 							<ChooseActionModal
 								combatant={c}
+								combatants={allCombatants}
 								selectAction={selectNextActionForCombatant}
 							/>
 						)

@@ -26,9 +26,10 @@ export const BattleScreenContent = ({
 			<div className="devInfo">MODE: {mode}</div>
 
 			<PlayerSide
-				combatants={currentCombatants.filter(
+				playerSide={currentCombatants.filter(
 					(c) => c.pokemon.ownerId === playerId || c.pokemon.ownerId === allyId
 				)}
+				allCombatants={currentCombatants}
 				selectNextActionForCombatant={selectNextActionForCombatant}
 			/>
 			<ActionHandlerModal

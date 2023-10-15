@@ -13,12 +13,14 @@ export const ChooseActionModal = ({
 }): JSX.Element => {
 	const [open, setOpen] = useState<boolean>(false);
 
+	if (!open) {
+		return <button onClick={() => setOpen(true)}>Choose Action</button>;
+	}
+
 	return (
 		<Modal
 			open={open}
 			onCancel={() => setOpen(false)}
-			onOpen={() => setOpen(true)}
-			buttonContent={'Choose Action'}
 			modalTitle={`what should ${combatant.pokemon.name} do`}
 			modalContent={
 				<div>

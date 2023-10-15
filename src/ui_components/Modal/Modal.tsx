@@ -5,19 +5,17 @@ export const Modal = ({
 
 	modalContent,
 	modalTitle,
-	onOpen,
-	buttonContent,
+
 	onCancel,
 }: {
 	open: boolean;
-	onOpen: () => void;
+
 	onCancel: () => void;
 	modalContent: ReactNode;
 	modalTitle: ReactNode;
-	buttonContent: ReactNode;
 }): JSX.Element => {
 	if (!open) {
-		return <button onClick={onOpen}>{buttonContent}</button>;
+		return <></>;
 	}
 	return (
 		<div className="modal">

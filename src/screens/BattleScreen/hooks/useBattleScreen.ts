@@ -3,7 +3,13 @@ import { Action } from '../../../interfaces/Action';
 import { Combatant } from '../../../interfaces/Combatant';
 import { updateCombatantInArray } from '../functions/updateCombatantInArray';
 
-export const useBattleScreen = (initialCombatants: Combatant[]) => {
+export interface UseBattleScreen {
+	currentCombatants: Combatant[];
+	selectNextActionForCombatant: (id: string, action: Action) => void;
+}
+export const useBattleScreen = (
+	initialCombatants: Combatant[]
+): UseBattleScreen => {
 	const [currentCombatants, setCurrentCombatants] =
 		useState<Combatant[]>(initialCombatants);
 
@@ -28,7 +34,7 @@ export const useBattleScreen = (initialCombatants: Combatant[]) => {
 			);
 			setCurrentCombatants(updatedCombatants);
 		},
-		[]
+		[currentCombatants]
 	);
 	return { currentCombatants, selectNextActionForCombatant };
 };

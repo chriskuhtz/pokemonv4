@@ -9,13 +9,15 @@ export const BattleScreenContent = ({
 	playerId,
 	allyId,
 }: BattleScreenProps): JSX.Element => {
-	const { currentCombatants } = useBattleScreen(initialCombatants);
+	const { currentCombatants, selectNextActionForCombatant } =
+		useBattleScreen(initialCombatants);
 	return (
 		<div className="battleScreen">
 			<PlayerSide
 				combatants={currentCombatants.filter(
 					(c) => c.pokemon.ownerId === playerId || c.pokemon.ownerId === allyId
 				)}
+				selectNextActionForCombatant={selectNextActionForCombatant}
 			/>
 			<OpponentSide
 				combatants={currentCombatants.filter((c) =>

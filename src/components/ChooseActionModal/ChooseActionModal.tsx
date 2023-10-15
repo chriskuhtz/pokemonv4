@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Combatant } from '../../interfaces/Combatant';
+import { UseBattleScreen } from '../../screens/BattleScreen/hooks/useBattleScreen';
 import { Modal } from '../../ui_components/Modal/Modal';
 
 export const ChooseActionModal = ({
 	combatant,
+	selectAction,
 }: {
 	combatant: Combatant;
+	selectAction: UseBattleScreen['selectNextActionForCombatant'];
 }): JSX.Element => {
 	const [open, setOpen] = useState<boolean>(false);
 
@@ -21,6 +24,7 @@ export const ChooseActionModal = ({
 					<button
 						onClick={() => {
 							setOpen(false);
+							selectAction(combatant.id, { name: 'Attacku' });
 							//assign action to combatant
 						}}
 					>

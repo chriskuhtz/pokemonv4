@@ -8,7 +8,7 @@ export const PokemonPill = ({
 	rightSide,
 }: {
 	pokemon: Pokemon;
-	onClick: () => void;
+	onClick?: () => void;
 	rightSide?: ReactNode;
 }): JSX.Element => {
 	return (

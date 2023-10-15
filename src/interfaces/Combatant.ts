@@ -5,4 +5,5 @@ export interface Combatant {
 	pokemon: Pokemon;
 	id: string;
 	nextAction?: Action;
+	status?: 'CONFUSED';
 }

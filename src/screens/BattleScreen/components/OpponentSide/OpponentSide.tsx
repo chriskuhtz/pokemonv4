@@ -1,9 +1,16 @@
+import { PokemonPill } from '../../../../components/PokemonPill/PokemonPill';
 import { Combatant } from '../../../../interfaces/Combatant';
-
+import './opponentSide.css';
 export const OpponentSide = ({
 	combatants,
 }: {
 	combatants: Combatant[];
 }): JSX.Element => {
-	return <div>{combatants.map((c) => c.pokemon.name)}</div>;
+	return (
+		<div className="opponentSide">
+			{combatants.map((c) => (
+				<PokemonPill pokemon={c.pokemon} onClick={() => {}} />
+			))}
+		</div>
+	);
 };

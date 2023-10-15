@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Action } from '../../../interfaces/Action';
 import { Combatant } from '../../../interfaces/Combatant';
-import { actionGenerator } from '../../../testing/generators/actionGenerator';
 import { BattleScreenProps } from '../BattleScreen';
-import { updateCombatantInArray } from '../functions/updateCombatantInArray';
+import { useAssignActionsToNpcs } from './useAssignActionsToNpcs';
+import { useBattleScreenSelectors } from './useBattleScreenSelectors';
+import { useHandleActionForCombatant } from './useHandleActionForCombatant';
 import { useHandleMode } from './useHandleMode';
 
 export type BattleMode = 'COLLECTING' | 'HANDLING';
@@ -24,18 +25,14 @@ export const useBattleScreen = ({
 	const [currentCombatants, setCurrentCombatants] =
 		useState<Combatant[]>(initialCombatants);
 
-	const allPlayerCombatantsHaveMoves = useMemo(() => {
-		return currentCombatants
-			.filter((c) => c.pokemon.ownerId === playerId)
-			.every((c) => c.nextAction);
-	}, [currentCombatants, playerId]);
-
-	const allCombatantsHaveMoves = useMemo(() => {
-		return currentCombatants.every((c) => c.nextAction);
-	}, [currentCombatants]);
-	const noCombatantsHaveMoves = useMemo(() => {
-		return currentCombatants.every((c) => !c.nextAction);
-	}, [currentCombatants]);
+	const {
+		allCombatantsHaveMoves,
+		allPlayerCombatantsHaveMoves,
+		noCombatantsHaveMoves,
+	} = useBattleScreenSelectors({
+		currentCombatants,
+		playerId,
+	});
 
 	useHandleMode({
 		mode,
@@ -44,62 +41,19 @@ export const useBattleScreen = ({
 		setMode,
 	});
 
-	useEffect(() => {
-		if (allPlayerCombatantsHaveMoves && !allCombatantsHaveMoves) {
-			setCurrentCombatants(
-				currentCombatants.map((c) => {
-					return {
-						...c,
-						nextAction: actionGenerator({
-							target: currentCombatants[0].id,
-						}),
-					};
-				})
-			);
-		}
-	}, [allCombatantsHaveMoves, allPlayerCombatantsHaveMoves, currentCombatants]);
+	useAssignActionsToNpcs({
+		allCombatantsHaveMoves,
+		allPlayerCombatantsHaveMoves,
+		playerId,
+		setCurrentCombatants,
+		currentCombatants,
+	});
 
-	const selectNextActionForCombatant = useCallback(
-		(id: string, action: Action) => {
-			const combatant = currentCombatants.find((c) => c.id === id);
-
-			if (!combatant) {
-				console.error(
-					'could not find combatant',
-					id,
-					action,
-					currentCombatants
-				);
-				return;
-			}
-			const updatedCombatant = { ...combatant, nextAction: action };
-
-			const updatedCombatants = updateCombatantInArray(
-				currentCombatants,
-				updatedCombatant
-			);
-			setCurrentCombatants(updatedCombatants);
-		},
-		[currentCombatants]
-	);
-	const handleActionForCombatant = useCallback(
-		(id: string) => {
-			const combatant = currentCombatants.find((c) => c.id === id);
-
-			if (!combatant) {
-				console.error('could not find combatant', id, currentCombatants);
-				return;
-			}
-			const updatedCombatant = { ...combatant, nextAction: undefined };
-
-			const updatedCombatants = updateCombatantInArray(
-				currentCombatants,
-				updatedCombatant
-			);
-			setCurrentCombatants(updatedCombatants);
-		},
-		[currentCombatants]
-	);
+	const { handleActionForCombatant, selectNextActionForCombatant } =
+		useHandleActionForCombatant({
+			currentCombatants,
+			setCurrentCombatants,
+		});
 
 	return {
 		currentCombatants,

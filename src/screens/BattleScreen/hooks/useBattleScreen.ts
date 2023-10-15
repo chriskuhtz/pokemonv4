@@ -5,9 +5,11 @@ import { actionGenerator } from '../../../testing/generators/actionGenerator';
 import { BattleScreenProps } from '../BattleScreen';
 import { updateCombatantInArray } from '../functions/updateCombatantInArray';
 
+export type BattleMode = 'COLLECTING' | 'HANDLING';
 export interface UseBattleScreen {
 	currentCombatants: Combatant[];
 	selectNextActionForCombatant: (id: string, action: Action) => void;
+	mode: BattleMode;
 }
 
 export const useBattleScreen = ({
@@ -16,6 +18,7 @@ export const useBattleScreen = ({
 	playerId,
 	allyId,
 }: BattleScreenProps): UseBattleScreen => {
+	const [mode, setMode] = useState<BattleMode>('COLLECTING');
 	const [currentCombatants, setCurrentCombatants] =
 		useState<Combatant[]>(initialCombatants);
 
@@ -28,7 +31,20 @@ export const useBattleScreen = ({
 	const allCombatantsHaveMoves = useMemo(() => {
 		return currentCombatants.every((c) => c.nextAction);
 	}, [currentCombatants]);
+	const noCombatantsHaveMoves = useMemo(() => {
+		return currentCombatants.every((c) => !c.nextAction);
+	}, [currentCombatants]);
 
+	useEffect(() => {
+		if (mode === 'COLLECTING' && allCombatantsHaveMoves) {
+			setMode('HANDLING');
+		}
+	}, [allCombatantsHaveMoves, mode]);
+	useEffect(() => {
+		if (mode === 'HANDLING' && noCombatantsHaveMoves) {
+			setMode('COLLECTING');
+		}
+	}, [allCombatantsHaveMoves, mode]);
 	useEffect(() => {
 		if (allPlayerCombatantsHaveMoves && !allCombatantsHaveMoves) {
 			setCurrentCombatants(
@@ -63,5 +79,5 @@ export const useBattleScreen = ({
 		[currentCombatants]
 	);
 
-	return { currentCombatants, selectNextActionForCombatant };
+	return { currentCombatants, selectNextActionForCombatant, mode };
 };

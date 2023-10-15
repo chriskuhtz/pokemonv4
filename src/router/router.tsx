@@ -18,13 +18,22 @@ export const router = createBrowserRouter([
 						pokemon: pokemonGenerator({
 							name: 'growlithe',
 							ownerId: TRAINERID,
+							dexId: '58',
 						}),
 					}),
 					combatantGenerator({
-						pokemon: pokemonGenerator({ name: 'ekans', ownerId: OPPOID }),
+						pokemon: pokemonGenerator({
+							name: 'ekans',
+							ownerId: OPPOID,
+							dexId: '23',
+						}),
 					}),
 					combatantGenerator({
-						pokemon: pokemonGenerator({ name: 'koffing', ownerId: OPPOID }),
+						pokemon: pokemonGenerator({
+							name: 'koffing',
+							ownerId: OPPOID,
+							dexId: '109',
+						}),
 					}),
 				]}
 				playerId={TRAINERID}

@@ -1,0 +1,8 @@
+.pokemonPill {
+	padding: 0.5rem;
+	border-radius: 9000px;
+	border: solid black 1px;
+	justify-content: flex-start;
+	align-items: center;
+	display: flex;
+}

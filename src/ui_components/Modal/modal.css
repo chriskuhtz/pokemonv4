@@ -1,0 +1,24 @@
+.modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100dvh;
+	width: 100vw;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.modalContent {
+	background-color: white;
+	padding: 1rem;
+	margin: 1rem;
+	border-radius: 1rem;
+	border: 1px solid black;
+}
+.modalHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}

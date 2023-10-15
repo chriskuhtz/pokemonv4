@@ -9,8 +9,12 @@ export const BattleScreenContent = ({
 	playerId,
 	allyId,
 }: BattleScreenProps): JSX.Element => {
-	const { currentCombatants, selectNextActionForCombatant } =
-		useBattleScreen(initialCombatants);
+	const { currentCombatants, selectNextActionForCombatant } = useBattleScreen({
+		initialCombatants: initialCombatants,
+		opponentIds: opponentIds,
+		playerId: playerId,
+		allyId: allyId,
+	});
 	return (
 		<div className="battleScreen">
 			<PlayerSide

@@ -50,6 +50,7 @@ export const ChooseActionModal = ({
 				<div>
 					{combatants.map((c) => (
 						<button
+							key={c.id}
 							onClick={() => {
 								setOpen(false);
 

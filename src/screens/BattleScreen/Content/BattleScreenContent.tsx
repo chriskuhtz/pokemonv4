@@ -1,6 +1,6 @@
 import { BattleScreenProps } from '../BattleScreen';
 import '../battleScreen.css';
-import { ActionHandlerModal } from '../components/ActionHandlerModal/ActionHandlerModal';
+import { MessageHandlerModal } from '../components/MessageHandlerModal/MessageHandlerModal';
 import { OpponentSide } from '../components/OpponentSide/OpponentSide';
 import { PlayerSide } from '../components/PlayerSide/PlayerSide';
 import { useBattleScreen } from '../hooks/useBattleScreen';
@@ -14,7 +14,8 @@ export const BattleScreenContent = ({
 		allCombatantsOnField,
 		selectNextActionForCombatant,
 		mode,
-		handleActionForCombatant,
+		message,
+		handleNextSnapshot,
 	} = useBattleScreen({
 		initialCombatants: initialCombatants,
 		opponentIds: opponentIds,
@@ -32,10 +33,9 @@ export const BattleScreenContent = ({
 				allCombatants={allCombatantsOnField}
 				selectNextActionForCombatant={selectNextActionForCombatant}
 			/>
-			<ActionHandlerModal
-				mode={mode}
-				allCombatantsOnField={allCombatantsOnField}
-				handleActionForCombatant={handleActionForCombatant}
+			<MessageHandlerModal
+				message={message}
+				handleNextSnapshot={handleNextSnapshot}
 			/>
 			<OpponentSide
 				combatants={allCombatantsOnField.filter((c) =>

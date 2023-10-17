@@ -16,6 +16,7 @@ export const PlayerSide = ({
 		<div className="playerSide">
 			{playerSide.map((c) => (
 				<PokemonPill
+					key={c.id}
 					pokemon={c.pokemon}
 					rightSide={
 						c.nextAction?.name ?? (

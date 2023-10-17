@@ -10,6 +10,7 @@ export const OpponentSide = ({
 		<div className="opponentSide">
 			{combatants.map((c) => (
 				<PokemonPill
+					key={c.id}
 					pokemon={c.pokemon}
 					onClick={() => {}}
 					rightSide={c.nextAction?.name}

@@ -4,22 +4,28 @@ import { BattleMode } from './useBattleScreen';
 export const useHandleMode = ({
 	mode,
 	allCombatantsHaveMoves,
-	noCombatantsHaveMoves,
 	setMode,
+	numberOfSnapshots,
 }: {
 	mode: BattleMode;
 	setMode: (x: BattleMode) => void;
 	allCombatantsHaveMoves: boolean;
-	noCombatantsHaveMoves: boolean;
+	numberOfSnapshots: number;
 }) => {
 	useEffect(() => {
 		if (mode === 'COLLECTING' && allCombatantsHaveMoves) {
-			setMode('HANDLING');
+			setMode('ASSEMBLING');
 		}
 	}, [allCombatantsHaveMoves, mode, setMode]);
+
 	useEffect(() => {
-		if (mode === 'HANDLING' && noCombatantsHaveMoves) {
+		if (mode === 'ASSEMBLING' && numberOfSnapshots > 0) {
+			setMode('HANDLING');
+		}
+	}, [mode, numberOfSnapshots, setMode]);
+	useEffect(() => {
+		if (mode === 'HANDLING' && numberOfSnapshots === 0) {
 			setMode('COLLECTING');
 		}
-	}, [mode, noCombatantsHaveMoves, setMode]);
+	}, [mode, numberOfSnapshots, setMode]);
 };

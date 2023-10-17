@@ -4,31 +4,36 @@ import { Combatant } from '../../../interfaces/Combatant';
 import { BattleScreenProps } from '../BattleScreen';
 import { useAssignActionsToNpcs } from './useAssignActionsToNpcs';
 import { useBattleScreenSelectors } from './useBattleScreenSelectors';
-import { useHandleActionForCombatant } from './useHandleActionForCombatant';
 import { useHandleMode } from './useHandleMode';
+import { useHandleSnapshots } from './useHandleSnapshots';
+import { useSelectActionForCombatant } from './useSelectActionForCombatant';
 
-export type BattleMode = 'COLLECTING' | 'HANDLING';
+export type BattleMode = 'COLLECTING' | 'ASSEMBLING' | 'HANDLING';
 export interface UseBattleScreen {
+	message?: string;
 	allCombatantsOnField: Combatant[];
 	selectNextActionForCombatant: (id: string, action: Action) => void;
-	handleActionForCombatant: (id: string) => void;
 	mode: BattleMode;
+	handleNextSnapshot: () => void;
+}
+
+export interface BattleSnapshot {
+	message: string;
+	combatants: Combatant[];
 }
 
 export const useBattleScreen = ({
 	initialCombatants,
-	opponentIds,
 	playerId,
-	allyId,
 }: BattleScreenProps): UseBattleScreen => {
 	const [mode, setMode] = useState<BattleMode>('COLLECTING');
+	const [snapshots, setSnapshots] = useState<BattleSnapshot[]>([]);
 	const [currentCombatants, setCurrentCombatants] =
 		useState<Combatant[]>(initialCombatants);
 
 	const {
 		allCombatantsHaveMoves,
 		allPlayerCombatantsHaveMoves,
-		noCombatantsHaveMoves,
 		allCombatantsOnField,
 	} = useBattleScreenSelectors({
 		currentCombatants,
@@ -38,8 +43,8 @@ export const useBattleScreen = ({
 	useHandleMode({
 		mode,
 		allCombatantsHaveMoves,
-		noCombatantsHaveMoves,
 		setMode,
+		numberOfSnapshots: snapshots.length,
 	});
 
 	useAssignActionsToNpcs({
@@ -50,16 +55,25 @@ export const useBattleScreen = ({
 		currentCombatants,
 	});
 
-	const { handleActionForCombatant, selectNextActionForCombatant } =
-		useHandleActionForCombatant({
-			currentCombatants,
-			setCurrentCombatants,
-		});
+	const { handleNextSnapshot } = useHandleSnapshots({
+		snapshots,
+		mode,
+		currentCombatants,
+		setSnapshots,
+		setCurrentCombatants,
+	});
+
+	const { selectNextActionForCombatant } = useSelectActionForCombatant({
+		currentCombatants,
+		setCurrentCombatants,
+	});
 
 	return {
-		allCombatantsOnField,
+		message: snapshots.length > 0 ? snapshots[0].message : undefined,
+		allCombatantsOnField:
+			snapshots.length > 0 ? snapshots[0].combatants : allCombatantsOnField,
 		selectNextActionForCombatant,
 		mode,
-		handleActionForCombatant,
+		handleNextSnapshot,
 	};
 };

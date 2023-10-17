@@ -1,22 +1,22 @@
 import { Combatant } from '../../../interfaces/Combatant';
-import { BattleSnapshot } from '../hooks/useBattleScreen';
+import { BattleSnapshot } from '../interfaces/BattleSnapshot';
 
 export const assembleRound = (combatants: Combatant[]): BattleSnapshot[] => {
 	return [
 		{
-			message: 'yeye',
+			messages: ['yeye', 'but but but'],
 			combatants: combatants.map((c) => {
 				return { ...c, nextAction: undefined };
 			}),
 		},
 		{
-			message: 'yoyo',
+			messages: ['yoyo'],
 			combatants: combatants.map((c) => {
 				return { ...c, nextAction: undefined };
 			}),
 		},
 		{
-			message: 'yaya',
+			messages: ['yaya'],
 			combatants: combatants.map((c) => {
 				return { ...c, nextAction: undefined };
 			}),

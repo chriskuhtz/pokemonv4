@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Action } from '../../../interfaces/Action';
 import { Combatant } from '../../../interfaces/Combatant';
 import { BattleScreenProps } from '../BattleScreen';
+import { BattleSnapshot } from '../interfaces/BattleSnapshot';
 import { useAssignActionsToNpcs } from './useAssignActionsToNpcs';
 import { useBattleScreenSelectors } from './useBattleScreenSelectors';
 import { useHandleMode } from './useHandleMode';
@@ -10,16 +11,11 @@ import { useSelectActionForCombatant } from './useSelectActionForCombatant';
 
 export type BattleMode = 'COLLECTING' | 'ASSEMBLING' | 'HANDLING';
 export interface UseBattleScreen {
-	message?: string;
+	messages?: string[];
 	allCombatantsOnField: Combatant[];
 	selectNextActionForCombatant: (id: string, action: Action) => void;
 	mode: BattleMode;
 	handleNextSnapshot: () => void;
-}
-
-export interface BattleSnapshot {
-	message: string;
-	combatants: Combatant[];
 }
 
 export const useBattleScreen = ({
@@ -69,7 +65,7 @@ export const useBattleScreen = ({
 	});
 
 	return {
-		message: snapshots.length > 0 ? snapshots[0].message : undefined,
+		messages: snapshots.length > 0 ? snapshots[0].messages : undefined,
 		allCombatantsOnField:
 			snapshots.length > 0 ? snapshots[0].combatants : allCombatantsOnField,
 		selectNextActionForCombatant,

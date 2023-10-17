@@ -14,7 +14,7 @@ export const BattleScreenContent = ({
 		allCombatantsOnField,
 		selectNextActionForCombatant,
 		mode,
-		message,
+		messages,
 		handleNextSnapshot,
 	} = useBattleScreen({
 		initialCombatants: initialCombatants,
@@ -34,7 +34,7 @@ export const BattleScreenContent = ({
 				selectNextActionForCombatant={selectNextActionForCombatant}
 			/>
 			<MessageHandlerModal
-				message={message}
+				messages={messages}
 				handleNextSnapshot={handleNextSnapshot}
 			/>
 			<OpponentSide

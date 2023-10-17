@@ -1,20 +1,31 @@
+import { useCallback, useState } from 'react';
 import { Modal } from '../../../../ui_components/Modal/Modal';
 
 export const MessageHandlerModal = ({
-	message,
+	messages,
 	handleNextSnapshot,
 }: {
-	message?: string;
+	messages?: string[];
 	handleNextSnapshot: () => void;
 }): JSX.Element => {
-	if (!message) {
+	const [index, setIndex] = useState<number>(0);
+
+	const iterateThroughMessages = useCallback(() => {
+		if (messages && index === messages?.length - 1) {
+			handleNextSnapshot();
+			setIndex(0);
+		} else setIndex(index + 1);
+	}, [handleNextSnapshot, index, messages]);
+	if (!messages) {
 		return <></>;
 	}
 
 	return (
 		<Modal
-			open={!!message}
-			modalContent={<button onClick={handleNextSnapshot}>{message}</button>}
+			open={!!messages}
+			modalContent={
+				<button onClick={iterateThroughMessages}>{messages[index]}</button>
+			}
 		/>
 	);
 };

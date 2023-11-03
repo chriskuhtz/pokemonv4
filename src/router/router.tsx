@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { BattleScreen } from '../screens/BattleScreen/BattleScreen';
+import { Overworld } from '../screens/OverWorldScreen/Overworld';
 import { StoryBook } from '../storyBook/StoryBook';
 import { OPPOID, TRAINERID } from '../testing/constants/trainerIds';
 import { combatantGenerator } from '../testing/generators/combatantGenerator';
@@ -8,6 +9,10 @@ import { pokemonGenerator } from '../testing/generators/pokemonGenerator';
 export const router = createBrowserRouter([
 	{
 		path: '/',
+		element: <Overworld />,
+	},
+	{
+		path: '/battle',
 		element: (
 			<BattleScreen
 				initialCombatants={[

@@ -1,0 +1,46 @@
+.camera {
+	outline: 3px solid blue;
+	min-height: 360px;
+	min-width: 600px;
+	max-height: 360px;
+	max-width: 600px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	overflow: hidden;
+}
+
+.tile {
+	background-color: lightgreen;
+	outline: 1px solid red;
+	min-height: 40px;
+	min-width: 40px;
+	max-height: 40px;
+	max-width: 40px;
+	color: black;
+}
+
+.row {
+	display: flex;
+}
+
+.map {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+.player {
+	background-color: red;
+	min-height: 40px;
+	min-width: 40px;
+	max-height: 40px;
+	max-width: 40px;
+	position: absolute;
+	top: 160px;
+	left: 280px;
+	z-index: 3;
+}

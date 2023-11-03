@@ -39,6 +39,7 @@ export const Overworld = (): JSX.Element => {
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);
 	const [orientation, setOrientation] = useState<Direction>('up');
+	const [currentDialogue, setCurrentDialogue] = useState<string[]>([]);
 
 	const nextField = useMemo((): Tile | undefined => {
 		if (orientation === 'up' && offsetY > 0) {

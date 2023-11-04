@@ -110,9 +110,12 @@ export const useOverworld = () => {
 		if (nextInput) {
 			handleKeyPress(nextInput);
 		}
-		setOccupants(rotateOccupants(occupants));
+		if (currentDialogue.length === 0) {
+			setOccupants(rotateOccupants(occupants));
+		}
+
 		setNextInput(undefined);
-	}, [handleKeyPress, nextInput, occupants]);
+	}, [currentDialogue, handleKeyPress, nextInput, occupants]);
 
 	useAnimationFrame(update, fps);
 

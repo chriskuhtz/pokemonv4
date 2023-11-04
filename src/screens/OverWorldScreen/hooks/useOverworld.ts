@@ -13,7 +13,13 @@ export const useOverworld = () => {
 	const [orientation, setOrientation] = useState<Direction>('Up');
 	const [currentDialogue, setCurrentDialogue] = useState<string[]>([]);
 
-	const nextField = useNextField(orientation, offsetX, offsetY, currentWorld);
+	const nextField = useNextField(
+		orientation,
+		offsetX,
+		offsetY,
+		currentWorld,
+		currentWorld.occupants
+	);
 
 	const currentField = useMemo((): Tile => {
 		return currentWorld.map[offsetY][offsetX];

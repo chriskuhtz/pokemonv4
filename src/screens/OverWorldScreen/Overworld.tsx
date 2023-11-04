@@ -43,7 +43,7 @@ export const Overworld = (): JSX.Element => {
 													: tile.onStep
 													? 'darkgreen'
 													: tile.onClick
-													? 'khaki'
+													? 'blue'
 													: undefined,
 										}}
 									>

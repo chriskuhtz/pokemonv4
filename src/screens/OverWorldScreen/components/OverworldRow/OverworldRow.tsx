@@ -1,3 +1,4 @@
+import React from 'react';
 import { Occupant, Tile } from '../../interfaces/Overworld';
 import { OverworldCharacter } from '../OverworldCharacter/OverworldCharacter';
 
@@ -18,10 +19,9 @@ export const OverworldRow = ({
 				);
 
 				return (
-					<>
+					<React.Fragment key={`${index}+${j}`}>
 						<div
 							className="tile"
-							key={`${index}+${j}`}
 							style={{
 								backgroundColor: tile.onStep ? 'darkgreen' : undefined,
 							}}
@@ -36,7 +36,7 @@ export const OverworldRow = ({
 								`${index}/${j}`
 							)}
 						</div>
-					</>
+					</React.Fragment>
 				);
 			})}
 		</div>

@@ -10,16 +10,17 @@ const playerOffsetY = 4;
 
 export const Overworld = (): JSX.Element => {
 	const {
-		handleKeyPress,
 		currentWorld,
 		offsetX,
 		offsetY,
 		orientation,
 		currentDialogue,
+		tryToSetNextInput,
 	} = useOverworld();
+
 	return (
 		<>
-			<div onKeyDown={(e) => handleKeyPress(e)} tabIndex={0} id="overworld">
+			<div onKeyDown={(e) => tryToSetNextInput(e)} tabIndex={0} id="overworld">
 				<Modal
 					open={currentDialogue.length > 0}
 					modalContent={<p>{currentDialogue[0]}</p>}
@@ -34,6 +35,7 @@ export const Overworld = (): JSX.Element => {
 					>
 						{currentWorld.map.map((row, i) => (
 							<OverworldRow
+								key={i}
 								index={i}
 								row={row}
 								occupants={currentWorld.occupants.filter(

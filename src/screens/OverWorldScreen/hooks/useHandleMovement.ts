@@ -7,17 +7,17 @@ export const useHandleMovement = (
 	offsetY: number
 ) => {
 	return useCallback(
-		(e: React.KeyboardEvent<HTMLDivElement>) => {
-			if (e.key === 'w' || e.key === 'ArrowUp') {
+		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
+			if (key === 'w' || key === 'ArrowUp') {
 				setOffsetY(offsetY - 1);
 			}
-			if (e.key === 's' || e.key === 'ArrowDown') {
+			if (key === 's' || key === 'ArrowDown') {
 				setOffsetY(offsetY + 1);
 			}
-			if (e.key === 'd' || e.key === 'ArrowRight') {
+			if (key === 'd' || key === 'ArrowRight') {
 				setOffsetX(offsetX + 1);
 			}
-			if (e.key === 'a' || e.key === 'ArrowLeft') {
+			if (key === 'a' || key === 'ArrowLeft') {
 				setOffsetX(offsetX - 1);
 			}
 		},

@@ -14,6 +14,7 @@ export const useOverworld = () => {
 	const [currentDialogue, setCurrentDialogue] = useState<string[]>([]);
 
 	const nextField = useNextField(orientation, offsetX, offsetY, currentWorld);
+
 	const currentField = useMemo((): Tile => {
 		return currentWorld.map[offsetY][offsetX];
 	}, [currentWorld.map, offsetX, offsetY]);
@@ -29,25 +30,25 @@ export const useOverworld = () => {
 	const handleKeyPress = useCallback(
 		(e: React.KeyboardEvent<HTMLDivElement>) => {
 			//handle dialogue
+
 			if (currentDialogue.length > 0) {
 				if (e.key === ' ' || e.key === 'Enter') {
 					setCurrentDialogue([...currentDialogue.slice(1)]);
 				}
-
 				return;
 			}
 
 			//handle click
-			if (e.key === ' ' || e.key === 'Enter') {
-				if (
-					nextField?.onClick?.type === 'DIALOGUE' &&
-					currentDialogue.length === 0
-				) {
-					const dialogue = currentWorld.dialogues[nextField.onClick.id];
-					setCurrentDialogue(dialogue.passages);
-					return;
-				}
-			}
+			// if (e.key === ' ' || e.key === 'Enter') {
+			// 	if (
+			// 		nextField?.onClick?.type === 'DIALOGUE' &&
+			// 		currentDialogue.length === 0
+			// 	) {
+			// 		const dialogue = currentWorld.dialogues[nextField.onClick.id];
+			// 		setCurrentDialogue(dialogue.passages);
+			// 		return;
+			// 	}
+			// }
 			//handle orientation
 			if ((e.key === 'w' || e.key === 'ArrowUp') && orientation !== 'Up') {
 				setOrientation('Up');
@@ -68,7 +69,7 @@ export const useOverworld = () => {
 				setOrientation('Left');
 				return;
 			}
-			if (!nextField || !nextField.passable) {
+			if (!nextField) {
 				return;
 			}
 

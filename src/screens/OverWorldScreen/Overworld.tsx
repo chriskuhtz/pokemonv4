@@ -1,4 +1,5 @@
 import { Modal } from '../../ui_components/Modal/Modal';
+import { OverworldRow } from './components/OverworldRow/OverworldRow';
 import { PlayerCharacter } from './components/PlayerCharacter/PlayerCharacter';
 import { useOverworld } from './hooks/useOverworld';
 import './overworld.css';
@@ -32,29 +33,17 @@ export const Overworld = (): JSX.Element => {
 						}}
 					>
 						{currentWorld.map.map((row, i) => (
-							<div className="row" key={i}>
-								{row.map((tile, j) => (
-									<div
-										className="tile"
-										key={`${i}+${j}`}
-										style={{
-											backgroundColor:
-												tile.passable === false
-													? 'brown'
-													: tile.onStep
-													? 'darkgreen'
-													: tile.onClick
-													? 'blue'
-													: undefined,
-										}}
-									>
-										{i}/{j}
-									</div>
-								))}
-							</div>
+							<OverworldRow
+								index={i}
+								row={row}
+								occupants={currentWorld.occupants.filter(
+									(o) => o.position.y === i
+								)}
+							/>
 						))}
 					</div>
-					<PlayerCharacter orientation={orientation} />
+
+					<PlayerCharacter orientation={orientation} zIndex={offsetY} />
 				</div>
 			</div>
 		</>

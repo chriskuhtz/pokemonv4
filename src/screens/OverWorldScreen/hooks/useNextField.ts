@@ -17,7 +17,7 @@ export const useNextField = (
 		if (orientation === 'Left' && offsetX > 0) {
 			return currentWorld.map[offsetY][offsetX - 1];
 		}
-		if (orientation === 'Right' && offsetY < currentWorld.map[0].length - 1) {
+		if (orientation === 'Right' && offsetX < currentWorld.map[0].length - 1) {
 			return currentWorld.map[offsetY][offsetX + 1];
 		}
 		return;

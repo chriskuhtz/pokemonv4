@@ -2,25 +2,27 @@ export interface EncounterEvent {
 	type: 'ENCOUNTER';
 }
 
-export interface Dialogue {
-	passages: string[];
-}
-export interface DialogueEvent {
-	type: 'DIALOGUE';
-	id: string;
-}
+export type OverworldEvent = EncounterEvent;
 
-export type OverworldEvent = EncounterEvent | DialogueEvent;
+export interface Occupant {
+	id: string;
+	dialogue: string[];
+	orientation: Direction;
+	sprite: number;
+	position: Position;
+}
 
 export type OverworldMap = {
 	map: Tile[][];
 	encounters: string[];
-	dialogues: Record<string, Dialogue>;
+	occupants: Occupant[];
 };
 export interface Tile {
 	onStep?: OverworldEvent;
-	onClick?: OverworldEvent;
-	passable: boolean;
 }
 
 export type Direction = 'Up' | 'Right' | 'Down' | 'Left';
+export interface Position {
+	x: number;
+	y: number;
+}

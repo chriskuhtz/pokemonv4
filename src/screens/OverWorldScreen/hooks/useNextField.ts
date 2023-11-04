@@ -7,6 +7,10 @@ import {
 	Tile,
 } from '../interfaces/Overworld';
 
+export interface NextFieldInfo {
+	tile?: Tile;
+	occupant?: Occupant;
+}
 export const useNextField = (
 	orientation: Direction,
 	offsetX: number,
@@ -28,7 +32,7 @@ export const useNextField = (
 			return { y: offsetY, x: offsetX + 1 };
 		}
 	}, [currentWorld, offsetX, offsetY, orientation]);
-	return useMemo((): Tile | undefined => {
+	return useMemo((): NextFieldInfo => {
 		if (nextCoordinates) {
 			const occupant = occupants.find(
 				(o) =>
@@ -36,9 +40,11 @@ export const useNextField = (
 					o.position.y === nextCoordinates.y
 			);
 
-			return occupant
-				? undefined
-				: currentWorld.map[nextCoordinates.y][nextCoordinates.x];
+			return {
+				tile: currentWorld.map[nextCoordinates.y][nextCoordinates.x],
+				occupant: occupant,
+			};
 		}
+		return {};
 	}, [currentWorld, nextCoordinates, occupants]);
 };

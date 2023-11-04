@@ -45,16 +45,12 @@ export const useOverworld = () => {
 			}
 
 			//handle click
-			// if (e.key === ' ' || e.key === 'Enter') {
-			// 	if (
-			// 		nextField?.onClick?.type === 'DIALOGUE' &&
-			// 		currentDialogue.length === 0
-			// 	) {
-			// 		const dialogue = currentWorld.dialogues[nextField.onClick.id];
-			// 		setCurrentDialogue(dialogue.passages);
-			// 		return;
-			// 	}
-			// }
+			if (e.key === ' ' || e.key === 'Enter') {
+				if (nextField.occupant && currentDialogue.length === 0) {
+					setCurrentDialogue(nextField.occupant.dialogue);
+					return;
+				}
+			}
 			//handle orientation
 			if ((e.key === 'w' || e.key === 'ArrowUp') && orientation !== 'Up') {
 				setOrientation('Up');
@@ -75,14 +71,14 @@ export const useOverworld = () => {
 				setOrientation('Left');
 				return;
 			}
-			if (!nextField) {
+			if (nextField.occupant || !nextField.tile) {
 				return;
 			}
 
 			handleMovement(e);
 			//handle movement
 		},
-		[currentDialogue, currentWorld, handleMovement, nextField, orientation]
+		[currentDialogue, handleMovement, nextField, orientation]
 	);
 
 	return {

@@ -1,6 +1,11 @@
 import { useCallback, useMemo, useState } from 'react';
 
-import { Direction, OverworldMap, Tile } from '../interfaces/Overworld';
+import {
+	Direction,
+	Occupant,
+	OverworldMap,
+	Tile,
+} from '../interfaces/Overworld';
 import { mockMap } from '../mockMap';
 import { useAnimationFrame } from './useAnimationFrame';
 import { useEncounter } from './useEncounter';
@@ -8,9 +13,27 @@ import { useHandleMovement } from './useHandleMovement';
 import { useNextField } from './useNextField';
 
 const fps = 15;
+const chanceToRotate = 0.95;
+
+export const nextDirection = (direction: Direction) => {
+	if (direction === 'Up') return 'Right';
+	if (direction === 'Right') return 'Down';
+	if (direction === 'Down') return 'Left';
+	return 'Up';
+};
+export const rotateOccupants = (occupants: Occupant[]): Occupant[] =>
+	occupants.map((o) => {
+		const random = Math.random();
+		if (!o.rotating || random < chanceToRotate) {
+			return o;
+		}
+
+		return { ...o, orientation: nextDirection(o.orientation) };
+	});
 
 export const useOverworld = () => {
 	const [currentWorld] = useState<OverworldMap>(mockMap);
+	const [occupants, setOccupants] = useState<Occupant[]>(mockMap.occupants);
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);
 	const [orientation, setOrientation] = useState<Direction>('Up');
@@ -87,9 +110,9 @@ export const useOverworld = () => {
 		if (nextInput) {
 			handleKeyPress(nextInput);
 		}
-
+		setOccupants(rotateOccupants(occupants));
 		setNextInput(undefined);
-	}, [handleKeyPress, nextInput]);
+	}, [handleKeyPress, nextInput, occupants]);
 
 	useAnimationFrame(update, fps);
 
@@ -110,5 +133,6 @@ export const useOverworld = () => {
 		orientation,
 		currentDialogue,
 		setCurrentDialogue,
+		occupants,
 	};
 };

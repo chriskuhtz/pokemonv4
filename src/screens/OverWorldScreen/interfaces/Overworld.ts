@@ -10,6 +10,7 @@ export interface Occupant {
 	orientation: Direction;
 	sprite: number;
 	position: Position;
+	rotating?: boolean;
 }
 
 export type OverworldMap = {

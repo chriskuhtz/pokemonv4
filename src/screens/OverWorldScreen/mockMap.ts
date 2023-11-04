@@ -9,6 +9,7 @@ export const mockMap: OverworldMap = {
 			position: { x: 0, y: 1 },
 			dialogue: ['Hello', 'Goodbye'],
 			sprite: 1,
+			rotating: true,
 		},
 	],
 	map: [

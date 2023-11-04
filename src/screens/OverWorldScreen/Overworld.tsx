@@ -16,6 +16,7 @@ export const Overworld = (): JSX.Element => {
 		orientation,
 		currentDialogue,
 		tryToSetNextInput,
+		occupants,
 	} = useOverworld();
 
 	return (
@@ -38,9 +39,7 @@ export const Overworld = (): JSX.Element => {
 								key={i}
 								index={i}
 								row={row}
-								occupants={currentWorld.occupants.filter(
-									(o) => o.position.y === i
-								)}
+								occupants={occupants.filter((o) => o.position.y === i)}
 							/>
 						))}
 					</div>

@@ -23,4 +23,4 @@ export interface Tile {
 	passable: boolean;
 }
 
-export type Direction = 'up' | 'right' | 'down' | 'left';
+export type Direction = 'Up' | 'Right' | 'Down' | 'Left';

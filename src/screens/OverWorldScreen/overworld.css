@@ -35,15 +35,3 @@
 	top: 0;
 	left: 0;
 }
-
-.player {
-	background-color: red;
-	min-height: var(--size);
-	min-width: var(--size);
-	max-height: var(--size);
-	max-width: var(--size);
-	position: absolute;
-	top: calc(var(--size) * 4);
-	left: calc(var(--size) * 7);
-	z-index: 3;
-}

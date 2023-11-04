@@ -8,16 +8,16 @@ export const useNextField = (
 	currentWorld: OverworldMap
 ) => {
 	return useMemo((): Tile | undefined => {
-		if (orientation === 'up' && offsetY > 0) {
+		if (orientation === 'Up' && offsetY > 0) {
 			return currentWorld.map[offsetY - 1][offsetX];
 		}
-		if (orientation === 'down' && offsetY < currentWorld.map.length - 1) {
+		if (orientation === 'Down' && offsetY < currentWorld.map.length - 1) {
 			return currentWorld.map[offsetY + 1][offsetX];
 		}
-		if (orientation === 'left' && offsetX > 0) {
+		if (orientation === 'Left' && offsetX > 0) {
 			return currentWorld.map[offsetY][offsetX - 1];
 		}
-		if (orientation === 'right' && offsetY < currentWorld.map[0].length - 1) {
+		if (orientation === 'Right' && offsetY < currentWorld.map[0].length - 1) {
 			return currentWorld.map[offsetY][offsetX + 1];
 		}
 		return;

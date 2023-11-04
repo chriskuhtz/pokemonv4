@@ -18,7 +18,7 @@ export const useEncounter = (
 			Math.random() * currentWorld.encounters.length
 		);
 		const randomEncounter = currentWorld.encounters[randomIndex];
-		console.log(currentWorld.encounters, randomEncounter, randomIndex);
+
 		setCurrentDialogue([
 			`a wild ${randomEncounter} jumped out of the high grass`,
 		]);
@@ -26,7 +26,6 @@ export const useEncounter = (
 	useEffect(() => {
 		if (currentField.onStep?.type === 'ENCOUNTER') {
 			const random = Math.random();
-			console.log('effect', random, encounterChance);
 			if (random < encounterChance) {
 				handleEncounter();
 				setEncounterChance(baseEncounterChance);

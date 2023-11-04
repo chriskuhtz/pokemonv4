@@ -10,7 +10,7 @@ export const useOverworld = () => {
 	const [currentWorld] = useState<OverworldMap>(mockMap);
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);
-	const [orientation, setOrientation] = useState<Direction>('up');
+	const [orientation, setOrientation] = useState<Direction>('Up');
 	const [currentDialogue, setCurrentDialogue] = useState<string[]>([]);
 
 	const nextField = useNextField(orientation, offsetX, offsetY, currentWorld);
@@ -49,23 +49,23 @@ export const useOverworld = () => {
 				}
 			}
 			//handle orientation
-			if ((e.key === 'w' || e.key === 'ArrowUp') && orientation !== 'up') {
-				setOrientation('up');
+			if ((e.key === 'w' || e.key === 'ArrowUp') && orientation !== 'Up') {
+				setOrientation('Up');
 				return;
 			}
-			if ((e.key === 's' || e.key === 'ArrowDown') && orientation !== 'down') {
-				setOrientation('down');
+			if ((e.key === 's' || e.key === 'ArrowDown') && orientation !== 'Down') {
+				setOrientation('Down');
 				return;
 			}
 			if (
 				(e.key === 'd' || e.key === 'ArrowRight') &&
-				orientation !== 'right'
+				orientation !== 'Right'
 			) {
-				setOrientation('right');
+				setOrientation('Right');
 				return;
 			}
-			if ((e.key === 'a' || e.key === 'ArrowLeft') && orientation !== 'left') {
-				setOrientation('left');
+			if ((e.key === 'a' || e.key === 'ArrowLeft') && orientation !== 'Left') {
+				setOrientation('Left');
 				return;
 			}
 			if (!nextField || !nextField.passable) {

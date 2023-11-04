@@ -1,4 +1,5 @@
 import { Modal } from '../../ui_components/Modal/Modal';
+import { PlayerCharacter } from './components/PlayerCharacter/PlayerCharacter';
 import { useOverworld } from './hooks/useOverworld';
 import './overworld.css';
 
@@ -53,7 +54,7 @@ export const Overworld = (): JSX.Element => {
 							</div>
 						))}
 					</div>
-					<div className="player">{orientation}</div>
+					<PlayerCharacter orientation={orientation} />
 				</div>
 			</div>
 		</>

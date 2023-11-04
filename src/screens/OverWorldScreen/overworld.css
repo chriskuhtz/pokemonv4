@@ -1,9 +1,12 @@
+:root {
+	--size: calc(100dvw / 15);
+}
+
 .camera {
-	outline: 3px solid blue;
-	min-height: 360px;
-	min-width: 600px;
-	max-height: 360px;
-	max-width: 600px;
+	min-height: 100dvh;
+	min-width: 100dvw;
+	max-height: 100dvh;
+	max-width: 100dvh;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -14,10 +17,10 @@
 .tile {
 	background-color: lightgreen;
 	outline: 1px solid red;
-	min-height: 40px;
-	min-width: 40px;
-	max-height: 40px;
-	max-width: 40px;
+	min-height: var(--size);
+	min-width: var(--size);
+	max-height: var(--size);
+	max-width: var(--size);
 	color: black;
 }
 
@@ -35,12 +38,12 @@
 
 .player {
 	background-color: red;
-	min-height: 40px;
-	min-width: 40px;
-	max-height: 40px;
-	max-width: 40px;
+	min-height: var(--size);
+	min-width: var(--size);
+	max-height: var(--size);
+	max-width: var(--size);
 	position: absolute;
-	top: 160px;
-	left: 280px;
+	top: calc(var(--size) * 4);
+	left: calc(var(--size) * 7);
 	z-index: 3;
 }

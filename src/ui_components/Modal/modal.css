@@ -16,6 +16,7 @@
 	margin: 1rem;
 	border-radius: 1rem;
 	border: 1px solid black;
+	z-index: 9000;
 }
 .modalHeader {
 	display: flex;

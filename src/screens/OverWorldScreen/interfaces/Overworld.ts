@@ -21,7 +21,7 @@ export interface Occupant {
 	position: Position;
 	movement?: Movement;
 	viewRange?: number;
-	handled?: boolean;
+	watching?: boolean;
 }
 
 export type OverworldMap = {

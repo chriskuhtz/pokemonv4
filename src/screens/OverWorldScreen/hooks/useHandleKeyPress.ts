@@ -1,15 +1,18 @@
 import { useCallback } from 'react';
-import { Direction } from '../interfaces/Overworld';
+import { Direction, Occupant } from '../interfaces/Overworld';
 import { NextFieldInfo } from './useNextField';
 
 export const useHandleKeyPress = (
 	currentDialogue: string[],
 	setCurrentDialogue: (x: string[]) => void,
+	setFocusedOccupant: (x: Occupant | undefined) => void,
 	nextField: NextFieldInfo,
 	orientation: Direction,
 	setOrientation: (x: Direction) => void,
 	handleMovement: (key: string) => void,
-	playerLocked: boolean
+	focusedOccupant: Occupant | undefined,
+	occupants: Occupant[],
+	setOccupants: (x: Occupant[]) => void
 ) => {
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
@@ -17,6 +20,19 @@ export const useHandleKeyPress = (
 
 			if (currentDialogue.length > 0) {
 				if (key === ' ' || key === 'Enter') {
+					if (currentDialogue.length === 1) {
+						if (focusedOccupant) {
+							setOccupants(
+								occupants.map((o) => {
+									if (o.id === focusedOccupant.id) {
+										return { ...o, watching: false };
+									}
+									return o;
+								})
+							);
+							setFocusedOccupant(undefined);
+						}
+					}
 					setCurrentDialogue([...currentDialogue.slice(1)]);
 				}
 				return;
@@ -24,15 +40,14 @@ export const useHandleKeyPress = (
 
 			//handle click
 			if (key === ' ' || key === 'Enter') {
+				console.log(nextField, currentDialogue);
 				if (nextField.occupant && currentDialogue.length === 0) {
-					setCurrentDialogue(nextField.occupant.dialogue);
+					setFocusedOccupant(nextField.occupant);
 
 					return;
 				}
 			}
-			if (playerLocked) {
-				return;
-			}
+
 			//handle orientation
 			if ((key === 'w' || key === 'ArrowUp') && orientation !== 'Up') {
 				setOrientation('Up');
@@ -58,12 +73,14 @@ export const useHandleKeyPress = (
 		},
 		[
 			currentDialogue,
+			focusedOccupant,
 			handleMovement,
-			nextField.occupant,
-			nextField.tile,
+			nextField,
+			occupants,
 			orientation,
-			playerLocked,
 			setCurrentDialogue,
+			setFocusedOccupant,
+			setOccupants,
 			setOrientation,
 		]
 	);

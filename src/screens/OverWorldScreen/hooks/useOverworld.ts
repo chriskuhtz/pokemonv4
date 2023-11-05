@@ -1,26 +1,22 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { moveOccupants } from '../functions/moveOccupants';
-import {
-	Direction,
-	Occupant,
-	OverworldMap,
-	Tile,
-} from '../interfaces/Overworld';
-import { mockMap } from '../mockMap';
+import { Direction, Occupant, OverworldMap } from '../interfaces/Overworld';
+import { focusedPlayerTest } from '../mockMap';
 import { useAnimationFrame } from './useAnimationFrame';
 import { useEncounter } from './useEncounter';
+import { useFocusedOccupant } from './useFocusedOccupant';
 import { useHandleKeyPress } from './useHandleKeyPress';
 import { useHandleMovement } from './useHandleMovement';
 import { useNextField } from './useNextField';
-import { useTurnTowardsPlayerOnInteraction } from './useTurnTowardsPlayerOnInteraction';
 import { useWatchedFields } from './useWatchedFields';
+import { useCurrentField } from './useCurrentField';
 
 const fps = 15;
 
 export const useOverworld = () => {
-	const [currentWorld] = useState<OverworldMap>(mockMap);
+	const [currentWorld] = useState<OverworldMap>(focusedPlayerTest);
 	const [occupants, setOccupants] = useState<Occupant[]>([
-		...mockMap.occupants,
+		...currentWorld.occupants,
 	]);
 
 	const [offsetX, setOffsetX] = useState<number>(0);
@@ -30,7 +26,9 @@ export const useOverworld = () => {
 	const [nextInput, setNextInput] = useState<
 		React.KeyboardEvent<HTMLDivElement>['key'] | undefined
 	>();
-	const [movementPaused, setMovementPaused] = useState<boolean>(false);
+
+	const { focusedOccupant, setFocusedOccupant } =
+		useFocusedOccupant(setCurrentDialogue);
 
 	const nextField = useNextField(
 		orientation,
@@ -40,26 +38,17 @@ export const useOverworld = () => {
 		occupants
 	);
 	const watchedFields = useWatchedFields(occupants);
-	const currentField = useMemo((): Tile => {
-		if (
-			watchedFields.some(
-				(w) => w.position.x === offsetX && w.position.y === offsetY
-			)
-		) {
-			setMovementPaused(true);
-			console.log('yaya');
-		}
-		return currentWorld.map[offsetY][offsetX];
-	}, [currentWorld.map, offsetX, offsetY, watchedFields]);
+	const currentField = useCurrentField(
+		watchedFields,
+		offsetX,
+		offsetY,
+		occupants,
+		setFocusedOccupant,
+		currentWorld
+	);
 
 	useEncounter(currentWorld, setCurrentDialogue, currentField);
-	useTurnTowardsPlayerOnInteraction(
-		currentDialogue,
-		nextField,
-		occupants,
-		setOccupants,
-		orientation
-	);
+
 	const handleMovement = useHandleMovement(
 		setOffsetX,
 		setOffsetY,
@@ -70,31 +59,26 @@ export const useOverworld = () => {
 	const handleKeyPress = useHandleKeyPress(
 		currentDialogue,
 		setCurrentDialogue,
+		setFocusedOccupant,
 		nextField,
 		orientation,
 		setOrientation,
 		handleMovement,
-		movementPaused
+		focusedOccupant,
+		occupants,
+		setOccupants
 	);
 
 	const update = useCallback(() => {
 		if (nextInput) {
 			handleKeyPress(nextInput);
 		}
-		if (currentDialogue.length === 0 && !movementPaused) {
+		if (!focusedOccupant) {
 			setOccupants(moveOccupants(occupants, { x: offsetX, y: offsetY }));
 		}
 
 		setNextInput(undefined);
-	}, [
-		currentDialogue.length,
-		handleKeyPress,
-		nextInput,
-		occupants,
-		offsetX,
-		offsetY,
-		movementPaused,
-	]);
+	}, [focusedOccupant, handleKeyPress, nextInput, occupants, offsetX, offsetY]);
 
 	const tryToSetNextInput = useCallback(
 		(x: React.KeyboardEvent<HTMLDivElement>) => {

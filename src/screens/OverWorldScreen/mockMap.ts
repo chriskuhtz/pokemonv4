@@ -5,7 +5,7 @@ export const mockMap: OverworldMap = {
 	occupants: [
 		{
 			orientation: 'Down',
-			id: 'testOccupant',
+			id: 'bob',
 			position: { x: 0, y: 1 },
 			dialogue: ['Hello', 'Goodbye'],
 			sprite: 1,
@@ -13,7 +13,7 @@ export const mockMap: OverworldMap = {
 		},
 		{
 			orientation: 'Down',
-			id: 'testOccupant2',
+			id: 'jim',
 			position: { x: 0, y: 2 },
 			dialogue: ['Hello', 'Goodbye'],
 			sprite: 2,
@@ -30,7 +30,7 @@ export const mockMap: OverworldMap = {
 		},
 		{
 			orientation: 'Down',
-			id: 'testOccupant3',
+			id: 'tammy',
 			position: { x: 0, y: 3 },
 			dialogue: ['Hello', 'Goodbye'],
 			sprite: 3,
@@ -48,10 +48,10 @@ export const mockMap: OverworldMap = {
 		},
 		{
 			orientation: 'Left',
-			id: 'testOccupant4',
+			id: 'gertrud',
 			position: { x: 4, y: 4 },
 			dialogue: ['Gotcha', 'Big Dog'],
-			sprite: 1,
+			sprite: 4,
 			viewRange: 3,
 			movement: { type: 'ROTATING' },
 		},
@@ -72,5 +72,24 @@ export const mockMap: OverworldMap = {
 			{ onStep: { type: 'ENCOUNTER' } },
 			{ onStep: { type: 'ENCOUNTER' } },
 		],
+	],
+};
+
+export const focusedPlayerTest: OverworldMap = {
+	encounters: ['pikachu', 'growlithe'],
+	occupants: [
+		{
+			orientation: 'Left',
+			id: 'bob',
+			position: { x: 5, y: 1 },
+			dialogue: ['Good Eyes', 'Big dog'],
+			sprite: 1,
+			viewRange: 7,
+			watching: true,
+		},
+	],
+	map: [
+		[{}, {}, {}, {}, {}, {}],
+		[{}, {}, {}, {}, {}, {}],
 	],
 };

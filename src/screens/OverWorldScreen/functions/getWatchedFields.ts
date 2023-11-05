@@ -2,7 +2,7 @@ import { Occupant, WatchedField } from '../interfaces/Overworld';
 
 export const getWatchedFields = (occupant: Occupant): WatchedField[] => {
 	const res: WatchedField[] = [];
-	if (!occupant.viewRange || occupant.handled === true) {
+	if (!occupant.viewRange || !occupant.watching) {
 		return res;
 	}
 

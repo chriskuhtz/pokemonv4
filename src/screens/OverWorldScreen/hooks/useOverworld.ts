@@ -30,7 +30,7 @@ export const useOverworld = () => {
 	const [nextInput, setNextInput] = useState<
 		React.KeyboardEvent<HTMLDivElement>['key'] | undefined
 	>();
-	const [playerLocked] = useState<boolean>(false);
+	const [movementPaused, setMovementPaused] = useState<boolean>(false);
 
 	const nextField = useNextField(
 		orientation,
@@ -39,12 +39,18 @@ export const useOverworld = () => {
 		currentWorld,
 		occupants
 	);
-
-	const currentField = useMemo((): Tile => {
-		return currentWorld.map[offsetY][offsetX];
-	}, [currentWorld.map, offsetX, offsetY]);
-
 	const watchedFields = useWatchedFields(occupants);
+	const currentField = useMemo((): Tile => {
+		if (
+			watchedFields.some(
+				(w) => w.position.x === offsetX && w.position.y === offsetY
+			)
+		) {
+			setMovementPaused(true);
+			console.log('yaya');
+		}
+		return currentWorld.map[offsetY][offsetX];
+	}, [currentWorld.map, offsetX, offsetY, watchedFields]);
 
 	useEncounter(currentWorld, setCurrentDialogue, currentField);
 	useTurnTowardsPlayerOnInteraction(
@@ -68,14 +74,14 @@ export const useOverworld = () => {
 		orientation,
 		setOrientation,
 		handleMovement,
-		playerLocked
+		movementPaused
 	);
 
 	const update = useCallback(() => {
 		if (nextInput) {
 			handleKeyPress(nextInput);
 		}
-		if (currentDialogue.length === 0) {
+		if (currentDialogue.length === 0 && !movementPaused) {
 			setOccupants(moveOccupants(occupants, { x: offsetX, y: offsetY }));
 		}
 
@@ -87,6 +93,7 @@ export const useOverworld = () => {
 		occupants,
 		offsetX,
 		offsetY,
+		movementPaused,
 	]);
 
 	const tryToSetNextInput = useCallback(

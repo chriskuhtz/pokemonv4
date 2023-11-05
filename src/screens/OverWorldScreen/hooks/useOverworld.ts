@@ -71,11 +71,18 @@ export const useOverworld = () => {
 			handleKeyPress(nextInput);
 		}
 		if (currentDialogue.length === 0) {
-			setOccupants(moveOccupants(occupants));
+			setOccupants(moveOccupants(occupants, { x: offsetX, y: offsetY }));
 		}
 
 		setNextInput(undefined);
-	}, [currentDialogue, handleKeyPress, nextInput, occupants]);
+	}, [
+		currentDialogue.length,
+		handleKeyPress,
+		nextInput,
+		occupants,
+		offsetX,
+		offsetY,
+	]);
 
 	const tryToSetNextInput = useCallback(
 		(x: React.KeyboardEvent<HTMLDivElement>) => {

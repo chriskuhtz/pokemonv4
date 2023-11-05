@@ -17,6 +17,16 @@ export const mockMap: OverworldMap = {
 			position: { x: 0, y: 2 },
 			dialogue: ['Hello', 'Goodbye'],
 			sprite: 2,
+			movement: {
+				type: 'PATHING',
+				path: [
+					{ x: 1, y: 2 },
+					{ x: 1, y: 3 },
+					{ x: 0, y: 3 },
+					{ x: 0, y: 2 },
+				],
+				index: 0,
+			},
 		},
 		{
 			orientation: 'Down',

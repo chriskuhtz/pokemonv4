@@ -1,15 +1,17 @@
 import React from 'react';
-import { Occupant, Tile } from '../../interfaces/Overworld';
+import { Occupant, Tile, WatchedField } from '../../interfaces/Overworld';
 import { OverworldCharacter } from '../OverworldCharacter/OverworldCharacter';
 
 export const OverworldRow = ({
 	row,
 	index,
 	occupants,
+	watchedFields,
 }: {
 	index: number;
 	row: Tile[];
 	occupants: Occupant[];
+	watchedFields: WatchedField[];
 }): JSX.Element => {
 	return (
 		<div className="row" key={index}>
@@ -23,7 +25,13 @@ export const OverworldRow = ({
 						<div
 							className="tile"
 							style={{
-								backgroundColor: tile.onStep ? 'darkgreen' : undefined,
+								backgroundColor: watchedFields.some(
+									(f) => f.position.x === j && f.position.y === index
+								)
+									? 'cyan'
+									: tile.onStep
+									? 'darkgreen'
+									: undefined,
 							}}
 						>
 							{occupant ? (

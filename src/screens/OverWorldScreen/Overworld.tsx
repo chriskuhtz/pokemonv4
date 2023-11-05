@@ -17,6 +17,7 @@ export const Overworld = (): JSX.Element => {
 		currentDialogue,
 		tryToSetNextInput,
 		occupants,
+		watchedFields,
 	} = useOverworld();
 
 	return (
@@ -40,6 +41,7 @@ export const Overworld = (): JSX.Element => {
 								index={i}
 								row={row}
 								occupants={occupants.filter((o) => o.position.y === i)}
+								watchedFields={watchedFields.filter((f) => f.position.y === i)}
 							/>
 						))}
 					</div>

@@ -20,6 +20,8 @@ export interface Occupant {
 	sprite: number;
 	position: Position;
 	movement?: Movement;
+	viewRange?: number;
+	handled?: boolean;
 }
 
 export type OverworldMap = {
@@ -35,4 +37,9 @@ export type Direction = 'Up' | 'Right' | 'Down' | 'Left';
 export interface Position {
 	x: number;
 	y: number;
+}
+
+export interface WatchedField {
+	position: Position;
+	watcherId: string;
 }

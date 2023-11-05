@@ -8,7 +8,8 @@ export const useHandleKeyPress = (
 	nextField: NextFieldInfo,
 	orientation: Direction,
 	setOrientation: (x: Direction) => void,
-	handleMovement: (key: string) => void
+	handleMovement: (key: string) => void,
+	playerLocked: boolean
 ) => {
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
@@ -28,6 +29,9 @@ export const useHandleKeyPress = (
 
 					return;
 				}
+			}
+			if (playerLocked) {
+				return;
 			}
 			//handle orientation
 			if ((key === 'w' || key === 'ArrowUp') && orientation !== 'Up') {
@@ -55,8 +59,10 @@ export const useHandleKeyPress = (
 		[
 			currentDialogue,
 			handleMovement,
-			nextField,
+			nextField.occupant,
+			nextField.tile,
 			orientation,
+			playerLocked,
 			setCurrentDialogue,
 			setOrientation,
 		]

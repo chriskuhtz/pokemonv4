@@ -13,6 +13,7 @@ import { useHandleKeyPress } from './useHandleKeyPress';
 import { useHandleMovement } from './useHandleMovement';
 import { useNextField } from './useNextField';
 import { useTurnTowardsPlayerOnInteraction } from './useTurnTowardsPlayerOnInteraction';
+import { useWatchedFields } from './useWatchedFields';
 
 const fps = 15;
 
@@ -29,6 +30,7 @@ export const useOverworld = () => {
 	const [nextInput, setNextInput] = useState<
 		React.KeyboardEvent<HTMLDivElement>['key'] | undefined
 	>();
+	const [playerLocked] = useState<boolean>(false);
 
 	const nextField = useNextField(
 		orientation,
@@ -41,6 +43,8 @@ export const useOverworld = () => {
 	const currentField = useMemo((): Tile => {
 		return currentWorld.map[offsetY][offsetX];
 	}, [currentWorld.map, offsetX, offsetY]);
+
+	const watchedFields = useWatchedFields(occupants);
 
 	useEncounter(currentWorld, setCurrentDialogue, currentField);
 	useTurnTowardsPlayerOnInteraction(
@@ -63,7 +67,8 @@ export const useOverworld = () => {
 		nextField,
 		orientation,
 		setOrientation,
-		handleMovement
+		handleMovement,
+		playerLocked
 	);
 
 	const update = useCallback(() => {
@@ -104,5 +109,6 @@ export const useOverworld = () => {
 		currentDialogue,
 		setCurrentDialogue,
 		occupants,
+		watchedFields,
 	};
 };

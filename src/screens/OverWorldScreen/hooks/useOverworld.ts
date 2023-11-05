@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { rotateOccupants } from '../functions/rotateOccupants';
+import { moveOccupants } from '../functions/moveOccupants';
 import {
 	Direction,
 	Occupant,
@@ -9,6 +9,7 @@ import {
 import { mockMap } from '../mockMap';
 import { useAnimationFrame } from './useAnimationFrame';
 import { useEncounter } from './useEncounter';
+import { useHandleKeyPress } from './useHandleKeyPress';
 import { useHandleMovement } from './useHandleMovement';
 import { useNextField } from './useNextField';
 import { useTurnTowardsPlayerOnInteraction } from './useTurnTowardsPlayerOnInteraction';
@@ -34,7 +35,7 @@ export const useOverworld = () => {
 		offsetX,
 		offsetY,
 		currentWorld,
-		currentWorld.occupants
+		occupants
 	);
 
 	const currentField = useMemo((): Tile => {
@@ -56,49 +57,13 @@ export const useOverworld = () => {
 		offsetY
 	);
 
-	const handleKeyPress = useCallback(
-		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
-			//handle dialogue
-
-			if (currentDialogue.length > 0) {
-				if (key === ' ' || key === 'Enter') {
-					setCurrentDialogue([...currentDialogue.slice(1)]);
-				}
-				return;
-			}
-
-			//handle click
-			if (key === ' ' || key === 'Enter') {
-				if (nextField.occupant && currentDialogue.length === 0) {
-					setCurrentDialogue(nextField.occupant.dialogue);
-
-					return;
-				}
-			}
-			//handle orientation
-			if ((key === 'w' || key === 'ArrowUp') && orientation !== 'Up') {
-				setOrientation('Up');
-				return;
-			}
-			if ((key === 's' || key === 'ArrowDown') && orientation !== 'Down') {
-				setOrientation('Down');
-				return;
-			}
-			if ((key === 'd' || key === 'ArrowRight') && orientation !== 'Right') {
-				setOrientation('Right');
-				return;
-			}
-			if ((key === 'a' || key === 'ArrowLeft') && orientation !== 'Left') {
-				setOrientation('Left');
-				return;
-			}
-			if (nextField.occupant || !nextField.tile) {
-				return;
-			}
-			//handle movement
-			handleMovement(key);
-		},
-		[currentDialogue, handleMovement, nextField, orientation]
+	const handleKeyPress = useHandleKeyPress(
+		currentDialogue,
+		setCurrentDialogue,
+		nextField,
+		orientation,
+		setOrientation,
+		handleMovement
 	);
 
 	const update = useCallback(() => {
@@ -106,7 +71,7 @@ export const useOverworld = () => {
 			handleKeyPress(nextInput);
 		}
 		if (currentDialogue.length === 0) {
-			setOccupants(rotateOccupants(occupants));
+			setOccupants(moveOccupants(occupants));
 		}
 
 		setNextInput(undefined);

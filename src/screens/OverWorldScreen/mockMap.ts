@@ -9,7 +9,7 @@ export const mockMap: OverworldMap = {
 			position: { x: 0, y: 1 },
 			dialogue: ['Hello', 'Goodbye'],
 			sprite: 1,
-			rotating: true,
+			movement: { type: 'ROTATING' },
 		},
 		{
 			orientation: 'Down',
@@ -17,7 +17,6 @@ export const mockMap: OverworldMap = {
 			position: { x: 0, y: 2 },
 			dialogue: ['Hello', 'Goodbye'],
 			sprite: 2,
-			rotating: false,
 		},
 		{
 			orientation: 'Down',
@@ -25,7 +24,16 @@ export const mockMap: OverworldMap = {
 			position: { x: 0, y: 3 },
 			dialogue: ['Hello', 'Goodbye'],
 			sprite: 3,
-			rotating: true,
+			movement: {
+				type: 'PATHING',
+				path: [
+					{ x: 0, y: 4 },
+					{ x: 1, y: 4 },
+					{ x: 1, y: 3 },
+					{ x: 0, y: 3 },
+				],
+				index: 0,
+			},
 		},
 	],
 	map: [

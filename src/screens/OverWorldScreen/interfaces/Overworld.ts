@@ -4,13 +4,22 @@ export interface EncounterEvent {
 
 export type OverworldEvent = EncounterEvent;
 
+export interface Rotating {
+	type: 'ROTATING';
+}
+export interface Pathing {
+	type: 'PATHING';
+	path: Position[];
+	index: number;
+}
+export type Movement = Rotating | Pathing;
 export interface Occupant {
 	id: string;
 	dialogue: string[];
 	orientation: Direction;
 	sprite: number;
 	position: Position;
-	rotating?: boolean;
+	movement?: Movement;
 }
 
 export type OverworldMap = {

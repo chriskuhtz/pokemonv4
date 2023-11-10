@@ -9,7 +9,6 @@ export const useFocusedOccupant = (
 	);
 
 	useEffect(() => {
-		console.log('setting dialogue');
 		if (focusedOccupant) {
 			setCurrentDialogue(focusedOccupant?.dialogue);
 		}

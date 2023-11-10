@@ -35,6 +35,7 @@ export const mockMap: OverworldMap = {
 			dialogue: ['Hello', 'Goodbye'],
 			sprite: 3,
 			viewRange: 2,
+			watching: true,
 			movement: {
 				type: 'PATHING',
 				path: [
@@ -53,6 +54,7 @@ export const mockMap: OverworldMap = {
 			dialogue: ['Gotcha', 'Big Dog'],
 			sprite: 4,
 			viewRange: 3,
+			watching: true,
 			movement: { type: 'ROTATING' },
 		},
 	],

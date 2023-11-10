@@ -40,7 +40,6 @@ export const useHandleKeyPress = (
 
 			//handle click
 			if (key === ' ' || key === 'Enter') {
-				console.log(nextField, currentDialogue);
 				if (nextField.occupant && currentDialogue.length === 0) {
 					setFocusedOccupant(nextField.occupant);
 

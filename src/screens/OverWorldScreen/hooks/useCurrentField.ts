@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import {
-	WatchedField,
 	Occupant,
 	OverworldMap,
 	Tile,
+	WatchedField,
 } from '../interfaces/Overworld';
 
 export const useCurrentField = (
@@ -21,7 +21,6 @@ export const useCurrentField = (
 		const watcher = occupants.find((o) => o.id === watcherId);
 		if (watcher) {
 			setFocusedOccupant(watcher);
-			console.log(watcher);
 		}
 		return currentWorld.map[offsetY][offsetX];
 	}, [

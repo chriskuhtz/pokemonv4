@@ -1,20 +1,20 @@
 import { useCallback, useState } from 'react';
 import { moveOccupants } from '../functions/moveOccupants';
 import { Direction, Occupant, OverworldMap } from '../interfaces/Overworld';
-import { focusedPlayerTest } from '../mockMap';
+import { mockMap } from '../mockMap';
 import { useAnimationFrame } from './useAnimationFrame';
+import { useCurrentField } from './useCurrentField';
 import { useEncounter } from './useEncounter';
 import { useFocusedOccupant } from './useFocusedOccupant';
 import { useHandleKeyPress } from './useHandleKeyPress';
 import { useHandleMovement } from './useHandleMovement';
 import { useNextField } from './useNextField';
 import { useWatchedFields } from './useWatchedFields';
-import { useCurrentField } from './useCurrentField';
 
 const fps = 15;
 
 export const useOverworld = () => {
-	const [currentWorld] = useState<OverworldMap>(focusedPlayerTest);
+	const [currentWorld] = useState<OverworldMap>(mockMap);
 	const [occupants, setOccupants] = useState<Occupant[]>([
 		...currentWorld.occupants,
 	]);

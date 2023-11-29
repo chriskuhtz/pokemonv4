@@ -1,3 +1,4 @@
+import { MenuButton } from '../../components/MenuButton/MenuButton';
 import { Modal } from '../../ui_components/Modal/Modal';
 import { OverworldRow } from './components/OverworldRow/OverworldRow';
 import { PlayerCharacter } from './components/PlayerCharacter/PlayerCharacter';
@@ -23,6 +24,7 @@ export const Overworld = (): JSX.Element => {
 	return (
 		<>
 			<div onKeyDown={(e) => tryToSetNextInput(e)} tabIndex={0} id="overworld">
+				<MenuButton />
 				<Modal
 					open={currentDialogue.length > 0}
 					modalContent={<p>{currentDialogue[0]}</p>}

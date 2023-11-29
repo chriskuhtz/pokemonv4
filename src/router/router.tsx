@@ -5,6 +5,7 @@ import { PlayerMenu } from '../screens/PlayerMenuScreen/PlayerMenuScreen';
 import { OPPOID, TRAINERID } from '../testing/constants/trainerIds';
 import { combatantGenerator } from '../testing/generators/combatantGenerator';
 import { pokemonGenerator } from '../testing/generators/pokemonGenerator';
+import { SaveFileSelection } from '../screens/SaveFileSelectionScreen/SaveFileSelection';
 
 export enum Routes {
 	'overworld',
@@ -15,7 +16,7 @@ export enum Routes {
 export const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <Overworld />,
+		element: <SaveFileSelection />,
 	},
 	{
 		path: '/overworld',

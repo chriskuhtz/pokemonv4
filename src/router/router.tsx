@@ -2,15 +2,15 @@ import { createBrowserRouter } from 'react-router-dom';
 import { BattleScreen } from '../screens/BattleScreen/BattleScreen';
 import { Overworld } from '../screens/OverWorldScreen/Overworld';
 import { PlayerMenu } from '../screens/PlayerMenuScreen/PlayerMenuScreen';
+import { SaveFileSelection } from '../screens/SaveFileSelectionScreen/SaveFileSelection';
 import { OPPOID, TRAINERID } from '../testing/constants/trainerIds';
 import { combatantGenerator } from '../testing/generators/combatantGenerator';
 import { pokemonGenerator } from '../testing/generators/pokemonGenerator';
-import { SaveFileSelection } from '../screens/SaveFileSelectionScreen/SaveFileSelection';
 
-export enum Routes {
-	'overworld',
-	'menu',
-	'battle',
+export enum RoutesEnum {
+	overworld = '/overworld',
+	menu = '/menu',
+	battle = '/battle',
 }
 
 export const router = createBrowserRouter([

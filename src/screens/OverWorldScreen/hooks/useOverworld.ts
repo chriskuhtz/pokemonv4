@@ -1,4 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useGetSaveFileQuery } from '../../../api/saveFileApi';
+import { getUserName } from '../../../functions/getUserName';
 import { moveOccupants } from '../functions/moveOccupants';
 import { Direction, Occupant, OverworldMap } from '../interfaces/Overworld';
 import { mockMap } from '../mockMap';
@@ -14,6 +16,9 @@ import { useWatchedFields } from './useWatchedFields';
 const fps = 15;
 
 export const useOverworld = () => {
+	const username = getUserName();
+	const { data: saveFile } = useGetSaveFileQuery(username ?? '');
+
 	const [currentWorld] = useState<OverworldMap>(mockMap);
 	const [occupants, setOccupants] = useState<Occupant[]>([
 		...currentWorld.occupants,
@@ -21,7 +26,16 @@ export const useOverworld = () => {
 
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);
+
 	const [orientation, setOrientation] = useState<Direction>('Up');
+
+	useEffect(() => {
+		if (saveFile) {
+			setOffsetX(saveFile.position.x);
+			setOffsetY(saveFile.position.y);
+			setOrientation(saveFile.orientation);
+		}
+	}, [saveFile]);
 	const [currentDialogue, setCurrentDialogue] = useState<string[]>([]);
 	const [nextInput, setNextInput] = useState<
 		React.KeyboardEvent<HTMLDivElement>['key'] | undefined

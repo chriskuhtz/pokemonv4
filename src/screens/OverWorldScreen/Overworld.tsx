@@ -1,5 +1,13 @@
-import { MenuButton } from '../../components/MenuButton/MenuButton';
+import {
+	useGetSaveFileQuery,
+	usePutSaveFileMutation,
+} from '../../api/saveFileApi';
+import { RouterButton } from '../../components/RouterButton/RouterButton';
+import { getUserName } from '../../functions/getUserName';
+import { RoutesEnum } from '../../router/router';
 import { Modal } from '../../ui_components/Modal/Modal';
+import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
+import { FetchingScreen } from '../FetchingScreen/FetchingScreen';
 import { OverworldRow } from './components/OverworldRow/OverworldRow';
 import { PlayerCharacter } from './components/PlayerCharacter/PlayerCharacter';
 import { useOverworld } from './hooks/useOverworld';
@@ -10,6 +18,11 @@ const playerOffsetX = 7;
 const playerOffsetY = 4;
 
 export const Overworld = (): JSX.Element => {
+	const username = getUserName();
+	const { data, isFetching, isError, isSuccess } = useGetSaveFileQuery(
+		username ?? ''
+	);
+	const [updateSaveFile] = usePutSaveFileMutation();
 	const {
 		currentWorld,
 		offsetX,
@@ -20,37 +33,66 @@ export const Overworld = (): JSX.Element => {
 		occupants,
 		watchedFields,
 	} = useOverworld();
+	if (isFetching) {
+		return <FetchingScreen />;
+	}
+	if (data && isSuccess) {
+		return (
+			<>
+				<div
+					onKeyDown={(e) => tryToSetNextInput(e)}
+					tabIndex={0}
+					id="overworld"
+				>
+					<RouterButton
+						to={RoutesEnum.menu}
+						text={'Menu'}
+						sideEffect={() =>
+							void updateSaveFile({
+								...data,
+								position: { x: offsetX, y: offsetY },
+								orientation,
+							})
+						}
+					/>
+					<Modal
+						open={currentDialogue.length > 0}
+						modalContent={<p>{currentDialogue[0]}</p>}
+					/>
+					<div className="camera">
+						<div
+							className="map"
+							style={{
+								top: (-offsetY + playerOffsetY) * tileSize,
+								left: (-offsetX + playerOffsetX) * tileSize,
+							}}
+						>
+							{currentWorld.map.map((row, i) => (
+								<OverworldRow
+									key={i}
+									index={i}
+									row={row}
+									occupants={occupants.filter((o) => o.position.y === i)}
+									watchedFields={watchedFields.filter(
+										(f) => f.position.y === i
+									)}
+								/>
+							))}
+						</div>
 
-	return (
-		<>
-			<div onKeyDown={(e) => tryToSetNextInput(e)} tabIndex={0} id="overworld">
-				<MenuButton />
-				<Modal
-					open={currentDialogue.length > 0}
-					modalContent={<p>{currentDialogue[0]}</p>}
-				/>
-				<div className="camera">
-					<div
-						className="map"
-						style={{
-							top: (-offsetY + playerOffsetY) * tileSize,
-							left: (-offsetX + playerOffsetX) * tileSize,
-						}}
-					>
-						{currentWorld.map.map((row, i) => (
-							<OverworldRow
-								key={i}
-								index={i}
-								row={row}
-								occupants={occupants.filter((o) => o.position.y === i)}
-								watchedFields={watchedFields.filter((f) => f.position.y === i)}
-							/>
-						))}
+						<PlayerCharacter
+							orientation={orientation}
+							zIndex={offsetY}
+							sprite={data.sprite}
+						/>
 					</div>
-
-					<PlayerCharacter orientation={orientation} zIndex={offsetY} />
 				</div>
-			</div>
-		</>
-	);
+			</>
+		);
+	}
+
+	if (isError || !username) {
+		return <ErrorScreen />;
+	}
+	return <></>;
 };

@@ -1,9 +1,10 @@
 .pill {
 	padding: 0.5rem;
 	border-radius: 9000px;
-	border: solid black 1px;
+	border: solid 1px;
 	display: grid;
 	grid-template-columns: 1fr 5fr 1fr;
+	color: aliceblue;
 }
 
 .pill > * {

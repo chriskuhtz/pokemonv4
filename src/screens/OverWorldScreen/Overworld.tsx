@@ -6,6 +6,7 @@ import { RouterButton } from '../../components/RouterButton/RouterButton';
 import { getUserName } from '../../functions/getUserName';
 import { RoutesEnum } from '../../router/router';
 import { Modal } from '../../ui_components/Modal/Modal';
+import { Pill } from '../../ui_components/Pill/Pill';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
 import { FetchingScreen } from '../FetchingScreen/FetchingScreen';
 import { OverworldRow } from './components/OverworldRow/OverworldRow';
@@ -57,7 +58,7 @@ export const Overworld = (): JSX.Element => {
 					/>
 					<Modal
 						open={currentDialogue.length > 0}
-						modalContent={<p>{currentDialogue[0]}</p>}
+						modalContent={<Pill center={currentDialogue[0]} />}
 					/>
 					<div className="camera">
 						<div

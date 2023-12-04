@@ -11,13 +11,6 @@
 	z-index: 9000;
 }
 
-.modalContent {
-	background-color: white;
-	padding: 1rem;
-	margin: 1rem;
-	border-radius: 1rem;
-	border: 1px solid black;
-}
 .modalHeader {
 	display: flex;
 	justify-content: space-between;

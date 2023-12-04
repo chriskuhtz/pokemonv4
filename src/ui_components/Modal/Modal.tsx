@@ -19,7 +19,7 @@ export const Modal = ({
 	}
 	return (
 		<div className="modal">
-			<div className="modalContent">
+			<div>
 				<div className="modalHeader">
 					{modalTitle && <div>{modalTitle}</div>}
 					{onCancel && <button onClick={onCancel}>X</button>}

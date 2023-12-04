@@ -1,8 +1,13 @@
+:root {
+	--main-bg-color: rgb(28, 30, 30);
+	--main-color: aliceblue;
+}
+
 body {
 	font-family: 'Raleway';
 	margin: 0;
 	padding: 0;
 	height: 100dvh;
-	background-color: rgb(28, 30, 30);
-	color: aliceblue;
+	background-color: var(--main-bg-color);
+	color: var(var(--main-color));
 }

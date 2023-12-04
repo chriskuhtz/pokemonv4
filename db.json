@@ -1,20 +1,20 @@
 {
-	"bear": {
-		"username": "bear",
-		"orientation": "Right",
-		"sprite": 7,
-		"position": {
-			"x": 4,
-			"y": 2
-		}
-	},
-	"icia": {
-		"username": "icia",
-		"orientation": "UP",
-		"sprite": 4,
-		"position": {
-			"x": 0,
-			"y": 0
-		}
-	}
+  "bear": {
+    "position": {
+      "x": 1,
+      "y": 5
+    },
+    "orientation": "Up",
+    "username": "bear",
+    "sprite": 5
+  },
+  "icia": {
+    "username": "icia",
+    "orientation": "UP",
+    "sprite": 4,
+    "position": {
+      "x": 0,
+      "y": 0
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { BattleScreen } from '../screens/BattleScreen/BattleScreen';
+import { NewGameProcess } from '../screens/NewGameProcessScreen/NewGameProcess';
 import { Overworld } from '../screens/OverWorldScreen/Overworld';
 import { PlayerMenu } from '../screens/PlayerMenuScreen/PlayerMenuScreen';
 import { SaveFileSelection } from '../screens/SaveFileSelectionScreen/SaveFileSelection';
@@ -11,6 +12,7 @@ export enum RoutesEnum {
 	overworld = '/overworld',
 	menu = '/menu',
 	battle = '/battle',
+	newGame = '/newgame',
 }
 
 export const router = createBrowserRouter([
@@ -60,5 +62,9 @@ export const router = createBrowserRouter([
 	{
 		path: '/menu',
 		element: <PlayerMenu />,
+	},
+	{
+		path: '/newgame',
+		element: <NewGameProcess />,
 	},
 ]);

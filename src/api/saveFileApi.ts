@@ -25,6 +25,14 @@ export const saveFileApi = createApi({
 			}),
 			invalidatesTags: ['saveFile'],
 		}),
+		postSaveFile: builder.mutation<SaveFile, SaveFile>({
+			query: (newSaveFile) => ({
+				url: `/${newSaveFile.username}`,
+				method: 'POST',
+				body: newSaveFile,
+			}),
+			invalidatesTags: ['saveFile'],
+		}),
 	}),
 });
 
@@ -34,4 +42,5 @@ export const {
 	useGetAllSaveFilesQuery,
 	useGetSaveFileQuery,
 	usePutSaveFileMutation,
+	usePostSaveFileMutation,
 } = saveFileApi;

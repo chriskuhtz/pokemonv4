@@ -1,3 +1,4 @@
+import { LogoutButton } from '../../components/LogoutButton/LogoutButton';
 import { RouterButton } from '../../components/RouterButton/RouterButton';
 import { RoutesEnum } from '../../router/router';
 
@@ -11,6 +12,7 @@ export const PlayerMenu = (): JSX.Element => {
 			<button>Bag</button>
 			<button>Quests</button>
 			<button>Settings</button>
+			<LogoutButton />
 		</div>
 	);
 };

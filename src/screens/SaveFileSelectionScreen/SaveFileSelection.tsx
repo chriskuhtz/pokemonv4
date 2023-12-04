@@ -32,6 +32,10 @@ export const SaveFileSelection = (): JSX.Element => {
 						onClick={() => selectSaveFile(saveFile.username)}
 					/>
 				))}
+				<Pill
+					center={'New Game'}
+					onClick={() => navigate(RoutesEnum.newGame)}
+				/>
 			</div>
 		);
 	}

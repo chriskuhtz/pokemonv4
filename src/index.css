@@ -9,5 +9,5 @@ body {
 	padding: 0;
 	height: 100dvh;
 	background-color: var(--main-bg-color);
-	color: var(var(--main-color));
+	color: var(--main-color);
 }

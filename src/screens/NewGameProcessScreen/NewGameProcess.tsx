@@ -54,9 +54,12 @@ export const NewGameProcess = (): JSX.Element => {
 						<img src={`assets/playerSprites/${i}/Down.png`} />
 					</button>
 				))}
-				{isValidSaveFile(newSaveFile) && (
-					<Pill center={'Start Game'} onClick={startGame} />
-				)}
+
+				<Pill
+					center={'Start Game'}
+					onClick={startGame}
+					disabled={!isValidSaveFile(newSaveFile)}
+				/>
 			</div>
 		);
 	}

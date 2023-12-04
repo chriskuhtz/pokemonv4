@@ -8,6 +8,10 @@
 	background-color: var(--main-bg-color);
 }
 
+.disabled {
+	opacity: 0.5;
+}
+
 .pill > * {
 	display: flex;
 	align-items: center;

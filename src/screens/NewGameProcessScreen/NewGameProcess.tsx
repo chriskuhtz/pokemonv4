@@ -1,9 +1,11 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { v4 } from 'uuid';
 import {
 	useGetAllSaveFilesQuery,
 	usePostSaveFileMutation,
 } from '../../api/saveFileApi';
+import { CharacterSprite } from '../../components/CharacterSprite/CharacterSprite';
 import { isValidSaveFile } from '../../functions/isValidSaveFile';
 import { setUserName } from '../../functions/setUserName';
 import { SaveFile } from '../../interfaces/SaveFile';
@@ -22,11 +24,12 @@ export const NewGameProcess = (): JSX.Element => {
 	const [newSaveFile, setNewSaveFile] = useState<Partial<SaveFile>>({
 		position: { x: 0, y: 0 },
 		orientation: 'Down',
+		id: v4(),
 	});
 
-	const startGame = useCallback(() => {
+	const startGame = useCallback(async () => {
 		if (isValidSaveFile(newSaveFile)) {
-			postSaveFile(newSaveFile);
+			await postSaveFile(newSaveFile);
 			setUserName(newSaveFile.username);
 			navigate(RoutesEnum.overworld);
 		}
@@ -55,6 +58,15 @@ export const NewGameProcess = (): JSX.Element => {
 					center={'Start Game'}
 					onClick={startGame}
 					disabled={!isValidSaveFile(newSaveFile)}
+					leftSide={
+						newSaveFile.sprite !== undefined ? (
+							<CharacterSprite
+								style={{ height: '40px' }}
+								orientation={'Down'}
+								index={newSaveFile.sprite}
+							/>
+						) : undefined
+					}
 				/>
 			</div>
 		);

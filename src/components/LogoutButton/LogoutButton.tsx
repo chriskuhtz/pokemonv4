@@ -1,16 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../functions/logout';
+import { Pill } from '../../ui_components/Pill/Pill';
 
 export const LogoutButton = (): JSX.Element => {
 	const navigate = useNavigate();
 	return (
-		<button
+		<Pill
 			onClick={() => {
 				logout();
 				navigate('/');
 			}}
-		>
-			Log Out
-		</button>
+			center={'Log Out'}
+		/>
 	);
 };

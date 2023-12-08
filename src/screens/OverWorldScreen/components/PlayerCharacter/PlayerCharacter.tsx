@@ -1,4 +1,5 @@
-import { Direction } from '../../interfaces/Overworld';
+import { CharacterSprite } from '../../../../components/CharacterSprite/CharacterSprite';
+import { Direction } from '../../../../interfaces/Direction';
 import './PlayerCharacter.css';
 export const PlayerCharacter = ({
 	orientation,
@@ -10,10 +11,11 @@ export const PlayerCharacter = ({
 	sprite: number;
 }): JSX.Element => {
 	return (
-		<img
+		<CharacterSprite
 			className="player"
-			src={`assets/playerSprites/${sprite}/${orientation}.png`}
 			style={{ zIndex: zIndex }}
+			orientation={orientation}
+			index={sprite}
 		/>
 	); //<div className="player">{orientation}</div>;
 };

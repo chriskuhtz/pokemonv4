@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGetAllSaveFilesQuery } from '../../api/saveFileApi';
+import { CharacterSprite } from '../../components/CharacterSprite/CharacterSprite';
 import { setUserName } from '../../functions/setUserName';
 import { RoutesEnum } from '../../router/router';
 import { Pill } from '../../ui_components/Pill/Pill';
@@ -24,11 +25,18 @@ export const SaveFileSelection = (): JSX.Element => {
 	}
 	if (isSuccess && data) {
 		return (
-			<div>
+			<div className={'container'}>
 				{Object.values(data).map((saveFile) => (
 					<Pill
 						key={saveFile.username}
 						center={saveFile.username}
+						leftSide={
+							<CharacterSprite
+								style={{ height: '40px' }}
+								orientation="Down"
+								index={saveFile.sprite}
+							/>
+						}
 						onClick={() => selectSaveFile(saveFile.username)}
 					/>
 				))}

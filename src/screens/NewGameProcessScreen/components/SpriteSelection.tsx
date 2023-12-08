@@ -1,3 +1,4 @@
+import { CharacterSprite } from '../../../components/CharacterSprite/CharacterSprite';
 import { Direction } from '../../../interfaces/Direction';
 import { SaveFile } from '../../../interfaces/SaveFile';
 
@@ -21,7 +22,7 @@ export const SpriteSelection = ({
 						border: newSaveFile.sprite === i ? '1px solid red' : undefined,
 					}}
 				>
-					<img src={`assets/playerSprites/${i}/${currentOrientation}.png`} />
+					<CharacterSprite orientation={currentOrientation} index={i} />
 				</button>
 			))}
 		</>

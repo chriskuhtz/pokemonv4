@@ -5,7 +5,7 @@ import { Pill } from '../../ui_components/Pill/Pill';
 
 export const PlayerMenu = (): JSX.Element => {
 	return (
-		<div>
+		<div className="container">
 			<RouterButton to={RoutesEnum.overworld} text={'Overworld'} />
 			<Pill center={'Player'} />
 			<Pill center={'Team'} />

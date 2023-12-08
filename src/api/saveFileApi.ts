@@ -10,16 +10,17 @@ export const saveFileApi = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/' }),
 	endpoints: (builder) => ({
 		getAllSaveFiles: builder.query<Record<string, SaveFile>, void>({
-			query: () => `/db`,
+			query: () => `/saveFiles`,
 			providesTags: ['saveFile'],
 		}),
 		getSaveFile: builder.query<SaveFile, string>({
-			query: (username: string) => `/${username}`,
+			query: (username: string) => `/saveFiles?username=${username}`,
 			providesTags: ['saveFile'],
+			transformResponse: (res: SaveFile[]) => res[0],
 		}),
 		putSaveFile: builder.mutation<SaveFile, SaveFile>({
 			query: (newSaveFile) => ({
-				url: `/${newSaveFile.username}`,
+				url: `/saveFiles/${newSaveFile.id}`,
 				method: 'PUT',
 				body: newSaveFile,
 			}),
@@ -27,7 +28,7 @@ export const saveFileApi = createApi({
 		}),
 		postSaveFile: builder.mutation<SaveFile, SaveFile>({
 			query: (newSaveFile) => ({
-				url: `/${newSaveFile.username}`,
+				url: `/saveFiles`,
 				method: 'POST',
 				body: newSaveFile,
 			}),

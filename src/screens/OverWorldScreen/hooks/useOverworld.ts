@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useGetSaveFileQuery } from '../../../api/saveFileApi';
 import { getUserName } from '../../../functions/getUserName';
 import { moveOccupants } from '../functions/moveOccupants';
-import { Direction, Occupant, OverworldMap } from '../interfaces/Overworld';
+import { Occupant, OverworldMap } from '../interfaces/Overworld';
 import { mockMap } from '../mockMap';
 import { useAnimationFrame } from './useAnimationFrame';
 import { useCurrentField } from './useCurrentField';
@@ -12,6 +12,7 @@ import { useHandleKeyPress } from './useHandleKeyPress';
 import { useHandleMovement } from './useHandleMovement';
 import { useNextField } from './useNextField';
 import { useWatchedFields } from './useWatchedFields';
+import { Direction } from '../../../interfaces/Direction';
 
 const fps = 15;
 

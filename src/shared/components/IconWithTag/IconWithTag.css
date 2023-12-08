@@ -10,5 +10,5 @@
 	width: 1.5rem;
 	line-height: 1.5rem;
 	text-align: center;
-	border-radius: 9000px;
+	border-radius: var(--rounded);
 }

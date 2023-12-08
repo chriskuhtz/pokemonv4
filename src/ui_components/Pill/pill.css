@@ -1,6 +1,6 @@
 .pill {
 	padding: 0.5rem;
-	border-radius: 9000px;
+	border-radius: var(--rounded);
 	border: solid 1px;
 	display: grid;
 	grid-template-columns: 1fr 5fr 1fr;

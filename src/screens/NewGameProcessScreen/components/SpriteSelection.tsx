@@ -1,7 +1,8 @@
 import { CharacterSprite } from '../../../components/CharacterSprite/CharacterSprite';
 import { Direction } from '../../../interfaces/Direction';
 import { SaveFile } from '../../../interfaces/SaveFile';
-
+import { Pill } from '../../../ui_components/Pill/Pill';
+import './SpriteSelection.css';
 export const SpriteSelection = ({
 	newSaveFile,
 	setNewSaveFile,
@@ -13,18 +14,19 @@ export const SpriteSelection = ({
 }) => {
 	return (
 		<>
-			<h4>What do you look like</h4>
-			{Array.from({ length: 11 }).map((x, i) => (
-				<button
-					key={i}
-					onClick={() => setNewSaveFile({ ...newSaveFile, sprite: i })}
-					style={{
-						border: newSaveFile.sprite === i ? '1px solid red' : undefined,
-					}}
-				>
-					<CharacterSprite orientation={currentOrientation} index={i} />
-				</button>
-			))}
+			<h3>What do you look like</h3>
+			<div className="SpriteSelection_spriteList">
+				{Array.from({ length: 11 }).map((x, i) => (
+					<Pill
+						key={i}
+						onClick={() => setNewSaveFile({ ...newSaveFile, sprite: i })}
+						selected={newSaveFile.sprite === i}
+						center={
+							<CharacterSprite orientation={currentOrientation} index={i} />
+						}
+					/>
+				))}
+			</div>
 		</>
 	);
 };

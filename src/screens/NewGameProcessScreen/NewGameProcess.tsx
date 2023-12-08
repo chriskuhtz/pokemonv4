@@ -37,8 +37,8 @@ export const NewGameProcess = (): JSX.Element => {
 	}
 	if (data) {
 		return (
-			<div>
-				<h4>Whats your name</h4>
+			<div className="container">
+				<h3>Whats your name</h3>
 				<input
 					placeholder="Whats your name"
 					onChange={(e) =>

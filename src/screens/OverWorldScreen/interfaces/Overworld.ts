@@ -1,3 +1,5 @@
+import { Direction } from '../../../interfaces/Direction';
+
 export interface EncounterEvent {
 	type: 'ENCOUNTER';
 }
@@ -33,7 +35,6 @@ export interface Tile {
 	onStep?: OverworldEvent;
 }
 
-export type Direction = 'Up' | 'Right' | 'Down' | 'Left';
 export interface Position {
 	x: number;
 	y: number;

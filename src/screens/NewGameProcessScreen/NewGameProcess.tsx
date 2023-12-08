@@ -11,8 +11,11 @@ import { RoutesEnum } from '../../router/router';
 import { Pill } from '../../ui_components/Pill/Pill';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
 import { FetchingScreen } from '../FetchingScreen/FetchingScreen';
+import { SpriteSelection } from './components/SpriteSelection';
+import { useRotate } from './hooks/useRotate';
 
 export const NewGameProcess = (): JSX.Element => {
+	const currentOrientation = useRotate();
 	const { data, isFetching, isError } = useGetAllSaveFilesQuery();
 	const navigate = useNavigate();
 	const [postSaveFile] = usePostSaveFileMutation();
@@ -42,18 +45,11 @@ export const NewGameProcess = (): JSX.Element => {
 						setNewSaveFile({ ...newSaveFile, username: e.target.value })
 					}
 				/>
-				<h4>What do you look like</h4>
-				{Array.from({ length: 11 }).map((x, i) => (
-					<button
-						key={i}
-						onClick={() => setNewSaveFile({ ...newSaveFile, sprite: i })}
-						style={{
-							border: newSaveFile.sprite === i ? '1px solid red' : undefined,
-						}}
-					>
-						<img src={`assets/playerSprites/${i}/Down.png`} />
-					</button>
-				))}
+				<SpriteSelection
+					newSaveFile={newSaveFile}
+					setNewSaveFile={setNewSaveFile}
+					currentOrientation={currentOrientation}
+				/>
 
 				<Pill
 					center={'Start Game'}

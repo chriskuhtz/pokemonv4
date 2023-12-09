@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useGetSaveFileQuery } from '../../../api/saveFileApi';
 import { getUserName } from '../../../functions/getUserName';
 import { Direction } from '../../../interfaces/Direction';
@@ -12,6 +12,7 @@ import { useFocusedOccupant } from './useFocusedOccupant';
 import { useHandleKeyPress } from './useHandleKeyPress';
 import { useHandleMovement } from './useHandleMovement';
 import { useNextField } from './useNextField';
+import { useOnSaveFileLoad } from './useOnSaveFileLoad';
 import { useWatchedFields } from './useWatchedFields';
 
 const fps = 15;
@@ -32,36 +33,26 @@ export const useOverworld = () => {
 
 	const [handledTrainers, setHandledTrainers] = useState<string[]>([]);
 
-	useEffect(() => {
-		if (saveFile) {
-			setOffsetX(saveFile.position.x);
-			setOffsetY(saveFile.position.y);
-			setOrientation(saveFile.orientation);
-			setHandledTrainers(
-				saveFile.mapProgress[currentWorld.id]?.handledTrainers ?? []
-			);
-			setOccupants((occupants) => {
-				return occupants.map((o) => {
-					if (!o.watching) {
-						return o;
-					} else
-						return {
-							...o,
-							watching: !(
-								saveFile.mapProgress[currentWorld.id]?.handledTrainers ?? []
-							).some((h) => h === o.id),
-						};
-				});
-			});
-		}
-	}, [currentWorld, saveFile]);
+	useOnSaveFileLoad(
+		setOffsetX,
+		setOffsetY,
+		setOrientation,
+		setHandledTrainers,
+		setOccupants,
+		currentWorld,
+		saveFile
+	);
+
 	const [currentDialogue, setCurrentDialogue] = useState<string[]>([]);
 	const [nextInput, setNextInput] = useState<
 		React.KeyboardEvent<HTMLDivElement>['key'] | undefined
 	>();
 
-	const { focusedOccupant, setFocusedOccupant } =
-		useFocusedOccupant(setCurrentDialogue);
+	const { focusedOccupant, setFocusedOccupant } = useFocusedOccupant(
+		setCurrentDialogue,
+		setHandledTrainers,
+		handledTrainers
+	);
 
 	const nextField = useNextField(
 		orientation,
@@ -99,9 +90,7 @@ export const useOverworld = () => {
 		handleMovement,
 		focusedOccupant,
 		occupants,
-		setOccupants,
-		setHandledTrainers,
-		handledTrainers
+		setOccupants
 	);
 
 	const update = useCallback(() => {

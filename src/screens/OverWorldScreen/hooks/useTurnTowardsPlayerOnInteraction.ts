@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { oppositeDirection } from '../functions/oppositeDirection';
-import { Direction, Occupant } from '../interfaces/Overworld';
+import { Occupant } from '../interfaces/Overworld';
 import { NextFieldInfo } from './useNextField';
+import { Direction } from '../../../interfaces/Direction';
 
 export const useTurnTowardsPlayerOnInteraction = (
 	currentDialogue: string[],

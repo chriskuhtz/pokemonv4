@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
+import { Direction } from '../../../interfaces/Direction';
+import { getNewCoordinates } from '../functions/getNewCoordinates';
 import {
-	Direction,
 	Occupant,
 	OverworldMap,
 	Position,
@@ -11,6 +12,7 @@ export interface NextFieldInfo {
 	tile?: Tile;
 	occupant?: Occupant;
 }
+
 export const useNextField = (
 	orientation: Direction,
 	offsetX: number,
@@ -18,20 +20,11 @@ export const useNextField = (
 	currentWorld: OverworldMap,
 	occupants: Occupant[]
 ) => {
-	const nextCoordinates = useMemo((): Position | undefined => {
-		if (orientation === 'Up' && offsetY > 0) {
-			return { y: offsetY - 1, x: offsetX };
-		}
-		if (orientation === 'Down' && offsetY < currentWorld.map.length - 1) {
-			return { y: offsetY + 1, x: offsetX };
-		}
-		if (orientation === 'Left' && offsetX > 0) {
-			return { y: offsetY, x: offsetX - 1 };
-		}
-		if (orientation === 'Right' && offsetX < currentWorld.map[0].length - 1) {
-			return { y: offsetY, x: offsetX + 1 };
-		}
-	}, [currentWorld, offsetX, offsetY, orientation]);
+	const nextCoordinates = useMemo(
+		(): Position | undefined =>
+			getNewCoordinates(orientation, offsetX, offsetY, currentWorld),
+		[currentWorld, offsetX, offsetY, orientation]
+	);
 	return useMemo((): NextFieldInfo => {
 		if (nextCoordinates) {
 			const occupant = occupants.find(

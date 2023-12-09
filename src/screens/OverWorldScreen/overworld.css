@@ -37,3 +37,10 @@
 	transition: top;
 	transition: left;
 }
+
+.character {
+	min-height: var(--size) * 1.5;
+	min-width: var(--size);
+	max-height: var(--size) * 1.5;
+	max-width: var(--size);
+}

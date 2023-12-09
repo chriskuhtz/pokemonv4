@@ -1,8 +1,4 @@
 .overworldCharacter {
-	min-height: var(--size) * 1.5;
-	min-width: var(--size);
-	max-height: var(--size) * 1.5;
-	max-width: var(--size);
 	position: relative;
 	top: calc(var(--size) * -0.5);
 }

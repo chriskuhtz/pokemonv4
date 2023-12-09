@@ -12,7 +12,7 @@ export const OverworldCharacter = ({
 }): JSX.Element => {
 	return (
 		<CharacterSprite
-			className="overworldCharacter"
+			className="overworldCharacter character"
 			style={{ zIndex: zIndex }}
 			orientation={orientation}
 			index={sprite}

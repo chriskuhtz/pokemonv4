@@ -12,7 +12,7 @@ export const PlayerCharacter = ({
 }): JSX.Element => {
 	return (
 		<CharacterSprite
-			className="player"
+			className="player character"
 			style={{ zIndex: zIndex }}
 			orientation={orientation}
 			index={sprite}

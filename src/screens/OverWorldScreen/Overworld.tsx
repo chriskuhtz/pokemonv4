@@ -1,7 +1,4 @@
-import {
-	useGetSaveFileQuery,
-	usePutSaveFileMutation,
-} from '../../api/saveFileApi';
+import { useGetSaveFileQuery } from '../../api/saveFileApi';
 import { RouterButton } from '../../components/RouterButton/RouterButton';
 import { getUserName } from '../../functions/getUserName';
 import { RoutesEnum } from '../../router/router';
@@ -24,7 +21,6 @@ export const Overworld = (): JSX.Element => {
 		username ?? ''
 	);
 
-	const [updateSaveFile] = usePutSaveFileMutation();
 	const {
 		currentWorld,
 		offsetX,
@@ -34,7 +30,7 @@ export const Overworld = (): JSX.Element => {
 		tryToSetNextInput,
 		occupants,
 		watchedFields,
-		handledTrainers,
+		saveGame,
 	} = useOverworld();
 	if (isFetching) {
 		return <FetchingScreen />;
@@ -51,25 +47,7 @@ export const Overworld = (): JSX.Element => {
 						to={RoutesEnum.menu}
 						text={'Menu'}
 						className="leftCorner"
-						sideEffect={() => {
-							const updatedProgress = { ...data.mapProgress };
-							if (updatedProgress[currentWorld.id]) {
-								updatedProgress[currentWorld.id] = {
-									...updatedProgress[currentWorld.id],
-									handledTrainers: handledTrainers,
-								};
-							} else
-								updatedProgress[currentWorld.id] = {
-									handledTrainers: handledTrainers,
-								};
-
-							void updateSaveFile({
-								...data,
-								position: { x: offsetX, y: offsetY },
-								orientation,
-								mapProgress: updatedProgress,
-							});
-						}}
+						sideEffect={saveGame}
 					/>
 					<Modal
 						open={currentDialogue.length > 0}

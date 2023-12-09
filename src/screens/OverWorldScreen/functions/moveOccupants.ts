@@ -1,22 +1,8 @@
-import { Direction, Occupant, Position } from '../interfaces/Overworld';
+import { Occupant, Position } from '../interfaces/Overworld';
+import { getDirection } from './getDirection';
 import { nextDirection } from './nextDirection';
 
 const chanceToMove = 0.95;
-
-const getDirection = (from: Position, to: Position): Direction => {
-	if (to.x > from.x) {
-		return 'Right';
-	}
-	if (to.x < from.x) {
-		return 'Left';
-	}
-
-	if (to.y > from.y) {
-		return 'Down';
-	}
-
-	return 'Up';
-};
 
 export const moveOccupants = (
 	occupants: Occupant[],

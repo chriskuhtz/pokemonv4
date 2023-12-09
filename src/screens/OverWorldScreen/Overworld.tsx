@@ -48,6 +48,7 @@ export const Overworld = (): JSX.Element => {
 					<RouterButton
 						to={RoutesEnum.menu}
 						text={'Menu'}
+						className="leftCorner"
 						sideEffect={() =>
 							void updateSaveFile({
 								...data,

@@ -23,15 +23,20 @@ export const useEncounter = (
 			`a wild ${randomEncounter} jumped out of the high grass`,
 		]);
 	}, [currentWorld, setCurrentDialogue]);
-	useEffect(() => {
-		if (currentField.onStep?.type === 'ENCOUNTER') {
-			const random = Math.random();
-			if (random < encounterChance) {
-				handleEncounter();
-				setEncounterChance(baseEncounterChance);
-			} else {
-				setEncounterChance(encounterChance * increaseFactor);
+	useEffect(
+		() => {
+			if (currentField.onStep?.type === 'ENCOUNTER') {
+				const random = Math.random();
+				if (random < encounterChance) {
+					handleEncounter();
+					setEncounterChance(baseEncounterChance);
+				} else {
+					setEncounterChance(encounterChance * increaseFactor);
+				}
 			}
-		}
-	}, [currentField, handleEncounter]);
+		},
+		// encouterChance is missing on purpose
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[currentField, handleEncounter]
+	);
 };

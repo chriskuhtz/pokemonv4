@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useGetSaveFileQuery } from '../../../api/saveFileApi';
 import { getUserName } from '../../../functions/getUserName';
+import { Direction } from '../../../interfaces/Direction';
+import { currentMapId } from '../Overworld';
 import { moveOccupants } from '../functions/moveOccupants';
 import { Occupant, OverworldMap } from '../interfaces/Overworld';
 import { mockMap } from '../mockMap';
@@ -12,7 +14,6 @@ import { useHandleKeyPress } from './useHandleKeyPress';
 import { useHandleMovement } from './useHandleMovement';
 import { useNextField } from './useNextField';
 import { useWatchedFields } from './useWatchedFields';
-import { Direction } from '../../../interfaces/Direction';
 
 const fps = 15;
 
@@ -30,11 +31,29 @@ export const useOverworld = () => {
 
 	const [orientation, setOrientation] = useState<Direction>('Up');
 
+	const [handledTrainers, setHandledTrainers] = useState<string[]>([]);
+
 	useEffect(() => {
 		if (saveFile) {
 			setOffsetX(saveFile.position.x);
 			setOffsetY(saveFile.position.y);
 			setOrientation(saveFile.orientation);
+			setHandledTrainers(
+				saveFile.mapProgress[currentMapId]?.handledTrainers ?? []
+			);
+			setOccupants((occupants) => {
+				return occupants.map((o) => {
+					if (!o.watching) {
+						return o;
+					} else
+						return {
+							...o,
+							watching: !(
+								saveFile.mapProgress[currentMapId]?.handledTrainers ?? []
+							).some((h) => h === o.id),
+						};
+				});
+			});
 		}
 	}, [saveFile]);
 	const [currentDialogue, setCurrentDialogue] = useState<string[]>([]);
@@ -81,7 +100,9 @@ export const useOverworld = () => {
 		handleMovement,
 		focusedOccupant,
 		occupants,
-		setOccupants
+		setOccupants,
+		setHandledTrainers,
+		handledTrainers
 	);
 
 	const update = useCallback(() => {
@@ -116,5 +137,7 @@ export const useOverworld = () => {
 		setCurrentDialogue,
 		occupants,
 		watchedFields,
+		handledTrainers,
+		setHandledTrainers,
 	};
 };

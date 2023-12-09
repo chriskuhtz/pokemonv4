@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
-import { Direction, Occupant } from '../interfaces/Overworld';
+import { Direction } from '../../../interfaces/Direction';
+import { Occupant } from '../interfaces/Overworld';
 import { NextFieldInfo } from './useNextField';
 
 export const useHandleKeyPress = (
@@ -12,7 +13,9 @@ export const useHandleKeyPress = (
 	handleMovement: (key: string) => void,
 	focusedOccupant: Occupant | undefined,
 	occupants: Occupant[],
-	setOccupants: (x: Occupant[]) => void
+	setOccupants: (x: Occupant[]) => void,
+	setHandledTrainers: (x: string[]) => void,
+	handledTrainers: string[]
 ) => {
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
@@ -30,6 +33,10 @@ export const useHandleKeyPress = (
 									return o;
 								})
 							);
+							if (!handledTrainers.some((h) => focusedOccupant.id === h)) {
+								setHandledTrainers([...handledTrainers, focusedOccupant.id]);
+							}
+
 							setFocusedOccupant(undefined);
 						}
 					}
@@ -74,11 +81,14 @@ export const useHandleKeyPress = (
 			currentDialogue,
 			focusedOccupant,
 			handleMovement,
-			nextField,
+			handledTrainers,
+			nextField.occupant,
+			nextField.tile,
 			occupants,
 			orientation,
 			setCurrentDialogue,
 			setFocusedOccupant,
+			setHandledTrainers,
 			setOccupants,
 			setOrientation,
 		]

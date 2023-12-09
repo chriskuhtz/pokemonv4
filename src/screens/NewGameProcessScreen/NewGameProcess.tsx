@@ -25,6 +25,7 @@ export const NewGameProcess = (): JSX.Element => {
 		position: { x: 0, y: 0 },
 		orientation: 'Down',
 		id: v4(),
+		mapProgress: {},
 	});
 
 	const startGame = useCallback(async () => {

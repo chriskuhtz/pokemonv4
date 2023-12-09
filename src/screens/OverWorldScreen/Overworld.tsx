@@ -17,12 +17,14 @@ import './overworld.css';
 const tileSize = window.innerWidth / 15;
 const playerOffsetX = 7;
 const playerOffsetY = 4;
+export const currentMapId = 0;
 
 export const Overworld = (): JSX.Element => {
 	const username = getUserName();
 	const { data, isFetching, isError, isSuccess } = useGetSaveFileQuery(
 		username ?? ''
 	);
+
 	const [updateSaveFile] = usePutSaveFileMutation();
 	const {
 		currentWorld,
@@ -33,6 +35,7 @@ export const Overworld = (): JSX.Element => {
 		tryToSetNextInput,
 		occupants,
 		watchedFields,
+		handledTrainers,
 	} = useOverworld();
 	if (isFetching) {
 		return <FetchingScreen />;
@@ -49,13 +52,25 @@ export const Overworld = (): JSX.Element => {
 						to={RoutesEnum.menu}
 						text={'Menu'}
 						className="leftCorner"
-						sideEffect={() =>
+						sideEffect={() => {
+							const updatedProgress = { ...data.mapProgress };
+							if (updatedProgress[currentMapId]) {
+								updatedProgress[currentMapId] = {
+									...updatedProgress[currentMapId],
+									handledTrainers: handledTrainers,
+								};
+							} else
+								updatedProgress[currentMapId] = {
+									handledTrainers: handledTrainers,
+								};
+
 							void updateSaveFile({
 								...data,
 								position: { x: offsetX, y: offsetY },
 								orientation,
-							})
-						}
+								mapProgress: updatedProgress,
+							});
+						}}
 					/>
 					<Modal
 						open={currentDialogue.length > 0}

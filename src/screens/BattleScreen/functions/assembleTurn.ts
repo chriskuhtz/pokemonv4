@@ -1,6 +1,7 @@
 import { Combatant } from '../../../interfaces/Combatant';
 import { BattleSnapshot } from '../interfaces/BattleSnapshot';
 import { applyEffectsToTarget } from './applyEffectsToTarget';
+import { errorSnapshot } from './errorSnapshot';
 import { updateCombatantInArray } from './updateCombatantInArray';
 
 export const assembleTurn = (
@@ -17,15 +18,7 @@ export const assembleTurn = (
 	);
 
 	if ((c.state === 'ONFIELD' && !c.nextAction) || !target) {
-		return {
-			snapshots: [
-				{
-					messages: ['What is happening, no action or target'],
-					combatants: [...tempCombatants],
-				},
-			],
-			updatedCombatants: [...tempCombatants],
-		};
+		return errorSnapshot(tempCombatants);
 	}
 
 	if (c.state === 'ONFIELD' && c.nextAction && target) {

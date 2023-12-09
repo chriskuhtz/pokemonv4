@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { useGetSaveFileQuery } from '../../../api/saveFileApi';
 import { getUserName } from '../../../functions/getUserName';
 import { Direction } from '../../../interfaces/Direction';
-import { currentMapId } from '../Overworld';
 import { moveOccupants } from '../functions/moveOccupants';
 import { Occupant, OverworldMap } from '../interfaces/Overworld';
 import { mockMap } from '../mockMap';
@@ -39,7 +38,7 @@ export const useOverworld = () => {
 			setOffsetY(saveFile.position.y);
 			setOrientation(saveFile.orientation);
 			setHandledTrainers(
-				saveFile.mapProgress[currentMapId]?.handledTrainers ?? []
+				saveFile.mapProgress[currentWorld.id]?.handledTrainers ?? []
 			);
 			setOccupants((occupants) => {
 				return occupants.map((o) => {
@@ -49,13 +48,13 @@ export const useOverworld = () => {
 						return {
 							...o,
 							watching: !(
-								saveFile.mapProgress[currentMapId]?.handledTrainers ?? []
+								saveFile.mapProgress[currentWorld.id]?.handledTrainers ?? []
 							).some((h) => h === o.id),
 						};
 				});
 			});
 		}
-	}, [saveFile]);
+	}, [currentWorld, saveFile]);
 	const [currentDialogue, setCurrentDialogue] = useState<string[]>([]);
 	const [nextInput, setNextInput] = useState<
 		React.KeyboardEvent<HTMLDivElement>['key'] | undefined

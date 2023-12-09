@@ -1,6 +1,7 @@
 import { OverworldMap } from './interfaces/Overworld';
 
 export const mockMap: OverworldMap = {
+	id: 'mockMap1',
 	encounters: ['pikachu', 'growlithe'],
 	occupants: [
 		{
@@ -78,6 +79,7 @@ export const mockMap: OverworldMap = {
 };
 
 export const focusedPlayerTest: OverworldMap = {
+	id: 'focusedPlayerTest',
 	encounters: ['pikachu', 'growlithe'],
 	occupants: [
 		{

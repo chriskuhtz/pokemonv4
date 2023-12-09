@@ -17,7 +17,6 @@ import './overworld.css';
 const tileSize = window.innerWidth / 15;
 const playerOffsetX = 7;
 const playerOffsetY = 4;
-export const currentMapId = 0;
 
 export const Overworld = (): JSX.Element => {
 	const username = getUserName();
@@ -54,13 +53,13 @@ export const Overworld = (): JSX.Element => {
 						className="leftCorner"
 						sideEffect={() => {
 							const updatedProgress = { ...data.mapProgress };
-							if (updatedProgress[currentMapId]) {
-								updatedProgress[currentMapId] = {
-									...updatedProgress[currentMapId],
+							if (updatedProgress[currentWorld.id]) {
+								updatedProgress[currentWorld.id] = {
+									...updatedProgress[currentWorld.id],
 									handledTrainers: handledTrainers,
 								};
 							} else
-								updatedProgress[currentMapId] = {
+								updatedProgress[currentWorld.id] = {
 									handledTrainers: handledTrainers,
 								};
 

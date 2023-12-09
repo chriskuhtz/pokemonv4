@@ -27,6 +27,7 @@ export interface Occupant {
 }
 
 export type OverworldMap = {
+	id: string;
 	map: Tile[][];
 	encounters: string[];
 	occupants: Occupant[];

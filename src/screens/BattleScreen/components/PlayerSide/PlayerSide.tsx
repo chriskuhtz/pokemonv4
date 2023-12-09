@@ -1,4 +1,4 @@
-import { ChooseActionModal } from '../../../../components/ChooseActionModal/ChooseActionModal';
+import { ChooseActionAndTarget } from '../../../../components/ChooseActionAndTarget/ChooseActionAndTarget';
 import { PokemonPill } from '../../../../components/PokemonPill/PokemonPill';
 import { Combatant } from '../../../../interfaces/Combatant';
 import { UseBattleScreen } from '../../hooks/useBattleScreen';
@@ -20,7 +20,7 @@ export const PlayerSide = ({
 					pokemon={c.pokemon}
 					rightSide={
 						c.nextAction?.name ?? (
-							<ChooseActionModal
+							<ChooseActionAndTarget
 								combatant={c}
 								combatants={allCombatants}
 								selectAction={selectNextActionForCombatant}

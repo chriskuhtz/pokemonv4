@@ -36,6 +36,7 @@ export const useOverworld = () => {
 		handleOccupants,
 		setOccupants,
 		focusedOccupant,
+		handledOccupantIds,
 	} = useOccupants(currentWorld);
 
 	useOnSaveFileLoad(
@@ -48,7 +49,7 @@ export const useOverworld = () => {
 	);
 	const saveGame = useSaveGame(
 		currentWorld.id,
-		occupants.filter((o) => o.handled).map((o) => o.id),
+		handledOccupantIds,
 		offsetX,
 		offsetY,
 		orientation

@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Occupant } from '../interfaces/Occupant';
 import { OverworldMap } from '../interfaces/Overworld';
 
@@ -7,8 +7,16 @@ export const useOccupants = (currentWorld: OverworldMap) => {
 		...currentWorld.occupants,
 	]);
 
+	useEffect(() => {
+		console.log(occupants);
+	}, [occupants]);
+
 	const focusedOccupant = useMemo(() => {
 		return occupants.find((o) => o.focused);
+	}, [occupants]);
+
+	const handledOccupantIds = useMemo(() => {
+		return occupants.filter((o) => o.handled).map((o) => o.id);
 	}, [occupants]);
 
 	const toggleFocusForOccupant = useCallback((id: string) => {
@@ -40,5 +48,6 @@ export const useOccupants = (currentWorld: OverworldMap) => {
 		handleOccupants,
 		setOccupants,
 		focusedOccupant,
+		handledOccupantIds,
 	};
 };

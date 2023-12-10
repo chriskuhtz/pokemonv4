@@ -8,7 +8,7 @@ import { Direction } from '../../../interfaces/Direction';
 
 export const useSaveGame = (
 	mapId: string,
-	handledTrainers: string[],
+	handledOccupants: string[],
 	offsetX: number,
 	offsetY: number,
 	orientation: Direction
@@ -25,11 +25,11 @@ export const useSaveGame = (
 		if (updatedProgress[mapId]) {
 			updatedProgress[mapId] = {
 				...updatedProgress[mapId],
-				handledTrainers: handledTrainers,
+				handledOccupants: handledOccupants,
 			};
 		} else
 			updatedProgress[mapId] = {
-				handledTrainers: handledTrainers,
+				handledOccupants: handledOccupants,
 			};
 
 		void updateSaveFile({
@@ -40,7 +40,7 @@ export const useSaveGame = (
 		});
 	}, [
 		mapId,
-		handledTrainers,
+		handledOccupants,
 		offsetX,
 		offsetY,
 		orientation,

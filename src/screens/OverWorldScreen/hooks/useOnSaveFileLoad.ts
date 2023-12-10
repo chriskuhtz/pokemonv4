@@ -17,7 +17,7 @@ export const useOnSaveFileLoad = (
 			setOffsetY(saveFile.position.y);
 			setOrientation(saveFile.orientation);
 			handleOccupants(
-				saveFile.mapProgress[currentWorld.id]?.handledTrainers ?? []
+				saveFile.mapProgress[currentWorld.id]?.handledOccupants ?? []
 			);
 		}
 	}, [

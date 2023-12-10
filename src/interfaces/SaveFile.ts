@@ -1,8 +1,8 @@
-import { Position } from '../screens/OverWorldScreen/interfaces/Overworld';
+import { Position } from '../screens/OverWorldScreen/interfaces/Position';
 import { Direction } from './Direction';
 
 export interface RouteProgress {
-	handledTrainers: string[];
+	handledOccupants: string[];
 }
 export interface SaveFile {
 	username: string;

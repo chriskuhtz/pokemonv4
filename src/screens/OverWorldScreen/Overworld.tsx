@@ -37,52 +37,44 @@ export const Overworld = (): JSX.Element => {
 	}
 	if (data && isSuccess) {
 		return (
-			<>
-				<div
-					onKeyDown={(e) => tryToSetNextInput(e)}
-					tabIndex={0}
-					id="overworld"
-				>
-					<RouterButton
-						to={RoutesEnum.menu}
-						text={'Menu'}
-						className="leftCorner"
-						sideEffect={saveGame}
-					/>
-					<Modal
-						open={currentDialogue.length > 0}
-						modalContent={<Pill center={currentDialogue[0]} />}
-					/>
-					<div className="camera">
-						<div
-							className="map"
-							style={{
-								top: (-offsetY + playerOffsetY) * tileSize,
-								left: (-offsetX + playerOffsetX) * tileSize,
-							}}
-						>
-							{currentWorld.map.map((row, i) => (
-								<OverworldRow
-									baseTile={currentWorld.baseTile}
-									key={i}
-									index={i}
-									row={row}
-									occupants={occupants.filter((o) => o.position.y === i)}
-									watchedFields={watchedFields.filter(
-										(f) => f.position.y === i
-									)}
-								/>
-							))}
-						</div>
-
-						<PlayerCharacter
-							orientation={orientation}
-							zIndex={offsetY}
-							sprite={data.sprite}
-						/>
+			<div onKeyDown={(e) => tryToSetNextInput(e)} tabIndex={0} id="overworld">
+				<RouterButton
+					to={RoutesEnum.menu}
+					text={'Menu'}
+					className="leftCorner"
+					sideEffect={saveGame}
+				/>
+				<Modal
+					open={currentDialogue.length > 0}
+					modalContent={<Pill center={currentDialogue[0]} />}
+				/>
+				<div className="camera">
+					<div
+						className="map"
+						style={{
+							top: (-offsetY + playerOffsetY) * tileSize,
+							left: (-offsetX + playerOffsetX) * tileSize,
+						}}
+					>
+						{currentWorld.map.map((row, i) => (
+							<OverworldRow
+								baseTile={currentWorld.baseTile}
+								key={i}
+								index={i}
+								row={row}
+								occupants={occupants.filter((o) => o.position.y === i)}
+								watchedFields={watchedFields.filter((f) => f.position.y === i)}
+							/>
+						))}
 					</div>
+
+					<PlayerCharacter
+						orientation={orientation}
+						zIndex={offsetY}
+						sprite={data.sprite}
+					/>
 				</div>
-			</>
+			</div>
 		);
 	}
 

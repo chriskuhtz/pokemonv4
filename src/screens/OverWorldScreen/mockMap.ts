@@ -316,9 +316,30 @@ export const mockMap: OverworldMap = {
 	],
 };
 
-export const focusedPlayerTest: OverworldMap = {
+export const rotatingNpcTest: OverworldMap = {
 	baseTile: 'grass',
-	id: 'focusedPlayerTest',
+	id: 'rotatingNpcTest',
+	encounters: [],
+	occupants: [
+		{
+			orientation: 'Left',
+			id: 'bob',
+			position: { x: 5, y: 1 },
+			dialogue: ['yeet', 'skrrrt'],
+			sprite: 4,
+			movement: { type: 'ROTATING' },
+			type: 'NPC',
+		},
+	],
+	map: [
+		[{}, {}, {}, {}, {}, {}],
+		[{}, {}, {}, {}, {}, {}],
+	],
+};
+
+export const watchingNpcTest: OverworldMap = {
+	baseTile: 'grass',
+	id: 'watchingNpcTest',
 	encounters: [],
 	occupants: [
 		{

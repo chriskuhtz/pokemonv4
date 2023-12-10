@@ -1,20 +1,69 @@
 {
-  "bear": {
-    "position": {
-      "x": 1,
-      "y": 5
+  "saveFiles": [
+    {
+      "position": {
+        "x": 2,
+        "y": 5
+      },
+      "orientation": "Left",
+      "id": "de18381c-f2a5-41c5-94de-9c9c9d8fb20f",
+      "mapProgress": {
+        "mockMap1": {
+          "handledTrainers": [
+            "tammy",
+            "gertrud"
+          ]
+        }
+      },
+      "username": "vfdter",
+      "sprite": 1
     },
-    "orientation": "Up",
-    "username": "bear",
-    "sprite": 5
-  },
-  "icia": {
-    "username": "icia",
-    "orientation": "UP",
-    "sprite": 4,
-    "position": {
-      "x": 0,
-      "y": 0
+    {
+      "position": {
+        "x": 2,
+        "y": 4
+      },
+      "orientation": "Left",
+      "id": "0624431d-d66b-4a4f-b2c7-9fbf646fea75",
+      "mapProgress": {
+        "mockMap1": {
+          "handledTrainers": [
+            "gertrud",
+            "tammy"
+          ]
+        }
+      },
+      "username": "dewrrt",
+      "sprite": 3
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 3
+      },
+      "orientation": "Up",
+      "id": "4f0e7c94-32ee-4c84-a65c-9085047e04b0",
+      "mapProgress": {
+        "mockMap1": {
+          "handledTrainers": [
+            "tammy",
+            "gertrud"
+          ]
+        }
+      },
+      "username": "fretrg",
+      "sprite": 5
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "orientation": "Down",
+      "id": "4f9f9396-2cd3-4ef5-a529-24e1a8d895f2",
+      "mapProgress": {},
+      "sprite": 8,
+      "username": "fregtgg"
     }
-  }
+  ]
 }

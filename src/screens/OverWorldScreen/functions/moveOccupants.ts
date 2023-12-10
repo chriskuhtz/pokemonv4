@@ -1,4 +1,5 @@
-import { Occupant, Position } from '../interfaces/Overworld';
+import { Occupant } from '../interfaces/Occupant';
+import { Position } from '../interfaces/Position';
 import { getDirection } from './getDirection';
 import { nextDirection } from './nextDirection';
 
@@ -7,12 +8,14 @@ const chanceToMove = 0.95;
 export const moveOccupants = (
 	occupants: Occupant[],
 	playerPosition: Position
-): Occupant[] =>
-	occupants.map((o) => {
+): { newOccupants: Occupant[]; hasChanges: boolean } => {
+	let hasChanges = false;
+	const newOccupants = occupants.map((o) => {
 		const random = Math.random();
-		if (!o.movement || random < chanceToMove) {
+		if (o.type !== 'NPC' || !o.movement || random < chanceToMove) {
 			return o;
 		}
+		hasChanges = true;
 		if (o.movement.type === 'ROTATING') {
 			return { ...o, orientation: nextDirection(o.orientation) };
 		}
@@ -61,3 +64,6 @@ export const moveOccupants = (
 
 		return o;
 	});
+
+	return { newOccupants, hasChanges };
+};

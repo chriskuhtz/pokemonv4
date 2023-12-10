@@ -317,9 +317,9 @@ export const mockMap: OverworldMap = {
 };
 
 export const focusedPlayerTest: OverworldMap = {
-	baseTile: 'beach1',
+	baseTile: 'grass',
 	id: 'focusedPlayerTest',
-	encounters: ['pikachu', 'growlithe'],
+	encounters: [],
 	occupants: [
 		{
 			orientation: 'Left',
@@ -333,6 +333,25 @@ export const focusedPlayerTest: OverworldMap = {
 		},
 	],
 	map: [
+		[{}, {}, {}, {}, {}, {}],
+		[{}, {}, {}, {}, {}, {}],
+	],
+};
+
+export const itemTest: OverworldMap = {
+	baseTile: 'grass',
+	id: 'itemTest',
+	encounters: [],
+	occupants: [
+		{
+			id: 'item',
+			type: 'ITEM',
+			item: 'potion',
+			position: { x: 2, y: 2 },
+		},
+	],
+	map: [
+		[{}, {}, {}, {}, {}, {}],
 		[{}, {}, {}, {}, {}, {}],
 		[{}, {}, {}, {}, {}, {}],
 	],

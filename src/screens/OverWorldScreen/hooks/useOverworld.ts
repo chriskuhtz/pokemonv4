@@ -4,7 +4,7 @@ import { getUserName } from '../../../functions/getUserName';
 import { Direction } from '../../../interfaces/Direction';
 import { moveOccupants } from '../functions/moveOccupants';
 import { OverworldMap } from '../interfaces/Overworld';
-import { mockMap } from '../mockMap';
+import { itemTest } from '../mockMap';
 import { useAnimationFrame } from './useAnimationFrame';
 import { useCurrentField } from './useCurrentField';
 import { useEncounter } from './useEncounter';
@@ -23,7 +23,7 @@ export const useOverworld = () => {
 	const username = getUserName();
 	const { data: saveFile } = useGetSaveFileQuery(username ?? '');
 
-	const [currentWorld] = useState<OverworldMap>(mockMap);
+	const [currentWorld] = useState<OverworldMap>(itemTest);
 
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);
@@ -110,7 +110,13 @@ export const useOverworld = () => {
 			handleKeyPress(nextInput);
 		}
 		if (!focusedOccupant) {
-			setOccupants(moveOccupants(occupants, { x: offsetX, y: offsetY }));
+			const { newOccupants, hasChanges } = moveOccupants(occupants, {
+				x: offsetX,
+				y: offsetY,
+			});
+			if (hasChanges) {
+				setOccupants(newOccupants);
+			}
 		}
 
 		setNextInput(undefined);

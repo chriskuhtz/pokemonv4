@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { getWatchedFields } from '../functions/getWatchedFields';
-import { Occupant, WatchedField } from '../interfaces/Overworld';
+import { Occupant } from '../interfaces/Occupant';
+import { WatchedField } from '../interfaces/WatchedField';
 
 export const useWatchedFields = (occupants: Occupant[]) => {
 	return useMemo(() => {

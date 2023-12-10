@@ -14,20 +14,6 @@
 	overflow: hidden;
 }
 
-.tile {
-	background-color: lightgreen;
-	outline: 1px solid red;
-	min-height: var(--size);
-	min-width: var(--size);
-	max-height: var(--size);
-	max-width: var(--size);
-	color: black;
-}
-
-.row {
-	display: flex;
-}
-
 .map {
 	display: flex;
 	flex-direction: column;

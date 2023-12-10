@@ -6,6 +6,7 @@ export type OverworldMap = {
 	map: Tile[][];
 	encounters: string[];
 	occupants: Occupant[];
+	baseTile: string;
 };
 export interface Tile {
 	onStep?: OverworldEvent;

@@ -1,17 +1,21 @@
 import React from 'react';
-import { Occupant, Tile, WatchedField } from '../../interfaces/Overworld';
+import { Occupant } from '../../interfaces/Occupant';
+import { Tile } from '../../interfaces/Overworld';
+import { WatchedField } from '../../interfaces/WatchedField';
 import { OverworldCharacter } from '../OverworldCharacter/OverworldCharacter';
-
+import './OverworldRow.css';
 export const OverworldRow = ({
 	row,
 	index,
 	occupants,
 	watchedFields,
+	baseTile,
 }: {
 	index: number;
 	row: Tile[];
 	occupants: Occupant[];
 	watchedFields: WatchedField[];
+	baseTile: string;
 }): JSX.Element => {
 	return (
 		<div className="row" key={index}>
@@ -25,7 +29,8 @@ export const OverworldRow = ({
 						<div
 							className="tile"
 							style={{
-								backgroundColor: watchedFields.some(
+								backgroundImage: `url("assets/tiles/${baseTile}.png")`,
+								outlineColor: watchedFields.some(
 									(f) => f.position.x === j && f.position.y === index
 								)
 									? 'cyan'

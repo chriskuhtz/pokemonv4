@@ -63,6 +63,7 @@ export const Overworld = (): JSX.Element => {
 						>
 							{currentWorld.map.map((row, i) => (
 								<OverworldRow
+									baseTile={currentWorld.baseTile}
 									key={i}
 									index={i}
 									row={row}

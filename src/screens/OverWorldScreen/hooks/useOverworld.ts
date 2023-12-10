@@ -15,6 +15,7 @@ import { useHandleMovement } from './useHandleMovement';
 import { useNextField } from './useNextField';
 import { useOnSaveFileLoad } from './useOnSaveFileLoad';
 import { useSaveGame } from './useSaveGame';
+import { useTurnTowardsPlayerOnInteraction } from './useTurnTowardsPlayerOnInteraction';
 import { useWatchedFields } from './useWatchedFields';
 
 const fps = 15;
@@ -81,6 +82,14 @@ export const useOverworld = () => {
 	);
 
 	useEncounter(currentWorld, setCurrentDialogue, currentField);
+
+	useTurnTowardsPlayerOnInteraction(
+		currentDialogue,
+		nextField,
+		occupants,
+		setOccupants,
+		orientation
+	);
 
 	const handleMovement = useHandleMovement(
 		setOffsetX,

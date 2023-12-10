@@ -1,0 +1,9 @@
+.encounterGrass {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+.occupantOffset {
+	top: calc(var(--size) * -1.5);
+}

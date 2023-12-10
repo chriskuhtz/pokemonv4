@@ -4,7 +4,7 @@ import { getUserName } from '../../../functions/getUserName';
 import { Direction } from '../../../interfaces/Direction';
 import { moveOccupants } from '../functions/moveOccupants';
 import { OverworldMap } from '../interfaces/Overworld';
-import { itemTest } from '../mockMap';
+import { watchingNpcTest } from '../mockMap';
 import { useAnimationFrame } from './useAnimationFrame';
 import { useCurrentField } from './useCurrentField';
 import { useEncounter } from './useEncounter';
@@ -23,7 +23,7 @@ export const useOverworld = () => {
 	const username = getUserName();
 	const { data: saveFile } = useGetSaveFileQuery(username ?? '');
 
-	const [currentWorld] = useState<OverworldMap>(itemTest);
+	const [currentWorld] = useState<OverworldMap>(watchingNpcTest);
 
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);

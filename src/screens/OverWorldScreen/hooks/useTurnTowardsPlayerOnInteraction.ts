@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Direction } from '../../../interfaces/Direction';
+import { isNpc } from '../functions/isNpc';
 import { oppositeDirection } from '../functions/oppositeDirection';
 import { Occupant } from '../interfaces/Occupant';
 import { NextFieldInfo } from './useNextField';
@@ -17,13 +18,17 @@ export const useTurnTowardsPlayerOnInteraction = (
 				(o) => o.id === nextField.occupant?.id
 			);
 			if (
-				selectedOccupant &&
+				isNpc(selectedOccupant) &&
 				selectedOccupant.orientation !== oppositeDirection(orientation)
 			) {
 				setOccupants(
 					occupants.map((o) => {
 						if (o.id === nextField.occupant?.id) {
-							return { ...o, orientation: oppositeDirection(orientation) };
+							return {
+								...o,
+								orientation: oppositeDirection(orientation),
+								watching: false,
+							};
 						}
 						return o;
 					})

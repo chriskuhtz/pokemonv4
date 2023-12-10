@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { Direction } from '../../../interfaces/Direction';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
 import { isImpassableOccupant } from '../functions/isImpassableOccupant';
+import { isNpc } from '../functions/isNpc';
 import { Occupant } from '../interfaces/Occupant';
 import { NextFieldInfo } from './useNextField';
 
@@ -36,7 +37,7 @@ export const useHandleKeyPress = (
 			handleOccupants([nextField.occupant.id]);
 			return;
 		}
-		if (nextField.occupant?.type === 'NPC') {
+		if (isNpc(nextField.occupant)) {
 			setCurrentDialogue(nextField.occupant.dialogue);
 			toggleFocusForOccupant(nextField.occupant.id);
 			return;

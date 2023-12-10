@@ -1,3 +1,4 @@
+import { isNpc } from '../../functions/isNpc';
 import { Occupant } from '../../interfaces/Occupant';
 import { Tile } from '../../interfaces/Overworld';
 import { EncounterGrass } from '../EncounterGrass/EncounterGrass';
@@ -27,7 +28,7 @@ export const OverworldTile = ({
 					outlineColor: watched ? 'cyan' : undefined,
 				}}
 			>
-				{occupant?.type === 'NPC' && (
+				{isNpc(occupant) && (
 					<OverworldCharacter
 						sprite={occupant.sprite}
 						orientation={occupant.orientation}

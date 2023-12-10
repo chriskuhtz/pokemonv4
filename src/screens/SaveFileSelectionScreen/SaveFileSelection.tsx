@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGetAllSaveFilesQuery } from '../../api/saveFileApi';
-import { CharacterSprite } from '../../components/CharacterSprite/CharacterSprite';
 import { MapObject } from '../../components/MapObject/MapObject';
 import { setUserName } from '../../functions/setUserName';
 import { RoutesEnum } from '../../router/router';
 import { Pill } from '../../ui_components/Pill/Pill';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
 import { FetchingScreen } from '../FetchingScreen/FetchingScreen';
+import { SaveFileOptions } from './components/SaveFileOptions';
 
 export const SaveFileSelection = (): JSX.Element => {
 	const { data, isFetching, isError, isSuccess } = useGetAllSaveFilesQuery();
@@ -27,20 +27,10 @@ export const SaveFileSelection = (): JSX.Element => {
 	if (isSuccess && data) {
 		return (
 			<div className={'container'}>
-				{Object.values(data).map((saveFile) => (
-					<Pill
-						key={saveFile.username}
-						center={saveFile.username}
-						leftSide={
-							<CharacterSprite
-								style={{ height: '40px' }}
-								orientation="Down"
-								index={saveFile.sprite}
-							/>
-						}
-						onClick={() => selectSaveFile(saveFile.username)}
-					/>
-				))}
+				<SaveFileOptions
+					saveFiles={Object.values(data)}
+					selectSaveFile={selectSaveFile}
+				/>
 				<Pill
 					center={'New Game'}
 					onClick={() => navigate(RoutesEnum.newGame)}

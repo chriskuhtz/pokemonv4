@@ -3,7 +3,8 @@ import { useGetSaveFileQuery } from '../../../api/saveFileApi';
 import { getUserName } from '../../../functions/getUserName';
 import { Direction } from '../../../interfaces/Direction';
 import { moveOccupants } from '../functions/moveOccupants';
-import { Occupant, OverworldMap } from '../interfaces/Overworld';
+import { Occupant } from '../interfaces/Occupant';
+import { OverworldMap } from '../interfaces/Overworld';
 import { mockMap } from '../mockMap';
 import { useAnimationFrame } from './useAnimationFrame';
 import { useCurrentField } from './useCurrentField';
@@ -13,6 +14,7 @@ import { useHandleKeyPress } from './useHandleKeyPress';
 import { useHandleMovement } from './useHandleMovement';
 import { useNextField } from './useNextField';
 import { useOnSaveFileLoad } from './useOnSaveFileLoad';
+import { useSaveGame } from './useSaveGame';
 import { useWatchedFields } from './useWatchedFields';
 
 const fps = 15;
@@ -41,6 +43,13 @@ export const useOverworld = () => {
 		setOccupants,
 		currentWorld,
 		saveFile
+	);
+	const saveGame = useSaveGame(
+		currentWorld.id,
+		handledTrainers,
+		offsetX,
+		offsetY,
+		orientation
 	);
 
 	const [currentDialogue, setCurrentDialogue] = useState<string[]>([]);
@@ -125,7 +134,6 @@ export const useOverworld = () => {
 		setCurrentDialogue,
 		occupants,
 		watchedFields,
-		handledTrainers,
-		setHandledTrainers,
+		saveGame,
 	};
 };

@@ -1,9 +1,9 @@
-import React from 'react';
 import { Occupant } from '../../interfaces/Occupant';
 import { Tile } from '../../interfaces/Overworld';
 import { WatchedField } from '../../interfaces/WatchedField';
-import { OverworldCharacter } from '../OverworldCharacter/OverworldCharacter';
+import { OverworldTile } from '../OverworldTile/OverworldTile';
 import './OverworldRow.css';
+
 export const OverworldRow = ({
 	row,
 	index,
@@ -25,31 +25,16 @@ export const OverworldRow = ({
 				);
 
 				return (
-					<React.Fragment key={`${index}+${j}`}>
-						<div
-							className="tile"
-							style={{
-								backgroundImage: `url("assets/tiles/${baseTile}.png")`,
-								outlineColor: watchedFields.some(
-									(f) => f.position.x === j && f.position.y === index
-								)
-									? 'cyan'
-									: tile.onStep
-									? 'darkgreen'
-									: undefined,
-							}}
-						>
-							{occupant ? (
-								<OverworldCharacter
-									sprite={occupant.sprite}
-									orientation={occupant.orientation}
-									zIndex={index}
-								/>
-							) : (
-								`${index}/${j}`
-							)}
-						</div>
-					</React.Fragment>
+					<OverworldTile
+						key={`${index}+${j}`}
+						baseTile={baseTile}
+						watched={watchedFields.some(
+							(f) => f.position.x === j && f.position.y === index
+						)}
+						occupant={occupant}
+						tile={tile}
+						index={index}
+					/>
 				);
 			})}
 		</div>

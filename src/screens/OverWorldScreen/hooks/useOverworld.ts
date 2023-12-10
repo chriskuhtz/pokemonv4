@@ -3,16 +3,15 @@ import { useGetSaveFileQuery } from '../../../api/saveFileApi';
 import { getUserName } from '../../../functions/getUserName';
 import { Direction } from '../../../interfaces/Direction';
 import { moveOccupants } from '../functions/moveOccupants';
-import { Occupant } from '../interfaces/Occupant';
 import { OverworldMap } from '../interfaces/Overworld';
 import { mockMap } from '../mockMap';
 import { useAnimationFrame } from './useAnimationFrame';
 import { useCurrentField } from './useCurrentField';
 import { useEncounter } from './useEncounter';
-import { useFocusedOccupant } from './useFocusedOccupant';
 import { useHandleKeyPress } from './useHandleKeyPress';
 import { useHandleMovement } from './useHandleMovement';
 import { useNextField } from './useNextField';
+import { useOccupants } from './useOccupants';
 import { useOnSaveFileLoad } from './useOnSaveFileLoad';
 import { useSaveGame } from './useSaveGame';
 import { useTurnTowardsPlayerOnInteraction } from './useTurnTowardsPlayerOnInteraction';
@@ -25,29 +24,31 @@ export const useOverworld = () => {
 	const { data: saveFile } = useGetSaveFileQuery(username ?? '');
 
 	const [currentWorld] = useState<OverworldMap>(mockMap);
-	const [occupants, setOccupants] = useState<Occupant[]>([
-		...currentWorld.occupants,
-	]);
 
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);
 
 	const [orientation, setOrientation] = useState<Direction>('Up');
 
-	const [handledTrainers, setHandledTrainers] = useState<string[]>([]);
+	const {
+		occupants,
+		toggleFocusForOccupant,
+		handleOccupants,
+		setOccupants,
+		focusedOccupant,
+	} = useOccupants(currentWorld);
 
 	useOnSaveFileLoad(
 		setOffsetX,
 		setOffsetY,
 		setOrientation,
-		setHandledTrainers,
-		setOccupants,
+		handleOccupants,
 		currentWorld,
 		saveFile
 	);
 	const saveGame = useSaveGame(
 		currentWorld.id,
-		handledTrainers,
+		occupants.filter((o) => o.handled).map((o) => o.id),
 		offsetX,
 		offsetY,
 		orientation
@@ -57,12 +58,6 @@ export const useOverworld = () => {
 	const [nextInput, setNextInput] = useState<
 		React.KeyboardEvent<HTMLDivElement>['key'] | undefined
 	>();
-
-	const { focusedOccupant, setFocusedOccupant } = useFocusedOccupant(
-		setCurrentDialogue,
-		setHandledTrainers,
-		handledTrainers
-	);
 
 	const nextField = useNextField(
 		orientation,
@@ -77,7 +72,7 @@ export const useOverworld = () => {
 		offsetX,
 		offsetY,
 		occupants,
-		setFocusedOccupant,
+		toggleFocusForOccupant,
 		currentWorld
 	);
 
@@ -101,14 +96,13 @@ export const useOverworld = () => {
 	const handleKeyPress = useHandleKeyPress(
 		currentDialogue,
 		setCurrentDialogue,
-		setFocusedOccupant,
+		toggleFocusForOccupant,
 		nextField,
 		orientation,
 		setOrientation,
 		handleMovement,
 		focusedOccupant,
-		occupants,
-		setOccupants
+		handleOccupants
 	);
 
 	const update = useCallback(() => {
@@ -120,7 +114,15 @@ export const useOverworld = () => {
 		}
 
 		setNextInput(undefined);
-	}, [focusedOccupant, handleKeyPress, nextInput, occupants, offsetX, offsetY]);
+	}, [
+		focusedOccupant,
+		handleKeyPress,
+		nextInput,
+		occupants,
+		offsetX,
+		offsetY,
+		setOccupants,
+	]);
 
 	const tryToSetNextInput = useCallback(
 		(x: React.KeyboardEvent<HTMLDivElement>) => {

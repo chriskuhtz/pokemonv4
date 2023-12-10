@@ -8,6 +8,7 @@ export interface BaseOccupant {
 	position: Position;
 	type: OccupantType;
 	handled?: boolean;
+	focused?: boolean;
 }
 export interface Npc extends BaseOccupant {
 	dialogue: string[];

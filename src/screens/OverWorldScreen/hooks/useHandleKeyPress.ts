@@ -1,49 +1,32 @@
 import { useCallback } from 'react';
 import { Direction } from '../../../interfaces/Direction';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
-import { Occupant } from '../interfaces/Overworld';
+import { Occupant } from '../interfaces/Occupant';
 import { NextFieldInfo } from './useNextField';
 
 export const useHandleKeyPress = (
 	currentDialogue: string[],
 	setCurrentDialogue: (x: string[]) => void,
-	setFocusedOccupant: (x: Occupant | undefined) => void,
+	toggleFocusForOccupant: (id: string) => void,
 	nextField: NextFieldInfo,
 	orientation: Direction,
 	setOrientation: (x: Direction) => void,
 	handleMovement: (key: string) => void,
 	focusedOccupant: Occupant | undefined,
-	occupants: Occupant[],
-	setOccupants: (x: Occupant[]) => void
+	handleOccupants: (x: string[]) => void
 ) => {
 	const handleDialogue = useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
 			if (key === ' ' || key === 'Enter') {
 				if (currentDialogue.length === 1) {
 					if (focusedOccupant) {
-						setOccupants(
-							occupants.map((o) => {
-								if (o.id === focusedOccupant.id) {
-									return { ...o, watching: false };
-								}
-								return o;
-							})
-						);
-
-						setFocusedOccupant(undefined);
+						handleOccupants([focusedOccupant.id]);
 					}
 				}
 				setCurrentDialogue([...currentDialogue.slice(1)]);
 			}
 		},
-		[
-			currentDialogue,
-			focusedOccupant,
-			occupants,
-			setCurrentDialogue,
-			setFocusedOccupant,
-			setOccupants,
-		]
+		[currentDialogue, setCurrentDialogue, focusedOccupant, handleOccupants]
 	);
 
 	return useCallback(
@@ -56,10 +39,18 @@ export const useHandleKeyPress = (
 			}
 
 			//handle click
-			if (key === ' ' || key === 'Enter') {
-				if (nextField.occupant && currentDialogue.length === 0) {
-					setFocusedOccupant(nextField.occupant);
-
+			if (key === ' ' || (key === 'Enter' && currentDialogue.length === 0)) {
+				if (
+					nextField.occupant?.type === 'ITEM' &&
+					!nextField.occupant.handled
+				) {
+					setCurrentDialogue([`You found a ${nextField.occupant.item}`]);
+					handleOccupants([nextField.occupant.id]);
+					return;
+				}
+				if (nextField.occupant?.type === 'NPC') {
+					setCurrentDialogue(nextField.occupant.dialogue);
+					toggleFocusForOccupant(nextField.occupant.id);
 					return;
 				}
 			}
@@ -81,11 +72,13 @@ export const useHandleKeyPress = (
 			currentDialogue.length,
 			handleDialogue,
 			handleMovement,
+			handleOccupants,
 			nextField.occupant,
 			nextField.tile,
 			orientation,
-			setFocusedOccupant,
+			setCurrentDialogue,
 			setOrientation,
+			toggleFocusForOccupant,
 		]
 	);
 };

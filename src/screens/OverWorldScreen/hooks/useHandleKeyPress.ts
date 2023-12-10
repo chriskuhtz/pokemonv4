@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { Direction } from '../../../interfaces/Direction';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
+import { isImpassableOccupant } from '../functions/isImpassableOccupant';
 import { Occupant } from '../interfaces/Occupant';
 import { NextFieldInfo } from './useNextField';
 
@@ -29,6 +30,19 @@ export const useHandleKeyPress = (
 		[currentDialogue, setCurrentDialogue, focusedOccupant, handleOccupants]
 	);
 
+	const handleEnterAndSpace = useCallback(() => {
+		if (nextField.occupant?.type === 'ITEM' && !nextField.occupant.handled) {
+			setCurrentDialogue([`You found a ${nextField.occupant.item}`]);
+			handleOccupants([nextField.occupant.id]);
+			return;
+		}
+		if (nextField.occupant?.type === 'NPC') {
+			setCurrentDialogue(nextField.occupant.dialogue);
+			toggleFocusForOccupant(nextField.occupant.id);
+			return;
+		}
+	}, [handleOccupants, nextField, setCurrentDialogue, toggleFocusForOccupant]);
+
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
 			//handle dialogue
@@ -38,21 +52,9 @@ export const useHandleKeyPress = (
 				return;
 			}
 
-			//handle click
+			//handle enter/space
 			if (key === ' ' || (key === 'Enter' && currentDialogue.length === 0)) {
-				if (
-					nextField.occupant?.type === 'ITEM' &&
-					!nextField.occupant.handled
-				) {
-					setCurrentDialogue([`You found a ${nextField.occupant.item}`]);
-					handleOccupants([nextField.occupant.id]);
-					return;
-				}
-				if (nextField.occupant?.type === 'NPC') {
-					setCurrentDialogue(nextField.occupant.dialogue);
-					toggleFocusForOccupant(nextField.occupant.id);
-					return;
-				}
+				handleEnterAndSpace();
 			}
 
 			//handle orientation
@@ -62,7 +64,7 @@ export const useHandleKeyPress = (
 				return;
 			}
 
-			if (nextField.occupant || !nextField.tile) {
+			if (isImpassableOccupant(nextField?.occupant) || !nextField.tile) {
 				return;
 			}
 			//handle movement
@@ -71,14 +73,12 @@ export const useHandleKeyPress = (
 		[
 			currentDialogue.length,
 			handleDialogue,
+			handleEnterAndSpace,
 			handleMovement,
-			handleOccupants,
-			nextField.occupant,
+			nextField?.occupant,
 			nextField.tile,
 			orientation,
-			setCurrentDialogue,
 			setOrientation,
-			toggleFocusForOccupant,
 		]
 	);
 };

@@ -1,12 +1,9 @@
 import { useMemo } from 'react';
 import { Direction } from '../../../interfaces/Direction';
 import { getNewCoordinates } from '../functions/getNewCoordinates';
-import {
-	Occupant,
-	OverworldMap,
-	Position,
-	Tile,
-} from '../interfaces/Overworld';
+import { Occupant } from '../interfaces/Occupant';
+import { OverworldMap, Tile } from '../interfaces/Overworld';
+import { Position } from '../interfaces/Position';
 
 export interface NextFieldInfo {
 	tile?: Tile;

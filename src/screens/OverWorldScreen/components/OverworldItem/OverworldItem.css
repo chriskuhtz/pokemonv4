@@ -1,0 +1,11 @@
+.overworldItem {
+	display: flex;
+	height: 100%;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+
+	> img {
+		height: calc(var(--size) * 0.8);
+	}
+}

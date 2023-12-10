@@ -6,12 +6,19 @@ export const mockMap: OverworldMap = {
 	encounters: ['pikachu', 'growlithe'],
 	occupants: [
 		{
+			id: 'item1',
+			position: { x: 7, y: 1 },
+			type: 'ITEM',
+			item: 'potion',
+		},
+		{
 			orientation: 'Down',
 			id: 'bob',
 			position: { x: 0, y: 1 },
 			dialogue: ['Hello', 'Goodbye'],
 			sprite: 1,
 			movement: { type: 'ROTATING' },
+			type: 'NPC',
 		},
 		{
 			orientation: 'Down',
@@ -29,6 +36,7 @@ export const mockMap: OverworldMap = {
 				],
 				index: 0,
 			},
+			type: 'NPC',
 		},
 		{
 			orientation: 'Down',
@@ -48,6 +56,7 @@ export const mockMap: OverworldMap = {
 				],
 				index: 0,
 			},
+			type: 'NPC',
 		},
 		{
 			orientation: 'Left',
@@ -58,6 +67,7 @@ export const mockMap: OverworldMap = {
 			viewRange: 3,
 			watching: true,
 			movement: { type: 'ROTATING' },
+			type: 'NPC',
 		},
 		{
 			orientation: 'Left',
@@ -65,6 +75,7 @@ export const mockMap: OverworldMap = {
 			position: { x: 4, y: 8 },
 			dialogue: ['Gotta start a new Nation', 'Gotta meet my son'],
 			sprite: 1,
+			type: 'NPC',
 		},
 	],
 	map: [
@@ -318,6 +329,7 @@ export const focusedPlayerTest: OverworldMap = {
 			sprite: 1,
 			viewRange: 7,
 			watching: true,
+			type: 'NPC',
 		},
 	],
 	map: [

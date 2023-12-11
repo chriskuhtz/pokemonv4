@@ -51,7 +51,7 @@ export const useOccupants = (currentWorld: OverworldMap) => {
 		setOccupants((occupants) =>
 			occupants.map((o) => {
 				if (ids.includes(o.id)) {
-					return { ...o, handled: true, focused: false };
+					return { ...o, handled: true, focused: false, watching: false };
 				} else return o;
 			})
 		);

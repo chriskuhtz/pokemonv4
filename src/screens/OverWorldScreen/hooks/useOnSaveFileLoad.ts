@@ -7,7 +7,7 @@ export const useOnSaveFileLoad = (
 	setOffsetX: (x: number) => void,
 	setOffsetY: (x: number) => void,
 	setOrientation: (x: Direction) => void,
-	handleOccupants: (x: string[]) => void,
+	handleOccupantIds: (x: string[]) => void,
 	currentWorld: OverworldMap,
 	saveFile?: SaveFile
 ) => {
@@ -16,13 +16,13 @@ export const useOnSaveFileLoad = (
 			setOffsetX(saveFile.position.x);
 			setOffsetY(saveFile.position.y);
 			setOrientation(saveFile.orientation);
-			handleOccupants(
+			handleOccupantIds(
 				saveFile.mapProgress[currentWorld.id]?.handledOccupants ?? []
 			);
 		}
 	}, [
 		currentWorld,
-		handleOccupants,
+		handleOccupantIds,
 		saveFile,
 		setOffsetX,
 		setOffsetY,

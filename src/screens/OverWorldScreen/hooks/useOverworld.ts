@@ -6,6 +6,7 @@ import { moveOccupants } from '../functions/moveOccupants';
 import { OverworldMap } from '../interfaces/Overworld';
 import { watchingNpcTest } from '../mockMap';
 import { useAnimationFrame } from './useAnimationFrame';
+import { useCurrentDialogue } from './useCurrentDialogue';
 import { useCurrentField } from './useCurrentField';
 import { useEncounter } from './useEncounter';
 import { useHandleKeyPress } from './useHandleKeyPress';
@@ -32,12 +33,19 @@ export const useOverworld = () => {
 
 	const {
 		occupants,
-		toggleFocusForOccupant,
+		focusOccupant,
 		handleOccupants,
 		setOccupants,
 		focusedOccupant,
 		handledOccupantIds,
 	} = useOccupants(currentWorld);
+
+	const {
+		currentDialogue,
+		initiateItemDialogue,
+		continueDialogue,
+		initiateEncounterDialogue,
+	} = useCurrentDialogue(focusedOccupant);
 
 	useOnSaveFileLoad(
 		setOffsetX,
@@ -55,7 +63,6 @@ export const useOverworld = () => {
 		orientation
 	);
 
-	const [currentDialogue, setCurrentDialogue] = useState<string[]>([]);
 	const [nextInput, setNextInput] = useState<
 		React.KeyboardEvent<HTMLDivElement>['key'] | undefined
 	>();
@@ -73,11 +80,11 @@ export const useOverworld = () => {
 		offsetX,
 		offsetY,
 		occupants,
-		toggleFocusForOccupant,
+		focusOccupant,
 		currentWorld
 	);
 
-	useEncounter(currentWorld, setCurrentDialogue, currentField);
+	useEncounter(currentWorld, initiateEncounterDialogue, currentField);
 
 	useTurnTowardsPlayerOnInteraction(
 		currentDialogue,
@@ -96,14 +103,15 @@ export const useOverworld = () => {
 
 	const handleKeyPress = useHandleKeyPress(
 		currentDialogue,
-		setCurrentDialogue,
-		toggleFocusForOccupant,
+		focusOccupant,
 		nextField,
 		orientation,
 		setOrientation,
 		handleMovement,
 		focusedOccupant,
-		handleOccupants
+		handleOccupants,
+		initiateItemDialogue,
+		continueDialogue
 	);
 
 	const update = useCallback(() => {
@@ -149,7 +157,6 @@ export const useOverworld = () => {
 		offsetY,
 		orientation,
 		currentDialogue,
-		setCurrentDialogue,
 		occupants,
 		watchedFields,
 		saveGame,

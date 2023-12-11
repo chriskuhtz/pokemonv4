@@ -3,19 +3,20 @@ import { Direction } from '../../../interfaces/Direction';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
 import { isImpassableOccupant } from '../functions/isImpassableOccupant';
 import { isNpc } from '../functions/isNpc';
-import { Occupant } from '../interfaces/Occupant';
+import { Occupant, OverworldItem } from '../interfaces/Occupant';
 import { NextFieldInfo } from './useNextField';
 
 export const useHandleKeyPress = (
 	currentDialogue: string[],
-	setCurrentDialogue: (x: string[]) => void,
-	toggleFocusForOccupant: (id: string) => void,
+	focusOccupant: (id: string) => void,
 	nextField: NextFieldInfo,
 	orientation: Direction,
 	setOrientation: (x: Direction) => void,
 	handleMovement: (key: string) => void,
 	focusedOccupant: Occupant | undefined,
-	handleOccupants: (x: string[]) => void
+	handleOccupants: (x: string[]) => void,
+	initiateItemDialogue: (x: OverworldItem) => void,
+	continueDialogue: () => void
 ) => {
 	const handleDialogue = useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
@@ -25,24 +26,28 @@ export const useHandleKeyPress = (
 						handleOccupants([focusedOccupant.id]);
 					}
 				}
-				setCurrentDialogue([...currentDialogue.slice(1)]);
+				continueDialogue();
 			}
 		},
-		[currentDialogue, setCurrentDialogue, focusedOccupant, handleOccupants]
+		[currentDialogue.length, continueDialogue, focusedOccupant, handleOccupants]
 	);
 
 	const handleEnterAndSpace = useCallback(() => {
 		if (nextField.occupant?.type === 'ITEM' && !nextField.occupant.handled) {
-			setCurrentDialogue([`You found a ${nextField.occupant.item}`]);
+			initiateItemDialogue(nextField.occupant);
 			handleOccupants([nextField.occupant.id]);
 			return;
 		}
 		if (isNpc(nextField.occupant)) {
-			setCurrentDialogue(nextField.occupant.dialogue);
-			toggleFocusForOccupant(nextField.occupant.id);
+			focusOccupant(nextField.occupant.id);
 			return;
 		}
-	}, [handleOccupants, nextField, setCurrentDialogue, toggleFocusForOccupant]);
+	}, [
+		nextField.occupant,
+		initiateItemDialogue,
+		handleOccupants,
+		focusOccupant,
+	]);
 
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {

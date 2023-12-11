@@ -6,7 +6,7 @@ const increaseFactor: number = 1.05;
 
 export const useEncounter = (
 	currentWorld: OverworldMap,
-	setCurrentDialogue: (x: string[]) => void,
+	initiateEncounterDialogue: (x: string) => void,
 
 	currentField: Tile
 ) => {
@@ -19,10 +19,8 @@ export const useEncounter = (
 		);
 		const randomEncounter = currentWorld.encounters[randomIndex];
 
-		setCurrentDialogue([
-			`a wild ${randomEncounter} jumped out of the high grass`,
-		]);
-	}, [currentWorld, setCurrentDialogue]);
+		initiateEncounterDialogue(randomEncounter);
+	}, [currentWorld.encounters, initiateEncounterDialogue]);
 	useEffect(
 		() => {
 			if (currentField.onStep?.type === 'ENCOUNTER') {

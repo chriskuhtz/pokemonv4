@@ -1,17 +1,14 @@
 import { useMemo } from 'react';
-import {
-	Occupant,
-	OverworldMap,
-	Tile,
-	WatchedField,
-} from '../interfaces/Overworld';
+import { Occupant } from '../interfaces/Occupant';
+import { OverworldMap, Tile } from '../interfaces/Overworld';
+import { WatchedField } from '../interfaces/WatchedField';
 
 export const useCurrentField = (
 	watchedFields: WatchedField[],
 	offsetX: number,
 	offsetY: number,
 	occupants: Occupant[],
-	setFocusedOccupant: (x: Occupant) => void,
+	focusOccupant: (x: string) => void,
 	currentWorld: OverworldMap
 ) => {
 	return useMemo((): Tile => {
@@ -20,15 +17,15 @@ export const useCurrentField = (
 		)?.watcherId;
 		const watcher = occupants.find((o) => o.id === watcherId);
 		if (watcher) {
-			setFocusedOccupant(watcher);
+			focusOccupant(watcher.id);
 		}
 		return currentWorld.map[offsetY][offsetX];
 	}, [
 		currentWorld.map,
+		focusOccupant,
 		occupants,
 		offsetX,
 		offsetY,
-		setFocusedOccupant,
 		watchedFields,
 	]);
 };

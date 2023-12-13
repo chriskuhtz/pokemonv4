@@ -38,6 +38,7 @@ export const useOverworld = () => {
 		setOccupants,
 		focusedOccupant,
 		handledOccupantIds,
+		collectedItems,
 	} = useOccupants(currentWorld);
 
 	const {
@@ -60,7 +61,8 @@ export const useOverworld = () => {
 		handledOccupantIds,
 		offsetX,
 		offsetY,
-		orientation
+		orientation,
+		collectedItems
 	);
 
 	const [nextInput, setNextInput] = useState<

@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import { ItemName } from '../../../interfaces/Item';
 import { Occupant } from '../interfaces/Occupant';
 import { OverworldMap } from '../interfaces/Overworld';
 
@@ -6,6 +7,8 @@ export const useOccupants = (currentWorld: OverworldMap) => {
 	const [occupants, setOccupants] = useState<Occupant[]>([
 		...currentWorld.occupants,
 	]);
+
+	const [collectedItems, setCollectedItems] = useState<ItemName[]>([]);
 
 	const focusedOccupant = useMemo(() => {
 		return occupants.find((o) => o.focused);
@@ -51,6 +54,10 @@ export const useOccupants = (currentWorld: OverworldMap) => {
 		setOccupants((occupants) =>
 			occupants.map((o) => {
 				if (ids.includes(o.id)) {
+					if (o.type === 'ITEM') {
+						setCollectedItems((collectedItems) => [...collectedItems, o.item]);
+					}
+
 					return { ...o, handled: true, focused: false, watching: false };
 				} else return o;
 			})
@@ -65,5 +72,6 @@ export const useOccupants = (currentWorld: OverworldMap) => {
 		setOccupants,
 		focusedOccupant,
 		handledOccupantIds,
+		collectedItems,
 	};
 };

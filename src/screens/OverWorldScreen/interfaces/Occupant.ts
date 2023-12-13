@@ -1,4 +1,5 @@
 import { Direction } from '../../../interfaces/Direction';
+import { ItemName } from '../../../interfaces/Item';
 import { Movement } from './Movement';
 import { Position } from './Position';
 
@@ -21,7 +22,7 @@ export interface Npc extends BaseOccupant {
 	type: 'NPC';
 }
 export interface OverworldItem extends BaseOccupant {
-	item: string;
+	item: ItemName;
 	type: 'ITEM';
 }
 

@@ -10,6 +10,7 @@ export interface SaveFile {
 	orientation: Direction;
 	sprite: number;
 	position: Position;
+	currentMapId: string;
 	id: string;
 	mapProgress: Record<string, RouteProgress>;
 	inventory: Record<ItemName, ItemStack>;

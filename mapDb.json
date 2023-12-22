@@ -1,0 +1,430 @@
+{
+	"maps": [
+		{
+			"baseTile": "beach1",
+			"id": "mockMap1",
+			"encounters": ["pikachu", "growlithe"],
+			"occupants": [
+				{
+					"id": "item1",
+					"position": { "x": 7, "y": 1 },
+					"type": "ITEM",
+					"item": "potion"
+				},
+				{
+					"orientation": "Down",
+					"id": "bob",
+					"position": { "x": 0, "y": 1 },
+					"dialogue": ["Hello", "Goodbye"],
+					"sprite": 1,
+					"movement": { "type": "ROTATING" },
+					"type": "NPC"
+				},
+				{
+					"orientation": "Down",
+					"id": "jim",
+					"position": { "x": 0, "y": 2 },
+					"dialogue": ["Hello", "Goodbye"],
+					"sprite": 2,
+					"movement": {
+						"type": "PATHING",
+						"path": [
+							{ "x": 1, "y": 2 },
+							{ "x": 1, "y": 3 },
+							{ "x": 0, "y": 3 },
+							{ "x": 0, "y": 2 }
+						],
+						"index": 0
+					},
+					"type": "NPC"
+				},
+				{
+					"orientation": "Down",
+					"id": "tammy",
+					"position": { "x": 0, "y": 3 },
+					"dialogue": ["Hello", "Goodbye"],
+					"sprite": 3,
+					"viewRange": 2,
+					"watching": true,
+					"movement": {
+						"type": "PATHING",
+						"path": [
+							{ "x": 0, "y": 4 },
+							{ "x": 1, "y": 4 },
+							{ "x": 1, "y": 3 },
+							{ "x": 0, "y": 3 }
+						],
+						"index": 0
+					},
+					"type": "NPC"
+				},
+				{
+					"orientation": "Left",
+					"id": "gertrud",
+					"position": { "x": 4, "y": 4 },
+					"dialogue": ["Gotcha", "Big Dog"],
+					"sprite": 4,
+					"viewRange": 3,
+					"watching": true,
+					"movement": { "type": "ROTATING" },
+					"type": "NPC"
+				},
+				{
+					"orientation": "Left",
+					"id": "hamilton",
+					"position": { "x": 4, "y": 8 },
+					"dialogue": ["Gotta start a new Nation", "Gotta meet my son"],
+					"sprite": 1,
+					"type": "NPC"
+				}
+			],
+			"map": [
+				[
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{}
+				],
+				[
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{}
+				],
+				[
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{}
+				],
+				[
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{}
+				],
+				[
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{}
+				],
+				[
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{}
+				],
+				[
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{},
+					{}
+				],
+				[
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } }
+				],
+				[
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } }
+				]
+			]
+		},
+		{
+			"baseTile": "grass",
+			"id": "rotatingNpcTest",
+			"encounters": [],
+			"occupants": [
+				{
+					"orientation": "Left",
+					"id": "bob",
+					"position": { "x": 5, "y": 1 },
+					"dialogue": ["yeet", "skrrrt"],
+					"sprite": 4,
+					"movement": { "type": "ROTATING" },
+					"type": "NPC"
+				}
+			],
+			"map": [
+				[{}, {}, {}, {}, {}, {}],
+				[{}, {}, {}, {}, {}, {}]
+			]
+		},
+		{
+			"baseTile": "grass",
+			"id": "watchingNpcTest",
+			"encounters": [],
+			"occupants": [
+				{
+					"orientation": "Left",
+					"id": "bob",
+					"position": { "x": 5, "y": 1 },
+					"dialogue": ["Good Eyes", "Big dog"],
+					"sprite": 1,
+					"viewRange": 7,
+					"watching": true,
+					"type": "NPC"
+				}
+			],
+			"map": [
+				[{}, {}, {}, {}, {}, {}],
+				[{}, {}, {}, {}, {}, {}]
+			]
+		},
+		{
+			"baseTile": "grass",
+			"id": "itemTest",
+			"encounters": [],
+			"occupants": [
+				{
+					"id": "item",
+					"type": "ITEM",
+					"item": "potion",
+					"position": { "x": 2, "y": 2 }
+				}
+			],
+			"map": [
+				[{}, {}, {}, {}, {}, {}],
+				[{}, {}, {}, {}, {}, {}],
+				[{}, {}, {}, {}, {}, {}]
+			]
+		},
+		{
+			"baseTile": "grass",
+			"id": "portalTest1",
+			"encounters": [],
+			"occupants": [],
+			"map": [
+				[{}, {}, {}, {}, {}, {}],
+				[{}, {}, {}, {}, {}, {}],
+				[
+					{},
+					{},
+					{},
+					{},
+					{},
+					{
+						"onStep": {
+							"type": "PORTAL",
+							"x": 0,
+							"y": 0,
+							"mapId": "portalTest2",
+							"orientation": "Down"
+						}
+					}
+				]
+			]
+		},
+		{
+			"baseTile": "beach1",
+			"id": "portalTest2",
+			"encounters": [],
+			"occupants": [],
+			"map": [
+				[{}, {}, {}, {}, {}, {}],
+				[{}, {}, {}, {}, {}, {}],
+				[
+					{},
+					{},
+					{},
+					{},
+					{},
+					{
+						"onStep": {
+							"type": "PORTAL",
+							"x": 0,
+							"y": 0,
+							"mapId": "portalTest1",
+							"orientation": "Down"
+						}
+					}
+				]
+			]
+		}
+	]
+}

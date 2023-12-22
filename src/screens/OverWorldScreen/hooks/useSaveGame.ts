@@ -39,6 +39,7 @@ export const useSaveGame = (
 			...saveFile,
 			position: { x: offsetX, y: offsetY },
 			orientation,
+			currentMapId: mapId,
 			mapProgress: updatedProgress,
 			inventory: updatedInventory,
 		});

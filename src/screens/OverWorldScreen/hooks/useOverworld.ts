@@ -24,10 +24,16 @@ const fps = 15;
 
 export const useOverworld = () => {
 	const username = getUserName();
-	const { data: saveFile } = useGetSaveFileQuery(username ?? skipToken);
-	const { data: rawMap } = useGetOverworldMapQuery(
-		saveFile?.currentMapId ?? skipToken
-	);
+	const {
+		data: saveFile,
+		isError: saveFileError,
+		isFetching: isSaveFileFetching,
+	} = useGetSaveFileQuery(username ?? skipToken);
+	const {
+		data: rawMap,
+		isError: mapError,
+		isFetching: isMapFetching,
+	} = useGetOverworldMapQuery(saveFile?.currentMapId ?? skipToken);
 	const [currentWorld, setCurrentWorld] = useState<OverworldMap>(mockMap);
 
 	useEffect(() => {
@@ -172,5 +178,8 @@ export const useOverworld = () => {
 		occupants,
 		watchedFields,
 		saveGame,
+		saveFile,
+		isFetching: isMapFetching || isSaveFileFetching,
+		isError: saveFileError || mapError || !username,
 	};
 };

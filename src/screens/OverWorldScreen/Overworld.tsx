@@ -1,6 +1,4 @@
-import { useGetSaveFileQuery } from '../../api/saveFileApi';
 import { RouterButton } from '../../components/RouterButton/RouterButton';
-import { getUserName } from '../../functions/getUserName';
 import { RoutesEnum } from '../../router/router';
 import { Modal } from '../../ui_components/Modal/Modal';
 import { Pill } from '../../ui_components/Pill/Pill';
@@ -16,11 +14,6 @@ const playerOffsetX = 7;
 const playerOffsetY = 4;
 
 export const Overworld = (): JSX.Element => {
-	const username = getUserName();
-	const { data, isFetching, isError, isSuccess } = useGetSaveFileQuery(
-		username ?? ''
-	);
-
 	const {
 		currentWorld,
 		offsetX,
@@ -31,11 +24,14 @@ export const Overworld = (): JSX.Element => {
 		occupants,
 		watchedFields,
 		saveGame,
+		saveFile,
+		isFetching,
+		isError,
 	} = useOverworld();
 	if (isFetching) {
 		return <FetchingScreen />;
 	}
-	if (data && isSuccess) {
+	if (saveFile) {
 		return (
 			<div onKeyDown={(e) => tryToSetNextInput(e)} tabIndex={0} id="overworld">
 				<RouterButton
@@ -71,14 +67,14 @@ export const Overworld = (): JSX.Element => {
 					<PlayerCharacter
 						orientation={orientation}
 						zIndex={offsetY}
-						sprite={data.sprite}
+						sprite={saveFile.sprite}
 					/>
 				</div>
 			</div>
 		);
 	}
 
-	if (isError || !username) {
+	if (isError) {
 		return <ErrorScreen />;
 	}
 	return <></>;

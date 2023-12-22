@@ -1,4 +1,6 @@
-import { useCallback, useState } from 'react';
+import { skipToken } from '@reduxjs/toolkit/query';
+import { useCallback, useEffect, useState } from 'react';
+import { useGetOverworldMapQuery } from '../../../api/mapApi';
 import { useGetSaveFileQuery } from '../../../api/saveFileApi';
 import { getUserName } from '../../../functions/getUserName';
 import { Direction } from '../../../interfaces/Direction';
@@ -22,9 +24,17 @@ const fps = 15;
 
 export const useOverworld = () => {
 	const username = getUserName();
-	const { data: saveFile } = useGetSaveFileQuery(username ?? '');
+	const { data: saveFile } = useGetSaveFileQuery(username ?? skipToken);
+	const { data: rawMap } = useGetOverworldMapQuery(
+		saveFile?.currentMapId ?? skipToken
+	);
+	const [currentWorld, setCurrentWorld] = useState<OverworldMap>(mockMap);
 
-	const [currentWorld] = useState<OverworldMap>(mockMap);
+	useEffect(() => {
+		if (rawMap && currentWorld.id !== rawMap.id) {
+			setCurrentWorld(rawMap);
+		}
+	}, [currentWorld, rawMap]);
 
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);

@@ -1,12 +1,13 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ItemName } from '../../../interfaces/Item';
 import { Occupant } from '../interfaces/Occupant';
 import { OverworldMap } from '../interfaces/Overworld';
 
 export const useOccupants = (currentWorld: OverworldMap) => {
-	const [occupants, setOccupants] = useState<Occupant[]>([
-		...currentWorld.occupants,
-	]);
+	const [occupants, setOccupants] = useState<Occupant[]>([]);
+	useEffect(() => {
+		setOccupants(currentWorld.occupants);
+	}, [currentWorld]);
 
 	const [collectedItems, setCollectedItems] = useState<ItemName[]>([]);
 

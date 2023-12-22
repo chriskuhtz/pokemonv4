@@ -25,6 +25,7 @@ export const NewGameProcess = (): JSX.Element => {
 		position: { x: 0, y: 0 },
 		orientation: 'Down',
 		id: v4(),
+		currentMapId: 'portalTest1',
 		mapProgress: {},
 	});
 

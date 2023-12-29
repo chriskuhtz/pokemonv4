@@ -1,11 +1,12 @@
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useGetOverworldMapQuery } from '../../../api/mapApi';
 import { useGetSaveFileQuery } from '../../../api/saveFileApi';
 import { getUserName } from '../../../functions/getUserName';
 import { Direction } from '../../../interfaces/Direction';
 import { moveOccupants } from '../functions/moveOccupants';
-import { OverworldMap } from '../interfaces/Overworld';
+import { OverworldMap, Tile } from '../interfaces/Overworld';
+import { PortalEvent } from '../interfaces/OverworldEvent';
 import { mockMap } from '../mockMap';
 import { useAnimationFrame } from './useAnimationFrame';
 import { useCurrentDialogue } from './useCurrentDialogue';
@@ -22,6 +23,17 @@ import { useWatchedFields } from './useWatchedFields';
 
 const fps = 15;
 
+export const useOnPortalStep = (
+	currentField: Tile,
+	handlePortalEvent: (x: PortalEvent) => void
+) => {
+	return useMemo(() => {
+		if (currentField?.onStep?.type === 'PORTAL') {
+			handlePortalEvent(currentField.onStep);
+		}
+	}, [currentField, handlePortalEvent]);
+};
+
 export const useOverworld = () => {
 	const username = getUserName();
 	const {
@@ -29,6 +41,7 @@ export const useOverworld = () => {
 		isError: saveFileError,
 		isFetching: isSaveFileFetching,
 	} = useGetSaveFileQuery(username ?? skipToken);
+
 	const {
 		data: rawMap,
 		isError: mapError,
@@ -72,14 +85,26 @@ export const useOverworld = () => {
 		currentWorld,
 		saveFile
 	);
-	const saveGame = useSaveGame(
+	const saveGame = useSaveGame();
+
+	const saveCurrentGameState = useCallback(() => {
+		saveGame(
+			currentWorld.id,
+			{ [`${currentWorld.id}`]: handledOccupantIds },
+			offsetX,
+			offsetY,
+			orientation,
+			collectedItems
+		);
+	}, [
+		collectedItems,
 		currentWorld.id,
 		handledOccupantIds,
 		offsetX,
 		offsetY,
 		orientation,
-		collectedItems
-	);
+		saveGame,
+	]);
 
 	const [nextInput, setNextInput] = useState<
 		React.KeyboardEvent<HTMLDivElement>['key'] | undefined
@@ -102,6 +127,22 @@ export const useOverworld = () => {
 		currentWorld
 	);
 
+	const handlePortalEvent = useCallback(
+		async (portalEvent: PortalEvent) => {
+			await saveGame(
+				portalEvent.mapId,
+				{ [`${currentWorld.id}`]: handledOccupantIds },
+				portalEvent.x,
+				portalEvent.y,
+				portalEvent.orientation,
+				collectedItems
+			);
+
+			// await save current map, then save new map
+		},
+		[collectedItems, currentWorld, handledOccupantIds, saveGame]
+	);
+	useOnPortalStep(currentField, handlePortalEvent);
 	useEncounter(currentWorld, initiateEncounterDialogue, currentField);
 
 	useTurnTowardsPlayerOnInteraction(
@@ -177,7 +218,7 @@ export const useOverworld = () => {
 		currentDialogue,
 		occupants,
 		watchedFields,
-		saveGame,
+		saveGame: saveCurrentGameState,
 		saveFile,
 		isFetching: isMapFetching || isSaveFileFetching,
 		isError: saveFileError || mapError || !username,

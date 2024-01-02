@@ -5,9 +5,9 @@ import {
 } from '../../../api/saveFileApi';
 import { getUserName } from '../../../functions/getUserName';
 import { Direction } from '../../../interfaces/Direction';
-import { ItemName } from '../../../interfaces/Item';
 import { addCollectedItemsToInventory } from '../functions/addCollectedItemsToInventory';
 import { updateMapProgress } from '../functions/updateMapProgress';
+import { OverworldItem } from '../interfaces/Occupant';
 
 export const useSaveGame = () => {
 	const username = getUserName();
@@ -21,7 +21,7 @@ export const useSaveGame = () => {
 			offsetX: number,
 			offsetY: number,
 			orientation: Direction,
-			collectedItems?: ItemName[]
+			collectedItems?: OverworldItem[]
 		) => {
 			if (!saveFile) {
 				return;
@@ -29,7 +29,8 @@ export const useSaveGame = () => {
 
 			const updatedInventory = addCollectedItemsToInventory(
 				saveFile.inventory,
-				collectedItems
+				collectedItems,
+				saveFile.mapProgress
 			);
 			const updatedProgress = updateMapProgress(
 				saveFile.mapProgress,

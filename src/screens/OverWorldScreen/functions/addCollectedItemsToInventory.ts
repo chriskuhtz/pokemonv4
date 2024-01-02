@@ -1,19 +1,21 @@
-import { ItemName } from '../../../interfaces/Item';
-import { SaveFile } from '../../../interfaces/SaveFile';
+import { RouteProgress, SaveFile } from '../../../interfaces/SaveFile';
+import { OverworldItem } from '../interfaces/Occupant';
 
 export const addCollectedItemsToInventory = (
 	currentInventory: SaveFile['inventory'],
-	collectedItems?: ItemName[]
+	collectedItems?: OverworldItem[],
+	mapProgress?: Record<string, RouteProgress>
 ): SaveFile['inventory'] => {
 	const updatedInventory = { ...currentInventory };
-	if (collectedItems) {
-		collectedItems.map((itemName) => {
-			if (updatedInventory[itemName]) {
-				updatedInventory[itemName] = {
-					...updatedInventory[itemName],
-					amount: updatedInventory[itemName].amount + 1,
+
+	if (collectedItems && mapProgress) {
+		collectedItems.map(({ item }) => {
+			if (updatedInventory[item]) {
+				updatedInventory[item] = {
+					...updatedInventory[item],
+					amount: updatedInventory[item].amount + 1,
 				};
-			} else updatedInventory[itemName] = { amount: 1, item: { id: itemName } };
+			} else updatedInventory[item] = { amount: 1, item: { id: item } };
 		});
 	}
 	return updatedInventory;

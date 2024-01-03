@@ -28,6 +28,10 @@ export const NewGameProcess = (): JSX.Element => {
 		currentMapId: 'portalTest1',
 		mapProgress: {},
 		money: 5000,
+		pokemon: [
+			{ dexId: 25, id: v4(), onTeam: true },
+			{ dexId: 1, id: v4() },
+		],
 	});
 
 	const startGame = useCallback(async () => {

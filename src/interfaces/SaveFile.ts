@@ -5,6 +5,12 @@ import { ItemName, ItemStack } from './Item';
 export interface RouteProgress {
 	handledOccupants: string[];
 }
+
+export interface OwnedPokemon {
+	dexId: number;
+	id: string;
+	onTeam?: boolean;
+}
 export interface SaveFile {
 	username: string;
 	orientation: Direction;
@@ -15,4 +21,5 @@ export interface SaveFile {
 	mapProgress: Record<string, RouteProgress>;
 	inventory: Record<ItemName, ItemStack>;
 	money: number;
+	pokemon: OwnedPokemon[];
 }

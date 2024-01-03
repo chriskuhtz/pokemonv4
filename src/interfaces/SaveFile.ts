@@ -14,4 +14,5 @@ export interface SaveFile {
 	id: string;
 	mapProgress: Record<string, RouteProgress>;
 	inventory: Record<ItemName, ItemStack>;
+	money: number;
 }

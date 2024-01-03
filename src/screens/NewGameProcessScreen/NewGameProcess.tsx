@@ -27,6 +27,7 @@ export const NewGameProcess = (): JSX.Element => {
 		id: v4(),
 		currentMapId: 'portalTest1',
 		mapProgress: {},
+		money: 5000,
 	});
 
 	const startGame = useCallback(async () => {

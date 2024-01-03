@@ -12,8 +12,9 @@ export const PlayerMenu = (): JSX.Element => {
 				routerButtonProps={{ to: RoutesEnum.overworld, text: 'Overworld' }}
 			/>
 			<RouterButton to={RoutesEnum.playercard} text={'Trainercard'} />
+			<RouterButton to={RoutesEnum.team} text={'Team'} />
 
-			<Pill center={'Team'} />
+			<Pill center={'Storage'} />
 			<Pill center={'Pokedex'} />
 			<Pill center={'Bag'} />
 			<Pill center={'Quests'} />

@@ -8,6 +8,7 @@ import { SaveFileSelection } from '../screens/SaveFileSelectionScreen/SaveFileSe
 import { OPPOID, TRAINERID } from '../testing/constants/trainerIds';
 import { combatantGenerator } from '../testing/generators/combatantGenerator';
 import { pokemonGenerator } from '../testing/generators/pokemonGenerator';
+import { TeamScreen } from '../screens/TeamScreen/TeamScreen';
 
 export enum RoutesEnum {
 	overworld = '/overworld',
@@ -15,6 +16,7 @@ export enum RoutesEnum {
 	battle = '/battle',
 	newGame = '/newgame',
 	playercard = '/playercard',
+	team = '/team',
 }
 
 export const router = createBrowserRouter([
@@ -66,6 +68,7 @@ export const router = createBrowserRouter([
 		element: <PlayerMenu />,
 	},
 	{ path: '/playercard', element: <PlayerCardScreen /> },
+	{ path: '/team', element: <TeamScreen /> },
 	{
 		path: '/newgame',
 		element: <NewGameProcess />,

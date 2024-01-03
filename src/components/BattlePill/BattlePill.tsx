@@ -3,7 +3,7 @@ import { Combatant } from '../../interfaces/Combatant';
 import { Pokemon } from '../../interfaces/Pokemon';
 import { Pill } from '../../ui_components/Pill/Pill';
 
-export const PokemonPill = ({
+export const BattlePill = ({
 	pokemon,
 	onClick,
 	rightSide,

@@ -1,5 +1,5 @@
+import { BattlePill } from '../../../../components/BattlePill/BattlePill';
 import { ChooseActionAndTarget } from '../../../../components/ChooseActionAndTarget/ChooseActionAndTarget';
-import { PokemonPill } from '../../../../components/PokemonPill/PokemonPill';
 import { Combatant } from '../../../../interfaces/Combatant';
 import { UseBattleScreen } from '../../hooks/useBattleScreen';
 import './playerSide.css';
@@ -15,7 +15,7 @@ export const PlayerSide = ({
 	return (
 		<div className="playerSide">
 			{playerSide.map((c) => (
-				<PokemonPill
+				<BattlePill
 					key={c.id}
 					pokemon={c.pokemon}
 					rightSide={

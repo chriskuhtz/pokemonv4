@@ -1,4 +1,5 @@
 import { useGetPokemonDataByDexIdQuery } from '../../api/pokeApi';
+import { calculateLevelData } from '../../functions/calculateLevelData';
 import { OwnedPokemon } from '../../interfaces/SaveFile';
 import { ErrorPill } from '../../ui_components/ErrorPill/ErrorPill';
 import { FetchingPill } from '../../ui_components/FetchingPill/FetchingPill';
@@ -19,6 +20,7 @@ export const PokemonListItem = ({ pokemon }: { pokemon: OwnedPokemon }) => {
 					/>
 				}
 				center={data?.name}
+				rightSide={<div>Lvl: {calculateLevelData(pokemon.xp).level}</div>}
 			/>
 		);
 	}

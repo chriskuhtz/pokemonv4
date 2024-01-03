@@ -78,21 +78,25 @@ export const StorageScreen = (): JSX.Element => {
 			{ownedPokemon && (
 				<div>
 					<h2>Team:</h2>
-					{teamMembers.map((p) => (
-						<IconWithTag
-							src={getPokemonSpriteUrl(p.dexId)}
-							tag={calculateLevelData(p.xp).level}
-							onClick={() => removeFromTeam(p)}
-						/>
-					))}
-					<h2>Storage:</h2>
-					{storedPokemon.map((p) => (
-						<IconWithTag
-							src={getPokemonSpriteUrl(p.dexId)}
-							tag={calculateLevelData(p.xp).level}
-							onClick={() => addToTeam(p)}
-						/>
-					))}
+					<div style={{ display: 'flex' }}>
+						{teamMembers.map((p) => (
+							<IconWithTag
+								src={getPokemonSpriteUrl(p.dexId)}
+								tag={calculateLevelData(p.xp).level}
+								onClick={() => removeFromTeam(p)}
+							/>
+						))}
+					</div>
+					<h2>Storage:</h2>{' '}
+					<div style={{ display: 'flex' }}>
+						{storedPokemon.map((p) => (
+							<IconWithTag
+								src={getPokemonSpriteUrl(p.dexId)}
+								tag={calculateLevelData(p.xp).level}
+								onClick={() => addToTeam(p)}
+							/>
+						))}
+					</div>
 				</div>
 			)}
 		</div>

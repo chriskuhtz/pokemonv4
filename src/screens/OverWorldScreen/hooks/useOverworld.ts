@@ -1,11 +1,11 @@
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useGetOverworldMapQuery } from '../../../api/mapApi';
 import { useGetSaveFileQuery } from '../../../api/saveFileApi';
 import { getUserName } from '../../../functions/getUserName';
 import { Direction } from '../../../interfaces/Direction';
 import { moveOccupants } from '../functions/moveOccupants';
-import { OverworldMap, Tile } from '../interfaces/Overworld';
+import { OverworldMap } from '../interfaces/Overworld';
 import { PortalEvent } from '../interfaces/OverworldEvent';
 import { mockMap } from '../mockMap';
 import { useAnimationFrame } from './useAnimationFrame';
@@ -16,23 +16,13 @@ import { useHandleKeyPress } from './useHandleKeyPress';
 import { useHandleMovement } from './useHandleMovement';
 import { useNextField } from './useNextField';
 import { useOccupants } from './useOccupants';
+import { useOnPortalStep } from './useOnPortalStep';
 import { useOnSaveFileLoad } from './useOnSaveFileLoad';
 import { useSaveGame } from './useSaveGame';
 import { useTurnTowardsPlayerOnInteraction } from './useTurnTowardsPlayerOnInteraction';
 import { useWatchedFields } from './useWatchedFields';
 
 const fps = 15;
-
-export const useOnPortalStep = (
-	currentField: Tile,
-	handlePortalEvent: (x: PortalEvent) => void
-) => {
-	return useMemo(() => {
-		if (currentField?.onStep?.type === 'PORTAL') {
-			handlePortalEvent(currentField.onStep);
-		}
-	}, [currentField, handlePortalEvent]);
-};
 
 export const useOverworld = () => {
 	const username = getUserName();

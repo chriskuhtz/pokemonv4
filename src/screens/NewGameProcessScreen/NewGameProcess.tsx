@@ -29,8 +29,8 @@ export const NewGameProcess = (): JSX.Element => {
 		mapProgress: {},
 		money: 5000,
 		pokemon: [
-			{ dexId: 25, id: v4(), onTeam: true },
-			{ dexId: 1, id: v4() },
+			{ dexId: 25, id: v4(), onTeam: true, xp: 100 },
+			{ dexId: 1, id: v4(), xp: 100 },
 		],
 	});
 

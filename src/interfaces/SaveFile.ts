@@ -10,6 +10,7 @@ export interface OwnedPokemon {
 	dexId: number;
 	id: string;
 	onTeam?: boolean;
+	xp: number;
 }
 export interface SaveFile {
 	username: string;

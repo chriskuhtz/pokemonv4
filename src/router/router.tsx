@@ -5,10 +5,11 @@ import { Overworld } from '../screens/OverWorldScreen/Overworld';
 import { PlayerCardScreen } from '../screens/PlayerCardScreen/PlayerCardScreen';
 import { PlayerMenu } from '../screens/PlayerMenuScreen/PlayerMenuScreen';
 import { SaveFileSelection } from '../screens/SaveFileSelectionScreen/SaveFileSelection';
+import { StorageScreen } from '../screens/StorageScreen/StorageScreen';
+import { TeamScreen } from '../screens/TeamScreen/TeamScreen';
 import { OPPOID, TRAINERID } from '../testing/constants/trainerIds';
 import { combatantGenerator } from '../testing/generators/combatantGenerator';
 import { pokemonGenerator } from '../testing/generators/pokemonGenerator';
-import { TeamScreen } from '../screens/TeamScreen/TeamScreen';
 
 export enum RoutesEnum {
 	overworld = '/overworld',
@@ -17,6 +18,7 @@ export enum RoutesEnum {
 	newGame = '/newgame',
 	playercard = '/playercard',
 	team = '/team',
+	storage = '/storage',
 }
 
 export const router = createBrowserRouter([
@@ -40,21 +42,21 @@ export const router = createBrowserRouter([
 						pokemon: pokemonGenerator({
 							name: 'growlithe',
 							ownerId: TRAINERID,
-							dexId: '58',
+							dexId: 58,
 						}),
 					}),
 					combatantGenerator({
 						pokemon: pokemonGenerator({
 							name: 'ekans',
 							ownerId: OPPOID,
-							dexId: '23',
+							dexId: 23,
 						}),
 					}),
 					combatantGenerator({
 						pokemon: pokemonGenerator({
 							name: 'koffing',
 							ownerId: OPPOID,
-							dexId: '109',
+							dexId: 109,
 						}),
 					}),
 				]}
@@ -69,6 +71,7 @@ export const router = createBrowserRouter([
 	},
 	{ path: '/playercard', element: <PlayerCardScreen /> },
 	{ path: '/team', element: <TeamScreen /> },
+	{ path: '/storage', element: <StorageScreen /> },
 	{
 		path: '/newgame',
 		element: <NewGameProcess />,

@@ -1,3 +1,4 @@
+import { getPokemonSpriteUrl } from '../../../functions/getPokemonSpriteUrl';
 import './NameAndSpriteSection.css';
 
 export const NameAndSpriteSection = ({
@@ -7,7 +8,7 @@ export const NameAndSpriteSection = ({
 	owner,
 	level,
 }: {
-	dexId: string;
+	dexId: number;
 	name: string;
 	level: number;
 	owner?: string;
@@ -25,11 +26,7 @@ export const NameAndSpriteSection = ({
 				{owner && <h3>Trainer: {owner}</h3>}
 				<h3>Level: {level}</h3>
 			</div>
-			<img
-				className="sprite"
-				src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${dexId}.png
-        `}
-			/>
+			<img className="sprite" src={getPokemonSpriteUrl(dexId)} />
 		</div>
 	);
 };

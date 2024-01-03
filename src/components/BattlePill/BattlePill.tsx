@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { getPokemonSpriteUrl } from '../../functions/getPokemonSpriteUrl';
 import { Combatant } from '../../interfaces/Combatant';
 import { Pokemon } from '../../interfaces/Pokemon';
 import { Pill } from '../../ui_components/Pill/Pill';
@@ -16,11 +17,7 @@ export const BattlePill = ({
 }): JSX.Element => {
 	return (
 		<Pill
-			leftSide={
-				<img
-					src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.dexId}.png`}
-				/>
-			}
+			leftSide={<img src={getPokemonSpriteUrl(pokemon.dexId)} />}
 			center={
 				<div>
 					<p>

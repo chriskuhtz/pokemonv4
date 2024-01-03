@@ -13,8 +13,8 @@ export const PlayerMenu = (): JSX.Element => {
 			/>
 			<RouterButton to={RoutesEnum.playercard} text={'Trainercard'} />
 			<RouterButton to={RoutesEnum.team} text={'Team'} />
+			<RouterButton to={RoutesEnum.storage} text={'Storage'} />
 
-			<Pill center={'Storage'} />
 			<Pill center={'Pokedex'} />
 			<Pill center={'Bag'} />
 			<Pill center={'Quests'} />

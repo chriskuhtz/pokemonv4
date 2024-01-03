@@ -12,6 +12,11 @@ export interface OwnedPokemon {
 	onTeam?: boolean;
 	xp: number;
 }
+
+export interface DexEntry {
+	dexId: number;
+	status: 'seen' | 'owned';
+}
 export interface SaveFile {
 	username: string;
 	orientation: Direction;
@@ -23,4 +28,5 @@ export interface SaveFile {
 	inventory: Record<ItemName, ItemStack>;
 	money: number;
 	pokemon: OwnedPokemon[];
+	pokedex: DexEntry[];
 }

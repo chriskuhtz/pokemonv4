@@ -32,6 +32,12 @@ export const NewGameProcess = (): JSX.Element => {
 			{ dexId: 25, id: v4(), onTeam: true, xp: 100 },
 			{ dexId: 1, id: v4(), xp: 100 },
 		],
+		pokedex: [
+			{ dexId: 25, status: 'owned' },
+			{ dexId: 1, status: 'owned' },
+			{ dexId: 234, status: 'seen' },
+			{ dexId: 17, status: 'seen' },
+		],
 	});
 
 	const startGame = useCallback(async () => {

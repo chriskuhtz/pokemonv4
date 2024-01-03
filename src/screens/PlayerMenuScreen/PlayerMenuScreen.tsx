@@ -11,7 +11,7 @@ export const PlayerMenu = (): JSX.Element => {
 				text={'Menu'}
 				routerButtonProps={{ to: RoutesEnum.overworld, text: 'Overworld' }}
 			/>
-			<RouterButton to={RoutesEnum.playercard} text={'Player'} />
+			<RouterButton to={RoutesEnum.playercard} text={'Trainercard'} />
 
 			<Pill center={'Team'} />
 			<Pill center={'Pokedex'} />

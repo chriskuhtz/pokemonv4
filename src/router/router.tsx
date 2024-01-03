@@ -4,6 +4,7 @@ import { NewGameProcess } from '../screens/NewGameProcessScreen/NewGameProcess';
 import { Overworld } from '../screens/OverWorldScreen/Overworld';
 import { PlayerCardScreen } from '../screens/PlayerCardScreen/PlayerCardScreen';
 import { PlayerMenu } from '../screens/PlayerMenuScreen/PlayerMenuScreen';
+import { PokedexScreen } from '../screens/PokedexScreen/PokedexScreen';
 import { SaveFileSelection } from '../screens/SaveFileSelectionScreen/SaveFileSelection';
 import { StorageScreen } from '../screens/StorageScreen/StorageScreen';
 import { TeamScreen } from '../screens/TeamScreen/TeamScreen';
@@ -19,6 +20,7 @@ export enum RoutesEnum {
 	playercard = '/playercard',
 	team = '/team',
 	storage = '/storage',
+	pokedex = '/pokedex',
 }
 
 export const router = createBrowserRouter([
@@ -27,11 +29,11 @@ export const router = createBrowserRouter([
 		element: <SaveFileSelection />,
 	},
 	{
-		path: '/overworld',
+		path: RoutesEnum.overworld,
 		element: <Overworld />,
 	},
 	{
-		path: '/battle',
+		path: RoutesEnum.battle,
 		element: (
 			<BattleScreen
 				initialCombatants={[
@@ -66,14 +68,15 @@ export const router = createBrowserRouter([
 		),
 	},
 	{
-		path: '/menu',
+		path: RoutesEnum.menu,
 		element: <PlayerMenu />,
 	},
-	{ path: '/playercard', element: <PlayerCardScreen /> },
-	{ path: '/team', element: <TeamScreen /> },
-	{ path: '/storage', element: <StorageScreen /> },
+	{ path: RoutesEnum.playercard, element: <PlayerCardScreen /> },
+	{ path: RoutesEnum.team, element: <TeamScreen /> },
+	{ path: RoutesEnum.storage, element: <StorageScreen /> },
+	{ path: RoutesEnum.pokedex, element: <PokedexScreen /> },
 	{
-		path: '/newgame',
+		path: RoutesEnum.newGame,
 		element: <NewGameProcess />,
 	},
 ]);

@@ -1,22 +1,11 @@
 import { Position } from '../screens/OverWorldScreen/interfaces/Position';
+import { DexEntry } from './DexEntry';
 import { Direction } from './Direction';
 import { ItemName, ItemStack } from './Item';
+import { OwnedPokemon } from './OwnedPokemon';
+import { Quest } from './Quest';
+import { RouteProgress } from './RouteProgress';
 
-export interface RouteProgress {
-	handledOccupants: string[];
-}
-
-export interface OwnedPokemon {
-	dexId: number;
-	id: string;
-	onTeam?: boolean;
-	xp: number;
-}
-
-export interface DexEntry {
-	dexId: number;
-	status: 'seen' | 'owned';
-}
 export interface SaveFile {
 	username: string;
 	orientation: Direction;
@@ -29,4 +18,5 @@ export interface SaveFile {
 	money: number;
 	pokemon: OwnedPokemon[];
 	pokedex: DexEntry[];
+	quests: Quest[];
 }

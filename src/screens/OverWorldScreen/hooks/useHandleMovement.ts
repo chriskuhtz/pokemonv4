@@ -4,7 +4,8 @@ export const useHandleMovement = (
 	setOffsetX: (x: number) => void,
 	setOffsetY: (x: number) => void,
 	offsetX: number,
-	offsetY: number
+	offsetY: number,
+	setWalking: () => void
 ) => {
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
@@ -20,7 +21,8 @@ export const useHandleMovement = (
 			if (key === 'a' || key === 'ArrowLeft') {
 				setOffsetX(offsetX - 1);
 			}
+			setWalking();
 		},
-		[offsetX, offsetY, setOffsetX, setOffsetY]
+		[offsetX, offsetY, setOffsetX, setOffsetY, setWalking]
 	);
 };

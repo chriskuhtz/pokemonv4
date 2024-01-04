@@ -5,11 +5,13 @@ import './CharacterSprite.css';
 export const CharacterSprite = ({
 	orientation,
 	index,
+	walking,
 	className,
 	style,
 }: {
 	orientation: Direction;
 	index: string;
+	walking?: boolean;
 	className?: string;
 	style?: React.CSSProperties;
 }) => {
@@ -26,13 +28,20 @@ export const CharacterSprite = ({
 		return 0;
 	}, [orientation]);
 
+	const walkingOffset = useMemo(() => {
+		if (walking) {
+			return -1.75;
+		}
+		return -0.25;
+	}, [walking]);
+
 	return (
 		<div
 			className={`characterSprite ${className}`}
 			style={
 				{
 					...style,
-					'--backgroundUrl': `url(assets/npcs/NPC_${index}.png) calc(var(--size) * -.25) calc(var(--size) * ${orientationOffset})`,
+					'--backgroundUrl': `url(assets/npcs/NPC_${index}.png) calc(var(--size) * ${walkingOffset}) calc(var(--size) * ${orientationOffset})`,
 				} as React.CSSProperties
 			}
 		></div>

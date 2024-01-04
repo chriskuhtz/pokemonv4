@@ -3,6 +3,7 @@ import { CharacterSprite } from '../../components/CharacterSprite/CharacterSprit
 export const TestArea = (): JSX.Element => {
 	return (
 		<div>
+			<CharacterSprite orientation="Down" index={'001'} walking />
 			<CharacterSprite orientation="Down" index={'001'} />
 			<CharacterSprite orientation="Left" index={'004'} />
 			<CharacterSprite orientation="Right" index={'103'} />

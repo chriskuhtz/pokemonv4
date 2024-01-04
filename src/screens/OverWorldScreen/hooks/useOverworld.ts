@@ -47,6 +47,7 @@ export const useOverworld = () => {
 
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);
+	const [walking, setWalking] = useState<boolean>(false);
 
 	const [orientation, setOrientation] = useState<Direction>('Up');
 
@@ -153,7 +154,8 @@ export const useOverworld = () => {
 		setOffsetX,
 		setOffsetY,
 		offsetX,
-		offsetY
+		offsetY,
+		() => setWalking(true)
 	);
 
 	const handleKeyPress = useHandleKeyPress(
@@ -176,6 +178,9 @@ export const useOverworld = () => {
 		if (nextInput) {
 			handleKeyPress(nextInput);
 		}
+		if (!nextInput) {
+			setWalking(false);
+		}
 		if (!focusedOccupant) {
 			const { newOccupants, hasChanges } = moveOccupants(occupants, {
 				x: offsetX,
@@ -185,7 +190,6 @@ export const useOverworld = () => {
 				setOccupants(newOccupants);
 			}
 		}
-
 		setNextInput(undefined);
 	}, [
 		focusedOccupant,
@@ -221,5 +225,6 @@ export const useOverworld = () => {
 		saveFile,
 		isFetching: isMapFetching || isSaveFileFetching,
 		isError: saveFileError || mapError || !username,
+		walking,
 	};
 };

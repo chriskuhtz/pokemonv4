@@ -29,6 +29,12 @@ export const SpriteSelection = ({
 								<CharacterSprite
 									orientation={currentOrientation}
 									index={parsedId}
+									style={
+										{
+											'--size': '40px',
+											marginRight: '-20px',
+										} as React.CSSProperties
+									}
 								/>
 							}
 						/>

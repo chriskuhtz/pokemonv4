@@ -17,7 +17,7 @@ export const SaveFileOptions = ({
 					center={saveFile.username}
 					leftSide={
 						<CharacterSprite
-							style={{ height: '40px' }}
+							style={{ '--size': '40px' } as React.CSSProperties}
 							orientation="Down"
 							index={saveFile.sprite}
 						/>

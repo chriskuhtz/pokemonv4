@@ -10,18 +10,21 @@ export const useHandleMovement = (
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
 			if (key === 'w' || key === 'ArrowUp') {
+				setWalking();
 				setOffsetY(offsetY - 1);
 			}
 			if (key === 's' || key === 'ArrowDown') {
+				setWalking();
 				setOffsetY(offsetY + 1);
 			}
 			if (key === 'd' || key === 'ArrowRight') {
+				setWalking();
 				setOffsetX(offsetX + 1);
 			}
 			if (key === 'a' || key === 'ArrowLeft') {
+				setWalking();
 				setOffsetX(offsetX - 1);
 			}
-			setWalking();
 		},
 		[offsetX, offsetY, setOffsetX, setOffsetY, setWalking]
 	);

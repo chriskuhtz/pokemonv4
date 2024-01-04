@@ -3,7 +3,7 @@ import { Item, ItemName } from '../../../interfaces/Item';
 import { Movement } from './Movement';
 import { Position } from './Position';
 
-export type OccupantType = 'NPC' | 'ITEM' | 'MERCHANT';
+export type OccupantType = 'NPC' | 'ITEM' | 'MERCHANT' | 'HEALER';
 export interface BaseOccupant {
 	id: string;
 	position: Position;
@@ -28,9 +28,14 @@ export interface Merchant extends BaseOccupant {
 	sprite: number;
 	inventory: Item[];
 }
+export interface Healer extends BaseOccupant {
+	type: 'HEALER';
+	orientation: Direction;
+	sprite: number;
+}
 export interface OverworldItem extends BaseOccupant {
 	item: ItemName;
 	type: 'ITEM';
 }
 
-export type Occupant = Npc | OverworldItem | Merchant;
+export type Occupant = Npc | OverworldItem | Merchant | Healer;

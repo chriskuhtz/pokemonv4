@@ -455,22 +455,26 @@
 			"map": [
 				[{}, {}, {}, {}, {}, {}],
 				[{}, {}, {}, {}, {}, {}],
-				[
-					{},
-					{},
-					{},
-					{},
-					{},
-					{
-						"onStep": {
-							"type": "PORTAL",
-							"x": 0,
-							"y": 0,
-							"mapId": "portalTest1",
-							"orientation": "Down"
-						}
-					}
-				]
+				[{}, {}, {}, {}, {}, {}]
+			]
+		},
+		{
+			"baseTile": "beach1",
+			"id": "healerTest",
+			"encounters": [],
+			"occupants": [
+				{
+					"id": "healer1",
+					"position": { "x": 0, "y": 1 },
+					"orientation": "Down",
+					"sprite": 6,
+					"type": "HEALER"
+				}
+			],
+			"map": [
+				[{}, {}, {}, {}, {}, {}],
+				[{}, {}, {}, {}, {}, {}],
+				[{}, {}, {}, {}, {}, {}]
 			]
 		}
 	]

@@ -9,7 +9,7 @@ import { RouteProgress } from './RouteProgress';
 export interface SaveFile {
 	username: string;
 	orientation: Direction;
-	sprite: number;
+	sprite: string;
 	position: Position;
 	currentMapId: string;
 	id: string;

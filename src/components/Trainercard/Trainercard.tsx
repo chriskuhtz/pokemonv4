@@ -4,7 +4,7 @@ import './trainercard.css';
 
 export interface TrainercardProps {
 	name: string;
-	sprite: number;
+	sprite: string;
 	money: number;
 }
 

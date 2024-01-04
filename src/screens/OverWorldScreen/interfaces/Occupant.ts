@@ -14,7 +14,7 @@ export interface BaseOccupant {
 export interface Npc extends BaseOccupant {
 	dialogue: string[];
 	orientation: Direction;
-	sprite: number;
+	sprite: string;
 	movement?: Movement;
 	viewRange?: number;
 	watching?: boolean;
@@ -25,13 +25,13 @@ export interface Merchant extends BaseOccupant {
 	type: 'MERCHANT';
 	dialogue: string[];
 	orientation: Direction;
-	sprite: number;
+	sprite: string;
 	inventory: Item[];
 }
 export interface Healer extends BaseOccupant {
 	type: 'HEALER';
 	orientation: Direction;
-	sprite: number;
+	sprite: string;
 }
 export interface OverworldItem extends BaseOccupant {
 	item: ItemName;

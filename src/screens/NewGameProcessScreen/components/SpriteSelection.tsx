@@ -16,16 +16,24 @@ export const SpriteSelection = ({
 		<>
 			<h3>What do you look like</h3>
 			<div className="SpriteSelection_spriteList">
-				{Array.from({ length: 11 }).map((x, i) => (
-					<Pill
-						key={i}
-						onClick={() => setNewSaveFile({ ...newSaveFile, sprite: i })}
-						selected={newSaveFile.sprite === i}
-						center={
-							<CharacterSprite orientation={currentOrientation} index={i} />
-						}
-					/>
-				))}
+				{[1, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => {
+					const parsedId = `00${x}`;
+					return (
+						<Pill
+							key={x}
+							onClick={() =>
+								setNewSaveFile({ ...newSaveFile, sprite: parsedId })
+							}
+							selected={newSaveFile.sprite === parsedId}
+							center={
+								<CharacterSprite
+									orientation={currentOrientation}
+									index={parsedId}
+								/>
+							}
+						/>
+					);
+				})}
 			</div>
 		</>
 	);

@@ -8,7 +8,7 @@ export const PlayerCharacter = ({
 }: {
 	orientation: Direction;
 	zIndex: number;
-	sprite: number;
+	sprite: string;
 }): JSX.Element => {
 	return (
 		<CharacterSprite

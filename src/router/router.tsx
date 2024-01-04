@@ -14,6 +14,7 @@ import { TeamScreen } from '../screens/TeamScreen/TeamScreen';
 import { OPPOID, TRAINERID } from '../testing/constants/trainerIds';
 import { combatantGenerator } from '../testing/generators/combatantGenerator';
 import { pokemonGenerator } from '../testing/generators/pokemonGenerator';
+import { TestArea } from '../screens/TestArea/TestArea';
 
 export enum RoutesEnum {
 	overworld = '/overworld',
@@ -27,6 +28,7 @@ export enum RoutesEnum {
 	bag = '/bag',
 	quests = '/quests',
 	market = '/market',
+	test = '/test',
 }
 
 export const router = createBrowserRouter([
@@ -88,4 +90,5 @@ export const router = createBrowserRouter([
 		path: RoutesEnum.newGame,
 		element: <NewGameProcess />,
 	},
+	{ path: RoutesEnum.test, element: <TestArea /> },
 ]);

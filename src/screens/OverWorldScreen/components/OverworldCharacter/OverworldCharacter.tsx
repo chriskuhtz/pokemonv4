@@ -6,7 +6,7 @@ export const OverworldCharacter = ({
 	sprite,
 	zIndex,
 }: {
-	sprite: number;
+	sprite: string;
 	orientation: Direction;
 	zIndex: number;
 }): JSX.Element => {

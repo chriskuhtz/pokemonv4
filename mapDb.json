@@ -7,9 +7,30 @@
 			"occupants": [
 				{
 					"type": "NPC",
-					"position": { "y": 2, "x": 2 },
-					"dialogue": ["yaya", "baba"],
-					"sprite": "067"
+					"position": { "y": 2, "x": 4 },
+					"dialogue": [
+						"Hello",
+						"It's nice to meet you.",
+						"Congratulations on obtaining your Pokemon Trainer License.",
+						"As your first Pokemon Partner, you can choose one of these 3.",
+						"If you need any supplies, talk to the Merchant.",
+						"Nurse Joy can heal your Pokemon."
+					],
+					"sprite": "136"
+				},
+				{
+					"type": "MERCHANT",
+					"position": { "y": 4, "x": 8 },
+					"orientation": "Left",
+					"inventory": [{ "id": "potion" }],
+					"dialogue": ["What do you need?"],
+					"sprite": "113"
+				},
+				{
+					"type": "HEALER",
+					"position": { "y": 5, "x": 8 },
+					"orientation": "Left",
+					"sprite": "115"
 				},
 				{
 					"type": "QUEST_CHECK",

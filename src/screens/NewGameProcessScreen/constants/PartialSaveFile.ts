@@ -5,7 +5,7 @@ export const PARTIAL_SAVE_FILE: Partial<SaveFile> = {
 	position: { x: 0, y: 0 },
 	orientation: 'Down',
 	id: v4(),
-	currentMapId: 'portalTest1',
+	currentMapId: 'merchantTest',
 	mapProgress: {},
 	money: 5000,
 	pokemon: [

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { isNpc } from '../functions/isNpc';
-import { Occupant, OverworldItem } from '../interfaces/Occupant';
+import { Merchant, Occupant, OverworldItem } from '../interfaces/Occupant';
 
 export const useCurrentDialogue = (focusedOccupant?: Occupant) => {
 	const [currentDialogue, setCurrentDialogue] = useState<string[]>([]);
@@ -19,6 +19,10 @@ export const useCurrentDialogue = (focusedOccupant?: Occupant) => {
 		setCurrentDialogue([`a wild ${name} jumped out of the high grass`]);
 	}, []);
 
+	const initiateMerchantDialogue = useCallback((x: Merchant) => {
+		setCurrentDialogue(x.dialogue);
+	}, []);
+
 	const continueDialogue = () =>
 		setCurrentDialogue([...currentDialogue.slice(1)]);
 
@@ -27,5 +31,6 @@ export const useCurrentDialogue = (focusedOccupant?: Occupant) => {
 		initiateItemDialogue,
 		continueDialogue,
 		initiateEncounterDialogue,
+		initiateMerchantDialogue,
 	};
 };

@@ -3,7 +3,7 @@ import { Direction } from '../../../interfaces/Direction';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
 import { isImpassableOccupant } from '../functions/isImpassableOccupant';
 import { isNpc } from '../functions/isNpc';
-import { Occupant, OverworldItem } from '../interfaces/Occupant';
+import { Merchant, Occupant, OverworldItem } from '../interfaces/Occupant';
 import { NextFieldInfo } from './useNextField';
 
 export const useHandleKeyPress = (
@@ -16,6 +16,7 @@ export const useHandleKeyPress = (
 	focusedOccupant: Occupant | undefined,
 	handleOccupants: (x: string[]) => void,
 	initiateItemDialogue: (x: OverworldItem) => void,
+	initiateMerchantDialogue: (x: Merchant) => void,
 	continueDialogue: () => void
 ) => {
 	const handleDialogue = useCallback(
@@ -42,11 +43,16 @@ export const useHandleKeyPress = (
 			focusOccupant(nextField.occupant.id);
 			return;
 		}
+		if (nextField.occupant?.type === 'MERCHANT') {
+			initiateMerchantDialogue(nextField.occupant);
+			return;
+		}
 	}, [
 		nextField.occupant,
 		initiateItemDialogue,
 		handleOccupants,
 		focusOccupant,
+		initiateMerchantDialogue,
 	]);
 
 	return useCallback(

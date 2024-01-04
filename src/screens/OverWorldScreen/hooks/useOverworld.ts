@@ -65,6 +65,7 @@ export const useOverworld = () => {
 		initiateItemDialogue,
 		continueDialogue,
 		initiateEncounterDialogue,
+		initiateMerchantDialogue,
 	} = useCurrentDialogue(focusedOccupant);
 
 	useOnSaveFileLoad(
@@ -160,6 +161,7 @@ export const useOverworld = () => {
 		focusedOccupant,
 		handleOccupants,
 		initiateItemDialogue,
+		initiateMerchantDialogue,
 		continueDialogue
 	);
 

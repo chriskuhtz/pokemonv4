@@ -35,6 +35,13 @@ export const OverworldTile = ({
 						zIndex={index}
 					/>
 				)}
+				{occupant?.type === 'MERCHANT' && (
+					<OverworldCharacter
+						sprite={occupant.sprite}
+						orientation={occupant.orientation}
+						zIndex={index}
+					/>
+				)}
 				{occupant?.type === 'ITEM' && (
 					<OverworldItem handled={occupant.handled} />
 				)}

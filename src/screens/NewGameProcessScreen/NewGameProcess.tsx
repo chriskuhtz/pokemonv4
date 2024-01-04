@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { v4 } from 'uuid';
 import {
 	useGetAllSaveFilesQuery,
 	usePostSaveFileMutation,
@@ -14,6 +13,7 @@ import { Pill } from '../../ui_components/Pill/Pill';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
 import { FetchingScreen } from '../FetchingScreen/FetchingScreen';
 import { SpriteSelection } from './components/SpriteSelection';
+import { PARTIAL_SAVE_FILE } from './constants/PartialSaveFile';
 import { useRotate } from './hooks/useRotate';
 
 export const NewGameProcess = (): JSX.Element => {
@@ -21,24 +21,8 @@ export const NewGameProcess = (): JSX.Element => {
 	const { data, isFetching, isError } = useGetAllSaveFilesQuery();
 	const navigate = useNavigate();
 	const [postSaveFile] = usePostSaveFileMutation();
-	const [newSaveFile, setNewSaveFile] = useState<Partial<SaveFile>>({
-		position: { x: 0, y: 0 },
-		orientation: 'Down',
-		id: v4(),
-		currentMapId: 'portalTest1',
-		mapProgress: {},
-		money: 5000,
-		pokemon: [
-			{ dexId: 25, id: v4(), onTeam: true, xp: 100 },
-			{ dexId: 1, id: v4(), xp: 100 },
-		],
-		pokedex: [
-			{ dexId: 25, status: 'owned' },
-			{ dexId: 1, status: 'owned' },
-			{ dexId: 234, status: 'seen' },
-			{ dexId: 17, status: 'seen' },
-		],
-	});
+	const [newSaveFile, setNewSaveFile] =
+		useState<Partial<SaveFile>>(PARTIAL_SAVE_FILE);
 
 	const startGame = useCallback(async () => {
 		if (isValidSaveFile(newSaveFile)) {

@@ -21,7 +21,8 @@ export const useSaveGame = () => {
 			offsetX: number,
 			offsetY: number,
 			orientation: Direction,
-			collectedItems?: OverworldItem[]
+			collectedItems?: OverworldItem[],
+			heal?: boolean
 		) => {
 			if (!saveFile) {
 				return;
@@ -37,6 +38,15 @@ export const useSaveGame = () => {
 				progressEntries
 			);
 
+			let updatedPokemon = [...saveFile.pokemon];
+			if (heal) {
+				updatedPokemon = updatedPokemon.map((p) => {
+					if (p.onTeam) {
+						return { ...p, damage: 0 };
+					}
+					return p;
+				});
+			}
 			void updateSaveFile({
 				...saveFile,
 				position: { x: offsetX, y: offsetY },
@@ -44,6 +54,7 @@ export const useSaveGame = () => {
 				currentMapId: mapId,
 				mapProgress: updatedProgress,
 				inventory: updatedInventory,
+				pokemon: updatedPokemon,
 			});
 		},
 		[saveFile, updateSaveFile]

@@ -79,24 +79,28 @@ export const useOverworld = () => {
 	);
 	const saveGame = useSaveGame();
 
-	const saveCurrentGameState = useCallback(() => {
-		saveGame(
+	const saveCurrentGameState = useCallback(
+		(heal?: boolean) => {
+			saveGame(
+				currentWorld.id,
+				{ [`${currentWorld.id}`]: handledOccupantIds },
+				offsetX,
+				offsetY,
+				orientation,
+				collectedItems,
+				heal
+			);
+		},
+		[
+			collectedItems,
 			currentWorld.id,
-			{ [`${currentWorld.id}`]: handledOccupantIds },
+			handledOccupantIds,
 			offsetX,
 			offsetY,
 			orientation,
-			collectedItems
-		);
-	}, [
-		collectedItems,
-		currentWorld.id,
-		handledOccupantIds,
-		offsetX,
-		offsetY,
-		orientation,
-		saveGame,
-	]);
+			saveGame,
+		]
+	);
 
 	const [nextInput, setNextInput] = useState<
 		React.KeyboardEvent<HTMLDivElement>['key'] | undefined
@@ -164,7 +168,8 @@ export const useOverworld = () => {
 		initiateItemDialogue,
 		initiateMerchantDialogue,
 		initiateHealerDialogue,
-		continueDialogue
+		continueDialogue,
+		() => saveCurrentGameState(true)
 	);
 
 	const update = useCallback(() => {

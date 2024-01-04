@@ -25,7 +25,8 @@ export const useHandleKeyPress = (
 	initiateItemDialogue: (x: OverworldItem) => void,
 	initiateMerchantDialogue: (x: Merchant) => void,
 	initiateHealerDialogue: () => void,
-	continueDialogue: () => void
+	continueDialogue: () => void,
+	healTeam: () => void
 ) => {
 	const navigate = useNavigate();
 	const openMarketScreen = useCallback(
@@ -46,18 +47,19 @@ export const useHandleKeyPress = (
 						openMarketScreen(focusedOccupant);
 					}
 					if (focusedOccupant && isHealer(focusedOccupant)) {
-						console.log('cesrfregt');
+						healTeam();
 					}
 				}
 				continueDialogue();
 			}
 		},
 		[
-			currentDialogue,
+			currentDialogue.length,
 			continueDialogue,
 			focusedOccupant,
 			handleOccupants,
 			openMarketScreen,
+			healTeam,
 		]
 	);
 

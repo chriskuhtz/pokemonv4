@@ -48,17 +48,25 @@ export const useOverworld = () => {
 
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);
-	const [forwardFoot, setForwardFoot] = useState<ForwardFoot | undefined>();
+	const [forwardFoot, setForwardFoot] = useState<ForwardFoot>('center1');
 	const toggleForwardFoot = useCallback(() => {
-		if (forwardFoot === 'left') {
+		console.log('toggleFoot');
+		if (forwardFoot === 'center1') {
 			setForwardFoot('right');
 			return;
 		}
 		if (forwardFoot === 'right') {
+			setForwardFoot('center2');
+			return;
+		}
+		if (forwardFoot === 'center2') {
 			setForwardFoot('left');
 			return;
 		}
-		setForwardFoot('right');
+		if (forwardFoot === 'left') {
+			setForwardFoot('center1');
+			return;
+		}
 	}, [forwardFoot]);
 
 	const [orientation, setOrientation] = useState<Direction>('Up');
@@ -191,7 +199,7 @@ export const useOverworld = () => {
 			handleKeyPress(nextInput);
 		}
 		if (!nextInput) {
-			setForwardFoot(undefined);
+			setForwardFoot('center1');
 		}
 		if (!focusedOccupant) {
 			const { newOccupants, hasChanges } = moveOccupants(occupants, {

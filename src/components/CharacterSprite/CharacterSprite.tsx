@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Direction } from '../../interfaces/Direction';
+import './CharacterSprite.css';
 
 export const CharacterSprite = ({
 	orientation,
@@ -14,26 +15,26 @@ export const CharacterSprite = ({
 }) => {
 	const orientationOffset = useMemo(() => {
 		if (orientation === 'Up') {
-			return 64;
+			return 1.5;
 		}
 		if (orientation === 'Right') {
-			return 128;
+			return 3;
 		}
 		if (orientation === 'Left') {
-			return 192;
+			return 4.5;
 		}
 		return 0;
 	}, [orientation]);
 
 	return (
 		<div
-			className={className}
-			style={{
-				...style,
-				height: '64px',
-				width: '64px',
-				background: `url(assets/npcs/NPC_${index}.png) 0px ${orientationOffset}px`,
-			}}
+			className={`characterSprite ${className}`}
+			style={
+				{
+					...style,
+					'--backgroundUrl': `url(assets/npcs/NPC_${index}.png) calc(var(--size) * -.25) calc(var(--size) * ${orientationOffset})`,
+				} as React.CSSProperties
+			}
 		></div>
 	);
 };

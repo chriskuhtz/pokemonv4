@@ -15,10 +15,10 @@ export const PlayerMenu = (): JSX.Element => {
 			<RouterButton to={RoutesEnum.team} text={'Team'} />
 			<RouterButton to={RoutesEnum.storage} text={'Storage'} />
 			<RouterButton to={RoutesEnum.pokedex} text={'Pokedex'} />
+			<RouterButton to={RoutesEnum.bag} text={'Bag'} />
 
-			<Pill center={'Bag'} />
 			<Pill center={'Quests'} />
-			<Pill center={'Settings'} />
+
 			<LogoutButton />
 		</div>
 	);

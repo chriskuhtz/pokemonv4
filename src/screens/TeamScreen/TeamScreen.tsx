@@ -31,7 +31,6 @@ export const TeamScreen = (): JSX.Element => {
 					style={{
 						display: 'flex',
 						justifyContent: 'center',
-						paddingTop: '2rem',
 					}}
 				>
 					<PokemonList pokemon={teamMembers} />

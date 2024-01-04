@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { BagScreen } from '../screens/BagScreen/BagScreen';
 import { BattleScreen } from '../screens/BattleScreen/BattleScreen';
 import { NewGameProcess } from '../screens/NewGameProcessScreen/NewGameProcess';
 import { Overworld } from '../screens/OverWorldScreen/Overworld';
@@ -21,6 +22,7 @@ export enum RoutesEnum {
 	team = '/team',
 	storage = '/storage',
 	pokedex = '/pokedex',
+	bag = '/bag',
 }
 
 export const router = createBrowserRouter([
@@ -75,6 +77,7 @@ export const router = createBrowserRouter([
 	{ path: RoutesEnum.team, element: <TeamScreen /> },
 	{ path: RoutesEnum.storage, element: <StorageScreen /> },
 	{ path: RoutesEnum.pokedex, element: <PokedexScreen /> },
+	{ path: RoutesEnum.bag, element: <BagScreen /> },
 	{
 		path: RoutesEnum.newGame,
 		element: <NewGameProcess />,

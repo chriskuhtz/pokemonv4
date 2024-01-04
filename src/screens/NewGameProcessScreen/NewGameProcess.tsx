@@ -58,7 +58,7 @@ export const NewGameProcess = (): JSX.Element => {
 					leftSide={
 						newSaveFile.sprite !== undefined ? (
 							<CharacterSprite
-								style={{ height: '40px' }}
+								style={{ '--size': '40px' } as React.CSSProperties}
 								orientation={'Down'}
 								index={newSaveFile.sprite}
 							/>

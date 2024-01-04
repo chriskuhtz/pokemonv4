@@ -1,4 +1,9 @@
-import { isMerchant, isNpc, isOverworldItem } from '../../functions/isNpc';
+import {
+	isHealer,
+	isMerchant,
+	isNpc,
+	isOverworldItem,
+} from '../../functions/isNpc';
 import { Occupant } from '../../interfaces/Occupant';
 import { Tile } from '../../interfaces/Overworld';
 import { EncounterGrass } from '../EncounterGrass/EncounterGrass';
@@ -28,14 +33,7 @@ export const OverworldTile = ({
 					outlineColor: watched ? 'cyan' : undefined,
 				}}
 			>
-				{isNpc(occupant) && (
-					<OverworldCharacter
-						sprite={occupant.sprite}
-						orientation={occupant.orientation}
-						zIndex={index}
-					/>
-				)}
-				{isMerchant(occupant) && (
+				{(isNpc(occupant) || isMerchant(occupant) || isHealer(occupant)) && (
 					<OverworldCharacter
 						sprite={occupant.sprite}
 						orientation={occupant.orientation}

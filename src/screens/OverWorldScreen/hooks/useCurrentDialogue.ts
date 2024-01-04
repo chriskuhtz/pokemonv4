@@ -23,6 +23,10 @@ export const useCurrentDialogue = (focusedOccupant?: Occupant) => {
 		setCurrentDialogue(x.dialogue);
 	}, []);
 
+	const initiateHealerDialogue = useCallback(() => {
+		setCurrentDialogue(['Let me heal your Pokemon.']);
+	}, []);
+
 	const continueDialogue = () =>
 		setCurrentDialogue([...currentDialogue.slice(1)]);
 
@@ -32,5 +36,6 @@ export const useCurrentDialogue = (focusedOccupant?: Occupant) => {
 		continueDialogue,
 		initiateEncounterDialogue,
 		initiateMerchantDialogue,
+		initiateHealerDialogue,
 	};
 };

@@ -4,7 +4,12 @@ import { Direction } from '../../../interfaces/Direction';
 import { RoutesEnum } from '../../../router/router';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
 import { isImpassableOccupant } from '../functions/isImpassableOccupant';
-import { isMerchant, isNpc, isOverworldItem } from '../functions/isNpc';
+import {
+	isHealer,
+	isMerchant,
+	isNpc,
+	isOverworldItem,
+} from '../functions/isNpc';
 import { Merchant, Occupant, OverworldItem } from '../interfaces/Occupant';
 import { NextFieldInfo } from './useNextField';
 
@@ -19,6 +24,7 @@ export const useHandleKeyPress = (
 	handleOccupants: (x: string[]) => void,
 	initiateItemDialogue: (x: OverworldItem) => void,
 	initiateMerchantDialogue: (x: Merchant) => void,
+	initiateHealerDialogue: () => void,
 	continueDialogue: () => void
 ) => {
 	const navigate = useNavigate();
@@ -38,6 +44,9 @@ export const useHandleKeyPress = (
 					}
 					if (focusedOccupant && isMerchant(focusedOccupant)) {
 						openMarketScreen(focusedOccupant);
+					}
+					if (focusedOccupant && isHealer(focusedOccupant)) {
+						console.log('cesrfregt');
 					}
 				}
 				continueDialogue();
@@ -67,12 +76,18 @@ export const useHandleKeyPress = (
 			initiateMerchantDialogue(nextField.occupant);
 			return;
 		}
+		if (isHealer(nextField.occupant)) {
+			focusOccupant(nextField.occupant.id);
+			initiateHealerDialogue();
+			return;
+		}
 	}, [
 		nextField.occupant,
 		initiateItemDialogue,
 		handleOccupants,
 		focusOccupant,
 		initiateMerchantDialogue,
+		initiateHealerDialogue,
 	]);
 
 	return useCallback(

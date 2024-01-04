@@ -27,7 +27,7 @@ export const Overworld = (): JSX.Element => {
 		saveFile,
 		isFetching,
 		isError,
-		walking,
+		forwardFoot,
 	} = useOverworld();
 	if (isFetching) {
 		return <FetchingScreen />;
@@ -69,7 +69,7 @@ export const Overworld = (): JSX.Element => {
 						orientation={orientation}
 						zIndex={offsetY}
 						sprite={saveFile.sprite}
-						walking={walking}
+						forwardFoot={forwardFoot}
 					/>
 				</div>
 			</div>

@@ -1,16 +1,17 @@
 import { CharacterSprite } from '../../../../components/CharacterSprite/CharacterSprite';
 import { Direction } from '../../../../interfaces/Direction';
+import { ForwardFoot } from '../../../../interfaces/ForwardFoot';
 import './PlayerCharacter.css';
 export const PlayerCharacter = ({
 	orientation,
 	zIndex,
 	sprite,
-	walking,
+	forwardFoot,
 }: {
 	orientation: Direction;
 	zIndex: number;
 	sprite: string;
-	walking: boolean;
+	forwardFoot?: ForwardFoot;
 }): JSX.Element => {
 	return (
 		<CharacterSprite
@@ -18,7 +19,7 @@ export const PlayerCharacter = ({
 			style={{ zIndex: zIndex }}
 			orientation={orientation}
 			index={sprite}
-			walking={walking}
+			forwardFoot={forwardFoot}
 		/>
-	); //<div className="player">{orientation}</div>;
+	);
 };

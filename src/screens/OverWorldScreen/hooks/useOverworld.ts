@@ -4,6 +4,7 @@ import { useGetOverworldMapQuery } from '../../../api/mapApi';
 import { useGetSaveFileQuery } from '../../../api/saveFileApi';
 import { getUserName } from '../../../functions/getUserName';
 import { Direction } from '../../../interfaces/Direction';
+import { ForwardFoot } from '../../../interfaces/ForwardFoot';
 import { moveOccupants } from '../functions/moveOccupants';
 import { OverworldMap } from '../interfaces/Overworld';
 import { PortalEvent } from '../interfaces/OverworldEvent';
@@ -47,7 +48,18 @@ export const useOverworld = () => {
 
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);
-	const [walking, setWalking] = useState<boolean>(false);
+	const [forwardFoot, setForwardFoot] = useState<ForwardFoot | undefined>();
+	const toggleForwardFoot = useCallback(() => {
+		if (forwardFoot === 'left') {
+			setForwardFoot('right');
+			return;
+		}
+		if (forwardFoot === 'right') {
+			setForwardFoot('left');
+			return;
+		}
+		setForwardFoot('right');
+	}, [forwardFoot]);
 
 	const [orientation, setOrientation] = useState<Direction>('Up');
 
@@ -155,7 +167,7 @@ export const useOverworld = () => {
 		setOffsetY,
 		offsetX,
 		offsetY,
-		() => setWalking(true)
+		() => toggleForwardFoot()
 	);
 
 	const handleKeyPress = useHandleKeyPress(
@@ -179,7 +191,7 @@ export const useOverworld = () => {
 			handleKeyPress(nextInput);
 		}
 		if (!nextInput) {
-			setWalking(false);
+			setForwardFoot(undefined);
 		}
 		if (!focusedOccupant) {
 			const { newOccupants, hasChanges } = moveOccupants(occupants, {
@@ -225,6 +237,6 @@ export const useOverworld = () => {
 		saveFile,
 		isFetching: isMapFetching || isSaveFileFetching,
 		isError: saveFileError || mapError || !username,
-		walking,
+		forwardFoot,
 	};
 };

@@ -1,10 +1,17 @@
-import { skipToken } from '@reduxjs/toolkit/query';
 import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useGetSaveFileQuery } from '../../../api/saveFileApi';
-import { getUserName } from '../../../functions/getUserName';
+import { useAppDispatch } from '../../../api/store';
 import { Direction } from '../../../interfaces/Direction';
 import { RoutesEnum } from '../../../router/router';
+import {
+	continueDialogue,
+	initiateHealerDialogue,
+	initiateItemDialogue,
+	initiateMerchantDialogue,
+	initiateNpcDialogue,
+	selectCurrentDialogue,
+} from '../../../slices/dialogueSlice';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
 import { isImpassableOccupant } from '../functions/isImpassableOccupant';
 import {
@@ -13,39 +20,11 @@ import {
 	isNpc,
 	isOverworldItem,
 } from '../functions/isNpc';
-import {
-	Merchant,
-	Occupant,
-	OverworldItem,
-	QuestCheck,
-} from '../interfaces/Occupant';
+import { Merchant, Occupant } from '../interfaces/Occupant';
+import { useIsQuestCompleted } from './useIsQuestCompleted';
 import { NextFieldInfo } from './useNextField';
 
-export const useIsQuestCompleted = () => {
-	const username = getUserName();
-	const { data: saveFile } = useGetSaveFileQuery(username ?? skipToken);
-
-	return useCallback(
-		(x: QuestCheck) => {
-			if (!saveFile) {
-				return false;
-			}
-			console.log(x, saveFile.quests);
-			if (
-				!saveFile.quests.some(
-					(q) => q.id === x.questId && q.status === 'completed'
-				)
-			) {
-				return false;
-			}
-			return true;
-		},
-		[saveFile]
-	);
-};
-
 export const useHandleKeyPress = (
-	currentDialogue: string[],
 	focusOccupant: (id: string) => void,
 	nextField: NextFieldInfo,
 	orientation: Direction,
@@ -53,12 +32,10 @@ export const useHandleKeyPress = (
 	handleMovement: (key: string) => void,
 	focusedOccupant: Occupant | undefined,
 	handleOccupants: (x: string[]) => void,
-	initiateItemDialogue: (x: OverworldItem) => void,
-	initiateMerchantDialogue: (x: Merchant) => void,
-	initiateHealerDialogue: () => void,
-	continueDialogue: () => void,
 	healTeam: () => void
 ) => {
+	const dispatch = useAppDispatch();
+	const currentDialogue = useSelector(selectCurrentDialogue);
 	const isQuestCompleted = useIsQuestCompleted();
 	const navigate = useNavigate();
 	const openMarketScreen = useCallback(
@@ -82,12 +59,12 @@ export const useHandleKeyPress = (
 						healTeam();
 					}
 				}
-				continueDialogue();
+				dispatch(continueDialogue());
 			}
 		},
 		[
 			currentDialogue.length,
-			continueDialogue,
+			dispatch,
 			focusedOccupant,
 			handleOccupants,
 			openMarketScreen,
@@ -97,32 +74,26 @@ export const useHandleKeyPress = (
 
 	const handleEnterAndSpace = useCallback(() => {
 		if (isOverworldItem(nextField.occupant) && !nextField.occupant.handled) {
-			initiateItemDialogue(nextField.occupant);
+			dispatch(initiateItemDialogue(nextField.occupant));
 			handleOccupants([nextField.occupant.id]);
 			return;
 		}
 		if (isNpc(nextField.occupant)) {
 			focusOccupant(nextField.occupant.id);
+			dispatch(initiateNpcDialogue(nextField.occupant));
 			return;
 		}
 		if (isMerchant(nextField.occupant)) {
 			focusOccupant(nextField.occupant.id);
-			initiateMerchantDialogue(nextField.occupant);
+			dispatch(initiateMerchantDialogue(nextField.occupant));
 			return;
 		}
 		if (isHealer(nextField.occupant)) {
 			focusOccupant(nextField.occupant.id);
-			initiateHealerDialogue();
+			dispatch(initiateHealerDialogue());
 			return;
 		}
-	}, [
-		nextField.occupant,
-		initiateItemDialogue,
-		handleOccupants,
-		focusOccupant,
-		initiateMerchantDialogue,
-		initiateHealerDialogue,
-	]);
+	}, [nextField.occupant, dispatch, handleOccupants, focusOccupant]);
 
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {

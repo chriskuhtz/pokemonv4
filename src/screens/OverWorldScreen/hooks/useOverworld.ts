@@ -10,7 +10,6 @@ import { OverworldMap } from '../interfaces/Overworld';
 import { PortalEvent } from '../interfaces/OverworldEvent';
 import { mockMap } from '../mockMap';
 import { useAnimationFrame } from './useAnimationFrame';
-import { useCurrentDialogue } from './useCurrentDialogue';
 import { useCurrentField } from './useCurrentField';
 import { useEncounter } from './useEncounter';
 import { useHandleKeyPress } from './useHandleKeyPress';
@@ -79,15 +78,6 @@ export const useOverworld = () => {
 		handledOccupantIds,
 		collectedItems,
 	} = useOccupants(currentWorld);
-
-	const {
-		currentDialogue,
-		initiateItemDialogue,
-		continueDialogue,
-		initiateEncounterDialogue,
-		initiateMerchantDialogue,
-		initiateHealerDialogue,
-	} = useCurrentDialogue(focusedOccupant);
 
 	useOnSaveFileLoad(
 		setOffsetX,
@@ -159,10 +149,9 @@ export const useOverworld = () => {
 		[collectedItems, currentWorld, handledOccupantIds, saveGame]
 	);
 	useOnPortalStep(currentField, handlePortalEvent);
-	useEncounter(currentWorld, initiateEncounterDialogue, currentField);
+	useEncounter(currentWorld, currentField);
 
 	useTurnTowardsPlayerOnInteraction(
-		currentDialogue,
 		nextField,
 		occupants,
 		setOccupants,
@@ -178,7 +167,6 @@ export const useOverworld = () => {
 	);
 
 	const handleKeyPress = useHandleKeyPress(
-		currentDialogue,
 		focusOccupant,
 		nextField,
 		orientation,
@@ -186,10 +174,6 @@ export const useOverworld = () => {
 		handleMovement,
 		focusedOccupant,
 		handleOccupants,
-		initiateItemDialogue,
-		initiateMerchantDialogue,
-		initiateHealerDialogue,
-		continueDialogue,
 		() => saveCurrentGameState(true)
 	);
 
@@ -237,7 +221,6 @@ export const useOverworld = () => {
 		offsetX,
 		offsetY,
 		orientation,
-		currentDialogue,
 		occupants,
 		watchedFields,
 		saveGame: saveCurrentGameState,

@@ -6,6 +6,12 @@
 			"encounters": ["pidgey", "rattata", "spearow"],
 			"occupants": [
 				{
+					"type": "NPC",
+					"position": { "y": 2, "x": 2 },
+					"dialogue": ["yaya", "baba"],
+					"sprite": "067"
+				},
+				{
 					"type": "QUEST_CHECK",
 					"questId": "pickStarter",
 					"position": { "y": 8, "x": 0 }

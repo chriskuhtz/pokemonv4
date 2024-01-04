@@ -1,17 +1,19 @@
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Direction } from '../../../interfaces/Direction';
+import { selectCurrentDialogue } from '../../../slices/dialogueSlice';
 import { isHealer, isMerchant, isNpc } from '../functions/isNpc';
 import { oppositeDirection } from '../functions/oppositeDirection';
 import { Occupant } from '../interfaces/Occupant';
 import { NextFieldInfo } from './useNextField';
 
 export const useTurnTowardsPlayerOnInteraction = (
-	currentDialogue: string[],
 	nextField: NextFieldInfo,
 	occupants: Occupant[],
 	setOccupants: (x: Occupant[]) => void,
 	orientation: Direction
 ) => {
+	const currentDialogue = useSelector(selectCurrentDialogue);
 	useEffect(() => {
 		if (currentDialogue.length > 0 && nextField.occupant) {
 			const selectedOccupant = occupants.find(

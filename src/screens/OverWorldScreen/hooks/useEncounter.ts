@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useAppDispatch } from '../../../api/store';
+import { initiateEncounterDialogue } from '../../../slices/dialogueSlice';
 import { OverworldMap, Tile } from '../interfaces/Overworld';
 
 const baseEncounterChance: number = 0.2;
@@ -6,10 +8,9 @@ const increaseFactor: number = 1.05;
 
 export const useEncounter = (
 	currentWorld: OverworldMap,
-	initiateEncounterDialogue: (x: string) => void,
-
 	currentField: Tile
 ) => {
+	const dispatch = useAppDispatch();
 	const [encounterChance, setEncounterChance] =
 		useState<number>(baseEncounterChance);
 
@@ -18,9 +19,8 @@ export const useEncounter = (
 			Math.random() * currentWorld.encounters.length
 		);
 		const randomEncounter = currentWorld.encounters[randomIndex];
-
-		initiateEncounterDialogue(randomEncounter);
-	}, [currentWorld.encounters, initiateEncounterDialogue]);
+		dispatch(initiateEncounterDialogue(randomEncounter));
+	}, [currentWorld.encounters, dispatch]);
 	useEffect(
 		() => {
 			if (currentField.onStep?.type === 'ENCOUNTER') {

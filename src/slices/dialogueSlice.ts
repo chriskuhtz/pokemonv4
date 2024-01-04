@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../api/store';
+import { QuestsEnum } from '../interfaces/Quest';
 import {
 	Merchant,
 	Npc,
@@ -14,7 +15,7 @@ const initialState: DialogueSlice = {
 };
 export const dialogueSlice = createSlice({
 	name: 'dialogue',
-	initialState,
+	initialState: initialState,
 	reducers: {
 		addDialogue: (state, action: PayloadAction<string[]>) => {
 			state.dialogue = action.payload;
@@ -39,6 +40,12 @@ export const dialogueSlice = createSlice({
 		initiateHealerDialogue: (state) => {
 			state.dialogue = ['Let me heal your Pokemon.'];
 		},
+		initiateQuestDialogue: (state, action: PayloadAction<QuestsEnum>) => {
+			state.dialogue = [
+				`You must complete the following quest to continue: ${action.payload}`,
+				'Quests can be completed in the Quests Tab in the Menu.',
+			];
+		},
 	},
 });
 
@@ -50,8 +57,9 @@ export const {
 	initiateItemDialogue,
 	initiateMerchantDialogue,
 	initiateNpcDialogue,
+	initiateQuestDialogue,
 } = dialogueSlice.actions;
 
-export const selectCurrentDialogue = (rootState: RootState) => {
+export const selectCurrentDialogue = (rootState: RootState): string[] => {
 	return rootState.dialogueSlice.dialogue;
 };

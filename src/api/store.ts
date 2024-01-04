@@ -13,6 +13,7 @@ export const store = configureStore({
 		[saveFileApi.reducerPath]: saveFileApi.reducer,
 		[mapApi.reducerPath]: mapApi.reducer,
 		[pokeApi.reducerPath]: pokeApi.reducer,
+		dialogueSlice: dialogueSlice.reducer,
 	},
 	// Adding the api middleware enables caching, invalidation, polling,
 	// and other useful features of `rtk-query`.

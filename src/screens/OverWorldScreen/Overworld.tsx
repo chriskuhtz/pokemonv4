@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { RouterButton } from '../../components/RouterButton/RouterButton';
 import { RoutesEnum } from '../../router/router';
+import { selectCurrentDialogue } from '../../slices/dialogueSlice';
 import { Modal } from '../../ui_components/Modal/Modal';
 import { Pill } from '../../ui_components/Pill/Pill';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
@@ -25,7 +27,7 @@ export const Overworld = (): JSX.Element => {
 		offsetX,
 		offsetY,
 		orientation,
-		currentDialogue,
+
 		tryToSetNextInput,
 		occupants,
 		watchedFields,
@@ -35,6 +37,7 @@ export const Overworld = (): JSX.Element => {
 		isError,
 		forwardFoot,
 	} = useOverworld();
+	const currentDialogue = useSelector(selectCurrentDialogue);
 	if (isFetching) {
 		return <FetchingScreen />;
 	}

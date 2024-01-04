@@ -6,6 +6,7 @@
 			"encounters": ["pidgey", "rattata", "spearow"],
 			"occupants": [
 				{
+					"id": "oak",
 					"type": "NPC",
 					"position": { "y": 2, "x": 4 },
 					"dialogue": [
@@ -19,6 +20,7 @@
 					"sprite": "136"
 				},
 				{
+					"id": "merchant",
 					"type": "MERCHANT",
 					"position": { "y": 4, "x": 8 },
 					"orientation": "Left",
@@ -27,6 +29,7 @@
 					"sprite": "113"
 				},
 				{
+					"id": "nurse",
 					"type": "HEALER",
 					"position": { "y": 5, "x": 8 },
 					"orientation": "Left",

@@ -1,5 +1,8 @@
+import { skipToken } from '@reduxjs/toolkit/query';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useGetSaveFileQuery } from '../../../api/saveFileApi';
+import { getUserName } from '../../../functions/getUserName';
 import { Direction } from '../../../interfaces/Direction';
 import { RoutesEnum } from '../../../router/router';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
@@ -10,8 +13,36 @@ import {
 	isNpc,
 	isOverworldItem,
 } from '../functions/isNpc';
-import { Merchant, Occupant, OverworldItem } from '../interfaces/Occupant';
+import {
+	Merchant,
+	Occupant,
+	OverworldItem,
+	QuestCheck,
+} from '../interfaces/Occupant';
 import { NextFieldInfo } from './useNextField';
+
+export const useIsQuestCompleted = () => {
+	const username = getUserName();
+	const { data: saveFile } = useGetSaveFileQuery(username ?? skipToken);
+
+	return useCallback(
+		(x: QuestCheck) => {
+			if (!saveFile) {
+				return false;
+			}
+			console.log(x, saveFile.quests);
+			if (
+				!saveFile.quests.some(
+					(q) => q.id === x.questId && q.status === 'completed'
+				)
+			) {
+				return false;
+			}
+			return true;
+		},
+		[saveFile]
+	);
+};
 
 export const useHandleKeyPress = (
 	currentDialogue: string[],
@@ -28,6 +59,7 @@ export const useHandleKeyPress = (
 	continueDialogue: () => void,
 	healTeam: () => void
 ) => {
+	const isQuestCompleted = useIsQuestCompleted();
 	const navigate = useNavigate();
 	const openMarketScreen = useCallback(
 		(x: Merchant) => {
@@ -113,7 +145,10 @@ export const useHandleKeyPress = (
 				return;
 			}
 
-			if (isImpassableOccupant(nextField?.occupant) || !nextField.tile) {
+			if (
+				isImpassableOccupant(isQuestCompleted, nextField?.occupant) ||
+				!nextField.tile
+			) {
 				return;
 			}
 			//handle movement
@@ -124,6 +159,7 @@ export const useHandleKeyPress = (
 			handleDialogue,
 			handleEnterAndSpace,
 			handleMovement,
+			isQuestCompleted,
 			nextField?.occupant,
 			nextField.tile,
 			orientation,

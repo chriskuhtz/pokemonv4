@@ -4,6 +4,7 @@ import {
 	Npc,
 	Occupant,
 	OverworldItem,
+	QuestCheck,
 } from '../interfaces/Occupant';
 
 export const isNpc = (occupant?: Occupant): occupant is Npc => {
@@ -22,4 +23,7 @@ export const isOverworldItem = (
 	occupant?: Occupant
 ): occupant is OverworldItem => {
 	return occupant?.type === 'ITEM';
+};
+export const isQuestCheck = (occupant?: Occupant): occupant is QuestCheck => {
+	return occupant?.type === 'QUEST_CHECK';
 };

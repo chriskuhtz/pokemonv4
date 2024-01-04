@@ -48,4 +48,4 @@ export interface QuestCheck extends BaseOccupant {
 	questId: QuestsEnum;
 }
 
-export type Occupant = Npc | OverworldItem | Merchant | Healer;
+export type Occupant = Npc | OverworldItem | Merchant | Healer | QuestCheck;

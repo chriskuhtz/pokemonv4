@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { RouterButton } from '../../components/RouterButton/RouterButton';
 import { RoutesEnum } from '../../router/router';
 import { Modal } from '../../ui_components/Modal/Modal';
@@ -14,6 +15,11 @@ const playerOffsetX = 7;
 const playerOffsetY = 4;
 
 export const Overworld = (): JSX.Element => {
+	const autoFocusFn = useCallback(
+		//@ts-expect-error whatever
+		(element) => (element ? element.focus() : null),
+		[]
+	);
 	const {
 		currentWorld,
 		offsetX,
@@ -34,7 +40,12 @@ export const Overworld = (): JSX.Element => {
 	}
 	if (saveFile) {
 		return (
-			<div onKeyDown={(e) => tryToSetNextInput(e)} tabIndex={0} id="overworld">
+			<div
+				onKeyDown={(e) => tryToSetNextInput(e)}
+				tabIndex={0}
+				id="overworld"
+				ref={autoFocusFn}
+			>
 				<RouterButton
 					to={RoutesEnum.menu}
 					text={'Menu'}

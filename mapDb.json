@@ -432,6 +432,46 @@
 					}
 				]
 			]
+		},
+		{
+			"baseTile": "beach1",
+			"id": "merchantTest",
+			"encounters": [],
+			"occupants": [
+				{
+					"id": "merchant1",
+					"position": { "x": 0, "y": 1 },
+					"orientation": "Down",
+					"sprite": 2,
+					"type": "MERCHANT",
+					"dialogue": ["what can i getcha"],
+					"inventory": [
+						{ "id": "potion" },
+						{ "id": "poke-ball" },
+						{ "id": "repel" }
+					]
+				}
+			],
+			"map": [
+				[{}, {}, {}, {}, {}, {}],
+				[{}, {}, {}, {}, {}, {}],
+				[
+					{},
+					{},
+					{},
+					{},
+					{},
+					{
+						"onStep": {
+							"type": "PORTAL",
+							"x": 0,
+							"y": 0,
+							"mapId": "portalTest1",
+							"orientation": "Down"
+						}
+					}
+				]
+			]
 		}
 	]
 }

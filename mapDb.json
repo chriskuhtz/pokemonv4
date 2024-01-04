@@ -3,8 +3,54 @@
 		{
 			"id": "starterTown",
 			"baseTile": "grass",
-			"encounters": [],
-			"occupants": [],
+			"encounters": ["pidgey", "rattata", "spearow"],
+			"occupants": [
+				{
+					"type": "QUEST_CHECK",
+					"questId": "pickStarter",
+					"position": { "y": 8, "x": 0 }
+				},
+				{
+					"type": "QUEST_CHECK",
+					"questId": "pickStarter",
+					"position": { "y": 8, "x": 1 }
+				},
+				{
+					"type": "QUEST_CHECK",
+					"questId": "pickStarter",
+					"position": { "y": 8, "x": 2 }
+				},
+				{
+					"type": "QUEST_CHECK",
+					"questId": "pickStarter",
+					"position": { "y": 8, "x": 3 }
+				},
+				{
+					"type": "QUEST_CHECK",
+					"questId": "pickStarter",
+					"position": { "y": 8, "x": 4 }
+				},
+				{
+					"type": "QUEST_CHECK",
+					"questId": "pickStarter",
+					"position": { "y": 8, "x": 5 }
+				},
+				{
+					"type": "QUEST_CHECK",
+					"questId": "pickStarter",
+					"position": { "y": 8, "x": 6 }
+				},
+				{
+					"type": "QUEST_CHECK",
+					"questId": "pickStarter",
+					"position": { "y": 8, "x": 7 }
+				},
+				{
+					"type": "QUEST_CHECK",
+					"questId": "pickStarter",
+					"position": { "y": 8, "x": 8 }
+				}
+			],
 			"map": [
 				[{}, {}, {}, {}, {}, {}, {}, {}, {}],
 				[{}, {}, {}, {}, {}, {}, {}, {}, {}],
@@ -15,8 +61,39 @@
 				[{}, {}, {}, {}, {}, {}, {}, {}, {}],
 				[{}, {}, {}, {}, {}, {}, {}, {}, {}],
 				[{}, {}, {}, {}, {}, {}, {}, {}, {}],
-				[{}, {}, {}, {}, {}, {}, {}, {}, {}],
-				[{}, {}, {}, {}, {}, {}, {}, {}, {}]
+				[
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } }
+				],
+				[
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } }
+				],
+				[
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } },
+					{ "onStep": { "type": "ENCOUNTER" } }
+				]
 			]
 		}
 	]

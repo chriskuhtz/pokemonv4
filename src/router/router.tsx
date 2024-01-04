@@ -12,6 +12,7 @@ import { TeamScreen } from '../screens/TeamScreen/TeamScreen';
 import { OPPOID, TRAINERID } from '../testing/constants/trainerIds';
 import { combatantGenerator } from '../testing/generators/combatantGenerator';
 import { pokemonGenerator } from '../testing/generators/pokemonGenerator';
+import { QuestsScreen } from '../screens/QuestsScreen/QuestsScreen';
 
 export enum RoutesEnum {
 	overworld = '/overworld',
@@ -23,6 +24,7 @@ export enum RoutesEnum {
 	storage = '/storage',
 	pokedex = '/pokedex',
 	bag = '/bag',
+	quests = '/quests',
 }
 
 export const router = createBrowserRouter([
@@ -78,6 +80,7 @@ export const router = createBrowserRouter([
 	{ path: RoutesEnum.storage, element: <StorageScreen /> },
 	{ path: RoutesEnum.pokedex, element: <PokedexScreen /> },
 	{ path: RoutesEnum.bag, element: <BagScreen /> },
+	{ path: RoutesEnum.quests, element: <QuestsScreen /> },
 	{
 		path: RoutesEnum.newGame,
 		element: <NewGameProcess />,

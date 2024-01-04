@@ -24,7 +24,7 @@ export const PokedexScreen = (): JSX.Element => {
 	return (
 		<div className="container">
 			<Headline
-				text={'Team'}
+				text={'Pokedex'}
 				routerButtonProps={{ to: RoutesEnum.menu, text: 'Menu' }}
 			/>
 			{isError && <ErrorScreen />}

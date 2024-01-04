@@ -16,7 +16,7 @@ export const BagScreen = (): JSX.Element => {
 	return (
 		<div className="container">
 			<Headline
-				text={'Inventory'}
+				text={'Bag'}
 				routerButtonProps={{ to: RoutesEnum.menu, text: 'Menu' }}
 			/>
 			{isError && <ErrorScreen />}

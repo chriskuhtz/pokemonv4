@@ -16,7 +16,7 @@ export const PlayerCardScreen = (): JSX.Element => {
 	return (
 		<div className="container">
 			<Headline
-				text={'Playercard'}
+				text={'Trainercard'}
 				routerButtonProps={{ to: RoutesEnum.menu, text: 'Menu' }}
 			/>
 			{isError && <ErrorScreen />}

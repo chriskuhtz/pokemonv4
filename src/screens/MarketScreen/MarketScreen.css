@@ -1,0 +1,35 @@
+.marketScreen:has(> :nth-child(2)) {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 1rem;
+}
+
+.availableFunds {
+	margin-bottom: 1rem;
+	border-bottom: solid 1px;
+	padding-bottom: 0.5rem;
+}
+.cart {
+	border-left: solid 1px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.cartItem {
+	display: flex;
+	justify-content: space-between;
+	padding: 0.5rem;
+}
+.cartTotal {
+	border-top: solid 1px;
+	padding: 0.5rem;
+	display: flex;
+	justify-content: space-between;
+}
+.buyButton {
+	background-color: green;
+	font-weight: bold;
+	margin: 0 0.5rem;
+}

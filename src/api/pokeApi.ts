@@ -21,5 +21,8 @@ export const pokeApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetPokemonDataByDexIdQuery, useGetItemDataByNameQuery } =
-	pokeApi;
+export const {
+	useGetPokemonDataByDexIdQuery,
+	useGetItemDataByNameQuery,
+	useLazyGetItemDataByNameQuery,
+} = pokeApi;

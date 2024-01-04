@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { Direction } from '../../../interfaces/Direction';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
 import { isImpassableOccupant } from '../functions/isImpassableOccupant';
-import { isNpc } from '../functions/isNpc';
+import { isMerchant, isNpc, isOverworldItem } from '../functions/isNpc';
 import { Merchant, Occupant, OverworldItem } from '../interfaces/Occupant';
 import { NextFieldInfo } from './useNextField';
 
@@ -34,7 +34,7 @@ export const useHandleKeyPress = (
 	);
 
 	const handleEnterAndSpace = useCallback(() => {
-		if (nextField.occupant?.type === 'ITEM' && !nextField.occupant.handled) {
+		if (isOverworldItem(nextField.occupant) && !nextField.occupant.handled) {
 			initiateItemDialogue(nextField.occupant);
 			handleOccupants([nextField.occupant.id]);
 			return;
@@ -43,7 +43,7 @@ export const useHandleKeyPress = (
 			focusOccupant(nextField.occupant.id);
 			return;
 		}
-		if (nextField.occupant?.type === 'MERCHANT') {
+		if (isMerchant(nextField.occupant)) {
 			initiateMerchantDialogue(nextField.occupant);
 			return;
 		}

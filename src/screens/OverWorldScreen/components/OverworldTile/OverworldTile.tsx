@@ -1,4 +1,4 @@
-import { isNpc } from '../../functions/isNpc';
+import { isMerchant, isNpc, isOverworldItem } from '../../functions/isNpc';
 import { Occupant } from '../../interfaces/Occupant';
 import { Tile } from '../../interfaces/Overworld';
 import { EncounterGrass } from '../EncounterGrass/EncounterGrass';
@@ -35,14 +35,14 @@ export const OverworldTile = ({
 						zIndex={index}
 					/>
 				)}
-				{occupant?.type === 'MERCHANT' && (
+				{isMerchant(occupant) && (
 					<OverworldCharacter
 						sprite={occupant.sprite}
 						orientation={occupant.orientation}
 						zIndex={index}
 					/>
 				)}
-				{occupant?.type === 'ITEM' && (
+				{isOverworldItem(occupant) && (
 					<OverworldItem handled={occupant.handled} />
 				)}
 				{tile.onStep?.type === 'ENCOUNTER' && (

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { isOverworldItem } from '../functions/isNpc';
 import { Occupant, OverworldItem } from '../interfaces/Occupant';
 import { OverworldMap } from '../interfaces/Overworld';
 
@@ -54,7 +55,7 @@ export const useOccupants = (currentWorld: OverworldMap) => {
 		setOccupants((occupants) =>
 			occupants.map((o) => {
 				if (ids.includes(o.id)) {
-					if (o.type === 'ITEM') {
+					if (isOverworldItem(o)) {
 						setCollectedItems((collectedItems) => [...collectedItems, o]);
 					}
 

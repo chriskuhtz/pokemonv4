@@ -2,7 +2,7 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { useMemo } from 'react';
 import { useGetSaveFileQuery } from '../../api/saveFileApi';
 import { Headline } from '../../components/Headline/Headline';
-import { PokemonList } from '../../components/PokemonList/PokemonList';
+import { TeamGrid } from '../../components/PokemonList/TeamGrid';
 import { getUserName } from '../../functions/getUserName';
 import { RoutesEnum } from '../../router/router';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
@@ -33,7 +33,7 @@ export const TeamScreen = (): JSX.Element => {
 						justifyContent: 'center',
 					}}
 				>
-					<PokemonList pokemon={teamMembers} />
+					<TeamGrid pokemon={teamMembers} />
 				</div>
 			)}
 		</div>

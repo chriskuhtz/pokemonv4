@@ -1,11 +1,11 @@
-import { OwnedPokemon } from '../../interfaces/SaveFile';
+import { OwnedPokemon } from '../../interfaces/OwnedPokemon';
 import { PokemonListItem } from '../PokemonListItem/PokemonListItem';
-import './PokemonList.css';
-export interface PokemonListProps {
+import './TeamGrid.css';
+export interface TeamGridProps {
 	pokemon: OwnedPokemon[];
 }
 
-export const PokemonList = ({ pokemon }: PokemonListProps): JSX.Element => {
+export const TeamGrid = ({ pokemon }: TeamGridProps): JSX.Element => {
 	return (
 		<div className="pokemonList">
 			{pokemon.map((p) => (

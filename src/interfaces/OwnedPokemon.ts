@@ -3,4 +3,5 @@ export interface OwnedPokemon {
 	id: string;
 	onTeam?: boolean;
 	xp: number;
+	damage: number;
 }

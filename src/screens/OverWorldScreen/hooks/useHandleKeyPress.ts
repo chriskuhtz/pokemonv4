@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Direction } from '../../../interfaces/Direction';
+import { RoutesEnum } from '../../../router/router';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
 import { isImpassableOccupant } from '../functions/isImpassableOccupant';
 import { isMerchant, isNpc, isOverworldItem } from '../functions/isNpc';
@@ -19,18 +21,35 @@ export const useHandleKeyPress = (
 	initiateMerchantDialogue: (x: Merchant) => void,
 	continueDialogue: () => void
 ) => {
+	const navigate = useNavigate();
+	const openMarketScreen = useCallback(
+		(x: Merchant) => {
+			navigate(RoutesEnum.market, { state: x.inventory });
+		},
+		[navigate]
+	);
+
 	const handleDialogue = useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
 			if (key === ' ' || key === 'Enter') {
 				if (currentDialogue.length === 1) {
-					if (focusedOccupant) {
+					if (focusedOccupant && isNpc(focusedOccupant)) {
 						handleOccupants([focusedOccupant.id]);
+					}
+					if (focusedOccupant && isMerchant(focusedOccupant)) {
+						openMarketScreen(focusedOccupant);
 					}
 				}
 				continueDialogue();
 			}
 		},
-		[currentDialogue.length, continueDialogue, focusedOccupant, handleOccupants]
+		[
+			currentDialogue,
+			continueDialogue,
+			focusedOccupant,
+			handleOccupants,
+			openMarketScreen,
+		]
 	);
 
 	const handleEnterAndSpace = useCallback(() => {
@@ -44,6 +63,7 @@ export const useHandleKeyPress = (
 			return;
 		}
 		if (isMerchant(nextField.occupant)) {
+			focusOccupant(nextField.occupant.id);
 			initiateMerchantDialogue(nextField.occupant);
 			return;
 		}

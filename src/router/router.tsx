@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { BagScreen } from '../screens/BagScreen/BagScreen';
 import { BattleScreen } from '../screens/BattleScreen/BattleScreen';
+import { MarketScreen } from '../screens/MarketScreen/MarketScreen';
 import { NewGameProcess } from '../screens/NewGameProcessScreen/NewGameProcess';
 import { Overworld } from '../screens/OverWorldScreen/Overworld';
 import { PlayerCardScreen } from '../screens/PlayerCardScreen/PlayerCardScreen';
@@ -13,7 +14,6 @@ import { TeamScreen } from '../screens/TeamScreen/TeamScreen';
 import { OPPOID, TRAINERID } from '../testing/constants/trainerIds';
 import { combatantGenerator } from '../testing/generators/combatantGenerator';
 import { pokemonGenerator } from '../testing/generators/pokemonGenerator';
-import { MarketScreen } from '../screens/MarketScreen/MarketScreen';
 
 export enum RoutesEnum {
 	overworld = '/overworld',

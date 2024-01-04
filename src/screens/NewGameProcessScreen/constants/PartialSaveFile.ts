@@ -8,6 +8,7 @@ export const PARTIAL_SAVE_FILE: Partial<SaveFile> = {
 	currentMapId: 'merchantTest',
 	mapProgress: {},
 	money: 5000,
+	inventory: {} as SaveFile['inventory'],
 	pokemon: [
 		{ dexId: 25, id: v4(), onTeam: true, xp: 100 },
 		{ dexId: 1, id: v4(), xp: 100 },

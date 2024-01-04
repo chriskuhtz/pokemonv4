@@ -50,7 +50,6 @@ export const useOverworld = () => {
 	const [offsetY, setOffsetY] = useState<number>(0);
 	const [forwardFoot, setForwardFoot] = useState<ForwardFoot>('center1');
 	const toggleForwardFoot = useCallback(() => {
-		console.log('toggleFoot');
 		if (forwardFoot === 'center1') {
 			setForwardFoot('right');
 			return;

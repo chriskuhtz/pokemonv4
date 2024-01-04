@@ -36,46 +36,55 @@
 					"sprite": "115"
 				},
 				{
+					"id": "questcheck80",
 					"type": "QUEST_CHECK",
 					"questId": "pickStarter",
 					"position": { "y": 8, "x": 0 }
 				},
 				{
+					"id": "questcheck81",
 					"type": "QUEST_CHECK",
 					"questId": "pickStarter",
 					"position": { "y": 8, "x": 1 }
 				},
 				{
+					"id": "questcheck82",
 					"type": "QUEST_CHECK",
 					"questId": "pickStarter",
 					"position": { "y": 8, "x": 2 }
 				},
 				{
+					"id": "questcheck83",
 					"type": "QUEST_CHECK",
 					"questId": "pickStarter",
 					"position": { "y": 8, "x": 3 }
 				},
 				{
+					"id": "questcheck84",
 					"type": "QUEST_CHECK",
 					"questId": "pickStarter",
 					"position": { "y": 8, "x": 4 }
 				},
 				{
+					"id": "questcheck85",
 					"type": "QUEST_CHECK",
 					"questId": "pickStarter",
 					"position": { "y": 8, "x": 5 }
 				},
 				{
+					"id": "questcheck86",
 					"type": "QUEST_CHECK",
 					"questId": "pickStarter",
 					"position": { "y": 8, "x": 6 }
 				},
 				{
+					"id": "questcheck87",
 					"type": "QUEST_CHECK",
 					"questId": "pickStarter",
 					"position": { "y": 8, "x": 7 }
 				},
 				{
+					"id": "questcheck88",
 					"type": "QUEST_CHECK",
 					"questId": "pickStarter",
 					"position": { "y": 8, "x": 8 }

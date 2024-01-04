@@ -174,7 +174,8 @@ export const useOverworld = () => {
 		handleMovement,
 		focusedOccupant,
 		handleOccupants,
-		() => saveCurrentGameState(true)
+		() => saveCurrentGameState(true),
+		() => saveCurrentGameState()
 	);
 
 	const update = useCallback(() => {

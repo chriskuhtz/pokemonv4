@@ -32,22 +32,25 @@ export const useHandleKeyPress = (
 	handleMovement: (key: string) => void,
 	focusedOccupant: Occupant | undefined,
 	handleOccupants: (x: string[]) => void,
-	healTeam: () => void
+	healTeam: () => void,
+	save: () => void
 ) => {
 	const dispatch = useAppDispatch();
 	const currentDialogue = useSelector(selectCurrentDialogue);
 	const isQuestCompleted = useIsQuestCompleted();
 	const navigate = useNavigate();
 	const openMarketScreen = useCallback(
-		(x: Merchant) => {
+		async (x: Merchant) => {
+			save();
 			navigate(RoutesEnum.market, { state: x.inventory });
 		},
-		[navigate]
+		[navigate, save]
 	);
 
 	const handleDialogue = useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
 			if (key === ' ' || key === 'Enter') {
+				console.log(focusedOccupant, currentDialogue);
 				if (currentDialogue.length === 1) {
 					if (focusedOccupant && isNpc(focusedOccupant)) {
 						handleOccupants([focusedOccupant.id]);
@@ -63,7 +66,7 @@ export const useHandleKeyPress = (
 			}
 		},
 		[
-			currentDialogue.length,
+			currentDialogue,
 			dispatch,
 			focusedOccupant,
 			handleOccupants,

@@ -34,27 +34,29 @@
 					"sprite": "115"
 				},
 				{
-					"id": "questcheck80",
-					"type": "QUEST_CHECK",
-					"questId": "pickStarter",
-					"position": { "y": 8, "x": 0 }
+					"id": "largeRock80",
+					"type": "OBSTACLE",
+					"sprite": "largeRock",
+					"position": { "y": 8, "x": 0 },
+					"height": 2,
+					"width": 2
 				},
 				{
-					"id": "questcheck81",
-					"type": "QUEST_CHECK",
-					"questId": "pickStarter",
+					"id": "invi81",
+					"type": "INVISIBLE_BLOCKER",
 					"position": { "y": 8, "x": 1 }
 				},
 				{
-					"id": "questcheck82",
-					"type": "QUEST_CHECK",
-					"questId": "pickStarter",
-					"position": { "y": 8, "x": 2 }
+					"id": "largeRock82",
+					"type": "OBSTACLE",
+					"sprite": "largeRock",
+					"position": { "y": 8, "x": 2 },
+					"height": 2,
+					"width": 2
 				},
 				{
-					"id": "questcheck83",
-					"type": "QUEST_CHECK",
-					"questId": "pickStarter",
+					"id": "invi83",
+					"type": "INVISIBLE_BLOCKER",
 					"position": { "y": 8, "x": 3 }
 				},
 				{
@@ -64,27 +66,29 @@
 					"position": { "y": 8, "x": 4 }
 				},
 				{
-					"id": "questcheck85",
-					"type": "QUEST_CHECK",
-					"questId": "pickStarter",
-					"position": { "y": 8, "x": 5 }
+					"id": "largeRock85",
+					"type": "OBSTACLE",
+					"sprite": "largeRock",
+					"position": { "y": 8, "x": 5 },
+					"height": 2,
+					"width": 2
 				},
 				{
-					"id": "questcheck86",
-					"type": "QUEST_CHECK",
-					"questId": "pickStarter",
+					"id": "invi86",
+					"type": "INVISIBLE_BLOCKER",
 					"position": { "y": 8, "x": 6 }
 				},
 				{
-					"id": "questcheck87",
-					"type": "QUEST_CHECK",
-					"questId": "pickStarter",
-					"position": { "y": 8, "x": 7 }
+					"id": "largeRock87",
+					"type": "OBSTACLE",
+					"sprite": "largeRock",
+					"position": { "y": 8, "x": 7 },
+					"height": 2,
+					"width": 2
 				},
 				{
-					"id": "questcheck88",
-					"type": "QUEST_CHECK",
-					"questId": "pickStarter",
+					"id": "invi88",
+					"type": "INVISIBLE_BLOCKER",
 					"position": { "y": 8, "x": 8 }
 				}
 			],

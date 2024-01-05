@@ -2,6 +2,7 @@ import {
 	isHealer,
 	isMerchant,
 	isNpc,
+	isObstacle,
 	isOverworldItem,
 } from '../../functions/isNpc';
 import { Occupant } from '../../interfaces/Occupant';
@@ -9,6 +10,7 @@ import { Tile } from '../../interfaces/Overworld';
 import { EncounterGrass } from '../EncounterGrass/EncounterGrass';
 import { OverworldCharacter } from '../OverworldCharacter/OverworldCharacter';
 import { OverworldItem } from '../OverworldItem/OverworldItem';
+import { OverworldObstacle } from '../OverworldObstacle/OverworldObstacle';
 import './OverworldTile.css';
 
 export const OverworldTile = ({
@@ -42,6 +44,9 @@ export const OverworldTile = ({
 				)}
 				{isOverworldItem(occupant) && (
 					<OverworldItem handled={occupant.handled} />
+				)}
+				{isObstacle(occupant) && (
+					<OverworldObstacle obstacle={occupant} zIndex={index} />
 				)}
 				{tile.onStep?.type === 'ENCOUNTER' && (
 					<EncounterGrass occupantOffset={!!occupant} />

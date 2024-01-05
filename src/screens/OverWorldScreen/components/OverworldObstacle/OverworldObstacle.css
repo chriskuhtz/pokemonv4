@@ -1,0 +1,8 @@
+.overworldObstacle {
+	> img {
+		position: relative;
+		bottom: calc(var(--size) * (var(--obstacleHeight) - 1));
+		height: calc(var(--size) * var(--obstacleHeight));
+		width: calc(var(--size) * var(--obstacleWidth));
+	}
+}

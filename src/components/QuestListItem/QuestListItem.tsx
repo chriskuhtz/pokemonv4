@@ -7,7 +7,7 @@ import { Pill } from '../../ui_components/Pill/Pill';
 export const QuestListItem = ({ quest }: { quest: Quest }) => {
 	const conditionFulfilled = useIsQuestConditionFulfilled(quest);
 	const claimQuest = useClaimQuest();
-	console.log(conditionFulfilled);
+
 	return (
 		<Pill
 			leftSide={

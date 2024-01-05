@@ -50,7 +50,6 @@ export const useHandleKeyPress = (
 	const handleDialogue = useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
 			if (key === ' ' || key === 'Enter') {
-				console.log(focusedOccupant, currentDialogue);
 				if (currentDialogue.length === 1) {
 					if (focusedOccupant && isNpc(focusedOccupant)) {
 						handleOccupants([focusedOccupant.id]);

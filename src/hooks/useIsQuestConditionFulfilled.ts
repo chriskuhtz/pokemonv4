@@ -9,7 +9,6 @@ export const useIsQuestConditionFulfilled = (quest: Quest) => {
 	const { data } = useGetSaveFileQuery(username ?? skipToken);
 
 	return useMemo(() => {
-		console.log(quest, data);
 		if (!data) {
 			return false;
 		}

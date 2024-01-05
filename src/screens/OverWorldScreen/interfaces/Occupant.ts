@@ -12,7 +12,8 @@ export type OccupantType =
 	| 'HEALER'
 	| 'QUEST_CHECK'
 	| 'CUSTOM_EVENT'
-	| 'OBSTACLE';
+	| 'OBSTACLE'
+	| 'INVISIBLE_BLOCKER';
 export interface BaseOccupant {
 	id: string;
 	position: Position;
@@ -58,6 +59,11 @@ export interface CustomEventOccupant extends BaseOccupant {
 export interface Obstacle extends BaseOccupant {
 	sprite: string;
 	type: 'OBSTACLE';
+	height: number;
+	width: number;
+}
+export interface InvisibleBlocker extends BaseOccupant {
+	type: 'INVISIBLE_BLOCKER';
 }
 export type Occupant =
 	| Npc
@@ -66,4 +72,5 @@ export type Occupant =
 	| Healer
 	| QuestCheck
 	| CustomEventOccupant
-	| Obstacle;
+	| Obstacle
+	| InvisibleBlocker;

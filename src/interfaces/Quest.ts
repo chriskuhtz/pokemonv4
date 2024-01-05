@@ -4,9 +4,15 @@ export interface OwnedPokemonCondition {
 	type: 'OWNED_POKEMON';
 	ids: number[];
 	mode: 'SOME' | 'ALL';
+	conditionFailMessage?: string;
+}
+export interface HandledOccupantCondition {
+	type: 'HANDLED_OCCUPANT';
+	id: string;
+	conditionFailMessage?: string;
 }
 
-export type QuestCondition = OwnedPokemonCondition;
+export type QuestCondition = OwnedPokemonCondition | HandledOccupantCondition;
 export interface Quest {
 	status: 'active' | 'completed';
 	id: QuestsEnum;

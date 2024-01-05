@@ -1,3 +1,4 @@
+import { CustomEventEnum } from '../../../interfaces/CustomEvent';
 import { Direction } from '../../../interfaces/Direction';
 import { Item, ItemName } from '../../../interfaces/Item';
 import { QuestsEnum } from '../../../interfaces/Quest';
@@ -9,7 +10,8 @@ export type OccupantType =
 	| 'ITEM'
 	| 'MERCHANT'
 	| 'HEALER'
-	| 'QUEST_CHECK';
+	| 'QUEST_CHECK'
+	| 'CUSTOM_EVENT';
 export interface BaseOccupant {
 	id: string;
 	position: Position;
@@ -47,5 +49,15 @@ export interface QuestCheck extends BaseOccupant {
 	type: 'QUEST_CHECK';
 	questId: QuestsEnum;
 }
-
-export type Occupant = Npc | OverworldItem | Merchant | Healer | QuestCheck;
+export interface CustomEventOccupant extends BaseOccupant {
+	eventId: CustomEventEnum;
+	type: 'CUSTOM_EVENT';
+	sprite: string;
+}
+export type Occupant =
+	| Npc
+	| OverworldItem
+	| Merchant
+	| Healer
+	| QuestCheck
+	| CustomEventOccupant;

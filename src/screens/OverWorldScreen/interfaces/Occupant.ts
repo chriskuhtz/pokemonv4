@@ -11,7 +11,8 @@ export type OccupantType =
 	| 'MERCHANT'
 	| 'HEALER'
 	| 'QUEST_CHECK'
-	| 'CUSTOM_EVENT';
+	| 'CUSTOM_EVENT'
+	| 'OBSTACLE';
 export interface BaseOccupant {
 	id: string;
 	position: Position;
@@ -54,10 +55,15 @@ export interface CustomEventOccupant extends BaseOccupant {
 	type: 'CUSTOM_EVENT';
 	sprite: string;
 }
+export interface Obstacle extends BaseOccupant {
+	sprite: string;
+	type: 'OBSTACLE';
+}
 export type Occupant =
 	| Npc
 	| OverworldItem
 	| Merchant
 	| Healer
 	| QuestCheck
-	| CustomEventOccupant;
+	| CustomEventOccupant
+	| Obstacle;

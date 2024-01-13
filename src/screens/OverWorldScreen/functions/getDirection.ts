@@ -1,5 +1,5 @@
 import { Direction } from '../../../interfaces/Direction';
-import { Position } from '../interfaces/Overworld';
+import { Position } from '../interfaces/Position';
 
 export const getDirection = (from: Position, to: Position): Direction => {
 	if (to.x > from.x) {

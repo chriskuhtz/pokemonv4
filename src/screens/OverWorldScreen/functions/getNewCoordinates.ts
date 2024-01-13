@@ -1,5 +1,6 @@
 import { Direction } from '../../../interfaces/Direction';
-import { OverworldMap, Position } from '../interfaces/Overworld';
+import { OverworldMap } from '../interfaces/Overworld';
+import { Position } from '../interfaces/Position';
 
 export const getNewCoordinates = (
 	orientation: Direction,

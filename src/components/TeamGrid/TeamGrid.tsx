@@ -9,7 +9,7 @@ export const TeamGrid = ({ pokemon }: TeamGridProps): JSX.Element => {
 	return (
 		<div className="teamgrid">
 			{pokemon.map((p) => (
-				<PokemonListItem pokemon={p} />
+				<PokemonListItem key={p.id} pokemon={p} />
 			))}
 		</div>
 	);

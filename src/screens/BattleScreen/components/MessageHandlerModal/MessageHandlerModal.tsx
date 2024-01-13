@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { Modal } from '../../../../ui_components/Modal/Modal';
 
+//might be the same as overworld dialogue
 export const MessageHandlerModal = ({
 	messages,
 	handleNextSnapshot,

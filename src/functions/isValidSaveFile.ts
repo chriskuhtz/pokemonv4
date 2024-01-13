@@ -7,6 +7,11 @@ export const isValidSaveFile = (x: Partial<SaveFile>): x is SaveFile => {
 		x.username &&
 		x.sprite &&
 		x.id &&
-		x.mapProgress
+		x.mapProgress &&
+		x.currentMapId &&
+		x.inventory &&
+		x.pokedex &&
+		x.pokemon &&
+		x.quests
 	);
 };

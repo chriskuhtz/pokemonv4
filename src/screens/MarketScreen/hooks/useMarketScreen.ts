@@ -6,6 +6,7 @@ import {
 	useGetSaveFileQuery,
 	usePutSaveFileMutation,
 } from '../../../api/saveFileApi';
+import { addItemStacksToInventory } from '../../../functions/addItemStacksToInventory';
 import { getUserName } from '../../../functions/getUserName';
 import { Item, ItemName, ItemStack } from '../../../interfaces/Item';
 import { ItemData } from '../../../shared/interfaces/ItemData';
@@ -70,16 +71,7 @@ export const useMarketScreen = () => {
 			return;
 		}
 		const updatedFunds = data.money - totalCost;
-		const updatedInventory = { ...data?.inventory };
-
-		cart.forEach((cartItem) => {
-			if (updatedInventory[cartItem.item.id]) {
-				updatedInventory[cartItem.item.id] = {
-					...updatedInventory[cartItem.item.id],
-					amount: updatedInventory[cartItem.item.id].amount + cartItem.amount,
-				};
-			} else updatedInventory[cartItem.item.id] = cartItem;
-		});
+		const updatedInventory = addItemStacksToInventory(data.inventory, cart);
 		void saveFile({
 			...data,
 			inventory: updatedInventory,

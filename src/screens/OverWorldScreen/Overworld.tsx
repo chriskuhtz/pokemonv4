@@ -7,7 +7,7 @@ import { Modal } from '../../ui_components/Modal/Modal';
 import { Pill } from '../../ui_components/Pill/Pill';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
 import { FetchingScreen } from '../FetchingScreen/FetchingScreen';
-import { OverworldRow } from './components/OverworldRow/OverworldRow';
+import { OverworldMapLayer } from './components/OverworldMapLayer/OverworldMapLayer';
 import { PlayerCharacter } from './components/PlayerCharacter/PlayerCharacter';
 import { useOverworld } from './hooks/useOverworld';
 import './overworld.css';
@@ -60,21 +60,13 @@ export const OverworldWrapper = (): JSX.Element => {
 				/>
 				<div className="camera">
 					<div
-						className="layer"
-						id="mapLayer"
+						className="layerWrapper"
 						style={{
 							top: (-offsetY + playerOffsetY) * tileSize,
 							left: (-offsetX + playerOffsetX) * tileSize,
 						}}
 					>
-						{currentWorld.map.map((row, i) => (
-							<OverworldRow
-								baseTile={currentWorld.baseTile}
-								key={i}
-								index={i}
-								row={row}
-							/>
-						))}
+						<OverworldMapLayer currentWorld={currentWorld} />
 					</div>
 
 					<PlayerCharacter

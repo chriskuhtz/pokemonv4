@@ -35,7 +35,7 @@ export const OverworldTile = ({
 		selectOccupantByPosition(state, position)
 	);
 
-	console.log('render tile');
+	console.log(`render tile position ${position.x}  ${position.y}`);
 	return (
 		<>
 			<div

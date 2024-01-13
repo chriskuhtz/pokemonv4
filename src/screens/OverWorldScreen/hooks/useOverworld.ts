@@ -9,10 +9,11 @@ import { Direction } from '../../../interfaces/Direction';
 import { ForwardFoot } from '../../../interfaces/ForwardFoot';
 import {
 	handleOccupants,
-	moveOccupantsReducer,
 	selectFocusedOccupant,
+	selectOccupants,
 	setOccupants,
 } from '../../../slices/occupantsSlice';
+import { moveOccupants } from '../functions/moveOccupants';
 import { OverworldMap } from '../interfaces/Overworld';
 import { PortalEvent } from '../interfaces/OverworldEvent';
 import { mockMap } from '../mockMap';
@@ -159,6 +160,7 @@ export const useOverworld = () => {
 	);
 
 	const focusedOccupant = useSelector(selectFocusedOccupant);
+	const occupants = useSelector(selectOccupants);
 
 	const update = useCallback(() => {
 		if (nextInput) {
@@ -168,15 +170,25 @@ export const useOverworld = () => {
 			setForwardFoot('center1');
 		}
 		if (!focusedOccupant) {
-			dispatch(
-				moveOccupantsReducer({
-					x: offsetX,
-					y: offsetY,
-				})
-			);
+			const { newOccupants, hasChanges } = moveOccupants(occupants, {
+				x: offsetX,
+				y: offsetY,
+			});
+			if (hasChanges) {
+				dispatch(setOccupants(newOccupants));
+			}
 		}
+
 		setNextInput(undefined);
-	}, [dispatch, focusedOccupant, handleKeyPress, nextInput, offsetX, offsetY]);
+	}, [
+		dispatch,
+		focusedOccupant,
+		handleKeyPress,
+		nextInput,
+		occupants,
+		offsetX,
+		offsetY,
+	]);
 
 	const tryToSetNextInput = useCallback(
 		(x: React.KeyboardEvent<HTMLDivElement>) => {

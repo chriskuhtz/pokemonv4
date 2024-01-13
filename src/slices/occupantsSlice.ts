@@ -2,12 +2,10 @@ import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '../api/store';
 import { isOverworldItem } from '../screens/OverWorldScreen/functions/OccupantTypeGuards';
-import { moveOccupants } from '../screens/OverWorldScreen/functions/moveOccupants';
 import {
 	Occupant,
 	OverworldItem,
 } from '../screens/OverWorldScreen/interfaces/Occupant';
-import { Position } from '../screens/OverWorldScreen/interfaces/Position';
 
 export interface OccupantsSlice {
 	occupants: Occupant[];
@@ -45,25 +43,11 @@ export const occupantsSlice = createSlice({
 				} else return o;
 			});
 		},
-		moveOccupants: (state, action: PayloadAction<Position>) => {
-			const { newOccupants, hasChanges } = moveOccupants(
-				state.occupants,
-				action.payload
-			);
-			if (hasChanges) {
-				state.occupants = newOccupants;
-			}
-		},
 	},
 });
 
-export const {
-	unfocusOccupant,
-	focusOccupant,
-	handleOccupants,
-	setOccupants,
-	moveOccupants: moveOccupantsReducer,
-} = occupantsSlice.actions;
+export const { unfocusOccupant, focusOccupant, handleOccupants, setOccupants } =
+	occupantsSlice.actions;
 
 export const selectOccupants = (rootState: RootState): Occupant[] => {
 	return rootState.occupantsSlice.occupants;

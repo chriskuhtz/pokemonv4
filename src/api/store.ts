@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 // Or from '@reduxjs/toolkit/query/react'
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { useDispatch } from 'react-redux';
+import { loggerMiddleware } from '../middleware/logger';
 import { dialogueSlice } from '../slices/dialogueSlice';
 import { occupantsSlice } from '../slices/occupantsSlice';
 import { mapApi } from './mapApi';
@@ -23,7 +24,8 @@ export const store = configureStore({
 		getDefaultMiddleware()
 			.concat(saveFileApi.middleware)
 			.concat(mapApi.middleware)
-			.concat(pokeApi.middleware),
+			.concat(pokeApi.middleware)
+			.concat(loggerMiddleware),
 });
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors

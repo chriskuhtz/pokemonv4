@@ -20,7 +20,7 @@ export const OverworldRow = ({
 	const occupants = useSelector((state) =>
 		selectOccupantsByYCoordinate(state, index)
 	);
-	console.log(occupants);
+
 	return (
 		<div className="row" key={index}>
 			{row.map((tile, j) => {

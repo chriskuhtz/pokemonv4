@@ -94,7 +94,12 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: RoutesEnum.starterSelection,
-		element: <PokemonSelectionScreen choices={[1, 4, 7]} />,
+		element: (
+			<PokemonSelectionScreen
+				choices={[1, 4, 7]}
+				headline={'Select your First Pokemon'}
+			/>
+		),
 	},
 	{ path: RoutesEnum.test, element: <TestArea /> },
 ]);

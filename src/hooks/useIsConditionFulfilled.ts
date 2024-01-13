@@ -1,19 +1,22 @@
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useMemo } from 'react';
+import { useCallback } from 'react';
 import { useGetSaveFileQuery } from '../api/saveFileApi';
 import { getUserName } from '../functions/getUserName';
 import { isOwnedPokemonQuestFulfilled } from '../functions/isOwnedPokemonQuestFulfilled';
-import { Quest } from '../interfaces/Quest';
+import { Condition } from '../interfaces/Quest';
 
-export const useIsQuestConditionFulfilled = (quest: Quest) => {
+export const useIsConditionFulfilled = () => {
 	const username = getUserName();
 	const { data } = useGetSaveFileQuery(username ?? skipToken);
 
-	return useMemo(() => {
-		if (!data) {
-			return false;
-		}
+	return useCallback(
+		(condition: Condition) => {
+			if (!data) {
+				return false;
+			}
 
-		return isOwnedPokemonQuestFulfilled(quest, data.pokedex);
-	}, [data, quest]);
+			return isOwnedPokemonQuestFulfilled(condition, data.pokedex);
+		},
+		[data]
+	);
 };

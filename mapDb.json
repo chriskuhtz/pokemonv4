@@ -35,7 +35,16 @@
 					"sprite": "pokeballMachine",
 					"height": 3,
 					"width": 2,
-					"onClick": { "type": "ROUTE", "to": "/starterSelection" }
+					"onClick": {
+						"type": "ROUTE",
+						"to": "/starterSelection",
+						"condition": {
+							"type": "NOT_REGISTERED_POKEMON",
+							"ids": [1, 4, 7],
+							"mode": "ALL",
+							"conditionFailMessage": "You already chose a starter Pokemon."
+						}
+					}
 				},
 				{
 					"id": "invi26",

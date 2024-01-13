@@ -1,8 +1,10 @@
 import { Direction } from '../../../interfaces/Direction';
+import { Condition } from '../../../interfaces/Quest';
 import { RoutesEnum } from '../../../router/router';
 
 export interface BaseEvent {
 	type: 'ENCOUNTER' | 'PORTAL' | 'ROUTE';
+	condition?: Condition;
 }
 
 export interface EncounterEvent extends BaseEvent {

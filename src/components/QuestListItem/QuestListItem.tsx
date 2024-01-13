@@ -1,17 +1,17 @@
 import { useClaimQuest } from '../../hooks/useClaimQuest';
-import { useIsQuestConditionFulfilled } from '../../hooks/useIsQuestConditionFulfilled';
+import { useIsConditionFulfilled } from '../../hooks/useIsConditionFulfilled';
 import { Quest } from '../../interfaces/Quest';
 import { IconWithTag } from '../../shared/components/IconWithTag/IconWithTag';
 import { Pill } from '../../ui_components/Pill/Pill';
 
 export const QuestListItem = ({ quest }: { quest: Quest }) => {
-	const conditionFulfilled = useIsQuestConditionFulfilled(quest);
+	const isConditionFulfilled = useIsConditionFulfilled();
 	const claimQuest = useClaimQuest();
 
 	return (
 		<Pill
 			leftSide={
-				conditionFulfilled && quest.status === 'active' ? (
+				quest.status === 'active' && isConditionFulfilled(quest.condition) ? (
 					<Pill onClick={() => claimQuest(quest)} center={'claim'} />
 				) : (
 					quest.status

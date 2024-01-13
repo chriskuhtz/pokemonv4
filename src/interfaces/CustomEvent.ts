@@ -1,4 +1,4 @@
-import { QuestCondition } from './Quest';
+import { Condition } from './Quest';
 
 export enum CustomEventEnum {
 	starterSelection = 'starterSelection',
@@ -6,7 +6,7 @@ export enum CustomEventEnum {
 
 export interface CustomEvent {
 	id: CustomEventEnum;
-	condition: QuestCondition;
+	condition: Condition;
 }
 export const StarterSelectionEvent: CustomEvent = {
 	id: CustomEventEnum.starterSelection,

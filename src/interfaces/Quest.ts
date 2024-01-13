@@ -6,13 +6,23 @@ export interface OwnedPokemonCondition {
 	mode: 'SOME' | 'ALL';
 	conditionFailMessage?: string;
 }
+export interface NotRegisteredPokemonCondition {
+	type: 'NOT_REGISTERED_POKEMON';
+	ids: number[];
+	mode: 'SOME' | 'ALL';
+	conditionFailMessage?: string;
+}
 export interface HandledOccupantCondition {
 	type: 'HANDLED_OCCUPANT';
 	id: string;
 	conditionFailMessage?: string;
 }
 
-export type QuestCondition = OwnedPokemonCondition | HandledOccupantCondition;
+export type Condition =
+	| OwnedPokemonCondition
+	| HandledOccupantCondition
+	| NotRegisteredPokemonCondition;
+
 export interface Quest {
 	status: 'active' | 'completed';
 	id: QuestsEnum;
@@ -20,7 +30,7 @@ export interface Quest {
 	description: string;
 	rewardMoney?: number;
 	rewardItems?: ItemStack[];
-	condition: QuestCondition;
+	condition: Condition;
 }
 
 export enum QuestsEnum {

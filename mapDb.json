@@ -13,9 +13,33 @@
 						"Hello",
 						"It's nice to meet you.",
 						"Congratulations on obtaining your Pokemon Trainer License.",
+						"It is my privilege and responsibility to give you your first Pokemon.",
 						"As your first Pokemon Partner, you can choose one of the 3 from the Machine next to me."
 					],
 					"sprite": "136"
+				},
+				{
+					"id": "invi15",
+					"type": "INVISIBLE_BLOCKER",
+					"position": { "y": 1, "x": 5 }
+				},
+				{
+					"id": "invi16",
+					"type": "INVISIBLE_BLOCKER",
+					"position": { "y": 1, "x": 6 }
+				},
+				{
+					"id": "ballMachine25",
+					"type": "OBSTACLE",
+					"position": { "y": 2, "x": 5 },
+					"sprite": "pokeballMachine",
+					"height": 3,
+					"width": 2
+				},
+				{
+					"id": "invi26",
+					"type": "INVISIBLE_BLOCKER",
+					"position": { "y": 2, "x": 6 }
 				},
 				{
 					"id": "merchant",

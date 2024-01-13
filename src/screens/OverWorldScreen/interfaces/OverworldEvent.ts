@@ -1,7 +1,8 @@
 import { Direction } from '../../../interfaces/Direction';
+import { RoutesEnum } from '../../../router/router';
 
 export interface BaseEvent {
-	type: 'ENCOUNTER' | 'PORTAL';
+	type: 'ENCOUNTER' | 'PORTAL' | 'ROUTE';
 }
 
 export interface EncounterEvent extends BaseEvent {
@@ -15,5 +16,9 @@ export interface PortalEvent extends BaseEvent {
 	y: number;
 	orientation: Direction;
 }
+export interface RouterEvent extends BaseEvent {
+	type: 'ROUTE';
+	to: RoutesEnum;
+}
 
-export type OverworldEvent = EncounterEvent | PortalEvent;
+export type OverworldEvent = EncounterEvent | PortalEvent | RouterEvent;

@@ -19,7 +19,7 @@ export const OverworldObstacle = ({
 			}
 		>
 			<img
-				style={{ zIndex: zIndex + obstacle.height - 1 }}
+				style={{ zIndex: zIndex }}
 				src={`assets/mapObjects/${obstacle.sprite}.png`}
 			/>
 		</div>

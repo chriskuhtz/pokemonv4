@@ -1,8 +1,8 @@
-import { CustomEventEnum } from '../../../interfaces/CustomEvent';
 import { Direction } from '../../../interfaces/Direction';
 import { Item, ItemName } from '../../../interfaces/Item';
 import { QuestsEnum } from '../../../interfaces/Quest';
 import { Movement } from './Movement';
+import { OverworldEvent } from './OverworldEvent';
 import { Position } from './Position';
 
 export type OccupantType =
@@ -11,7 +11,6 @@ export type OccupantType =
 	| 'MERCHANT'
 	| 'HEALER'
 	| 'QUEST_CHECK'
-	| 'CUSTOM_EVENT'
 	| 'OBSTACLE'
 	| 'INVISIBLE_BLOCKER';
 export interface BaseOccupant {
@@ -51,16 +50,13 @@ export interface QuestCheck extends BaseOccupant {
 	type: 'QUEST_CHECK';
 	questId: QuestsEnum;
 }
-export interface CustomEventOccupant extends BaseOccupant {
-	eventId: CustomEventEnum;
-	type: 'CUSTOM_EVENT';
-	sprite: string;
-}
+
 export interface Obstacle extends BaseOccupant {
 	sprite: string;
 	type: 'OBSTACLE';
 	height: number;
 	width: number;
+	onClick?: OverworldEvent;
 }
 export interface InvisibleBlocker extends BaseOccupant {
 	type: 'INVISIBLE_BLOCKER';
@@ -71,6 +67,5 @@ export type Occupant =
 	| Merchant
 	| Healer
 	| QuestCheck
-	| CustomEventOccupant
 	| Obstacle
 	| InvisibleBlocker;

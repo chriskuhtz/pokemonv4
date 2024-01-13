@@ -18,11 +18,25 @@ import {
 	isHealer,
 	isMerchant,
 	isNpc,
+	isObstacle,
 	isOverworldItem,
 } from '../functions/isNpc';
 import { Merchant, Occupant } from '../interfaces/Occupant';
+import { OverworldEvent } from '../interfaces/OverworldEvent';
 import { useIsQuestCompleted } from './useIsQuestCompleted';
 import { NextFieldInfo } from './useNextField';
+
+export const useHandleOverworldEvent = () => {
+	const navigate = useNavigate();
+	return useCallback(
+		(event: OverworldEvent) => {
+			if (event.type === 'ROUTE') {
+				navigate(event.to);
+			}
+		},
+		[navigate]
+	);
+};
 
 export const useHandleKeyPress = (
 	focusOccupant: (id: string) => void,
@@ -73,6 +87,7 @@ export const useHandleKeyPress = (
 			healTeam,
 		]
 	);
+	const handleOverworldEvent = useHandleOverworldEvent();
 
 	const handleEnterAndSpace = useCallback(() => {
 		if (isOverworldItem(nextField.occupant) && !nextField.occupant.handled) {
@@ -95,7 +110,16 @@ export const useHandleKeyPress = (
 			dispatch(initiateHealerDialogue());
 			return;
 		}
-	}, [nextField.occupant, dispatch, handleOccupants, focusOccupant]);
+		if (isObstacle(nextField.occupant) && nextField.occupant.onClick) {
+			handleOverworldEvent(nextField.occupant.onClick);
+		}
+	}, [
+		nextField.occupant,
+		dispatch,
+		handleOccupants,
+		focusOccupant,
+		handleOverworldEvent,
+	]);
 
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {

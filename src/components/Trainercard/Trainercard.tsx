@@ -1,4 +1,4 @@
-import { useRotate } from '../../screens/NewGameProcessScreen/hooks/useRotate';
+import { useRotate } from '../../hooks/useRotate';
 import { CharacterSprite } from '../CharacterSprite/CharacterSprite';
 import './trainercard.css';
 

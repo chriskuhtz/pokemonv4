@@ -15,6 +15,7 @@ export const HydratedInventory = ({
 		<div style={{ display: 'flex', flexDirection: 'column', gap: '.5rem' }}>
 			{hydratedInventory.map((inventoryItem) => (
 				<MarketListItem
+					key={inventoryItem.id}
 					item={inventoryItem}
 					onClick={() => addToCart(inventoryItem)}
 				/>

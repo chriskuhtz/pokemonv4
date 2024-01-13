@@ -34,7 +34,8 @@
 					"position": { "y": 2, "x": 5 },
 					"sprite": "pokeballMachine",
 					"height": 3,
-					"width": 2
+					"width": 2,
+					"onClick": { "type": "ROUTE", "to": "/starterSelection" }
 				},
 				{
 					"id": "invi26",

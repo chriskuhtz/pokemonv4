@@ -61,7 +61,7 @@ export const useHandleKeyPress = (
 		[currentDialogue, dispatch, focusedOccupant, openMarketScreen, healTeam]
 	);
 
-	const handleEnterAndSpace = useHandleEnterAndSpace(nextField.occupant);
+	const handleEnterAndSpace = useHandleEnterAndSpace(save, nextField.occupant);
 
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {

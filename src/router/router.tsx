@@ -7,6 +7,7 @@ import { OverworldWrapper } from '../screens/OverWorldScreen/Overworld';
 import { PlayerCardScreen } from '../screens/PlayerCardScreen/PlayerCardScreen';
 import { PlayerMenu } from '../screens/PlayerMenuScreen/PlayerMenuScreen';
 import { PokedexScreen } from '../screens/PokedexScreen/PokedexScreen';
+import { PokemonSelectionScreen } from '../screens/PokemonSelection/PokemonSelectionScreen';
 import { QuestsScreen } from '../screens/QuestsScreen/QuestsScreen';
 import { SaveFileSelection } from '../screens/SaveFileSelectionScreen/SaveFileSelection';
 import { StorageScreen } from '../screens/StorageScreen/StorageScreen';
@@ -28,6 +29,7 @@ export enum RoutesEnum {
 	bag = '/bag',
 	quests = '/quests',
 	market = '/market',
+	starterSelection = '/starterSelection',
 	test = '/test',
 }
 
@@ -89,6 +91,10 @@ export const router = createBrowserRouter([
 	{
 		path: RoutesEnum.newGame,
 		element: <NewGameProcess />,
+	},
+	{
+		path: RoutesEnum.starterSelection,
+		element: <PokemonSelectionScreen choices={[1, 4, 7]} />,
 	},
 	{ path: RoutesEnum.test, element: <TestArea /> },
 ]);

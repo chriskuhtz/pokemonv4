@@ -17,11 +17,15 @@ import {
 import { Occupant } from '../interfaces/Occupant';
 import { useHandleOverworldEvent } from './useHandleOverworldEvent';
 
-export const useHandleEnterAndSpace = (occupant?: Occupant) => {
+export const useHandleEnterAndSpace = (
+	save: () => void,
+	occupant?: Occupant
+) => {
 	const dispatch = useAppDispatch();
-	const handleOverworldEvent = useHandleOverworldEvent();
+	const handleOverworldEvent = useHandleOverworldEvent(save);
 
 	return useCallback(() => {
+		console.log(occupant);
 		if (isOverworldItem(occupant) && !occupant.handled) {
 			dispatch(initiateItemDialogue(occupant));
 			dispatch(handleOccupants([occupant.id]));

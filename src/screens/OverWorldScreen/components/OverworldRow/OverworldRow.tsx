@@ -1,4 +1,4 @@
-import { Tile } from '../../interfaces/Overworld';
+import { BaseTileId, Tile } from '../../interfaces/Overworld';
 import { OverworldTile } from '../OverworldTile/OverworldTile';
 import './OverworldRow.css';
 
@@ -19,7 +19,7 @@ export const OverworldRow = ({
 				return (
 					<OverworldTile
 						key={`${index}+${j}`}
-						baseTile={baseTile}
+						baseTile={baseTile as BaseTileId}
 						tile={tile}
 						index={index}
 						position={{ y: index, x: j }}

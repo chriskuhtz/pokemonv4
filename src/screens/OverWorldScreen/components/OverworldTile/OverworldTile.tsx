@@ -11,7 +11,7 @@ import {
 	isObstacle,
 	isOverworldItem,
 } from '../../functions/OccupantTypeGuards';
-import { BaseTileId, Tile } from '../../interfaces/Overworld';
+import { BaseTileId, DecorationMap, Tile } from '../../interfaces/Overworld';
 import { Position } from '../../interfaces/Position';
 import { OverworldCharacter } from '../OverworldCharacter/OverworldCharacter';
 import { OverworldItem } from '../OverworldItem/OverworldItem';
@@ -60,9 +60,17 @@ export const OverworldTile = ({
 				{isObstacle(occupant) && (
 					<OverworldObstacle obstacle={occupant} zIndex={index} />
 				)}
-				{tile.onStep?.type === 'ENCOUNTER' && (
-					<TileDecoration occupantOffset={!!occupant} />
-				)}
+
+				<TileDecoration
+					occupantOffset={!!occupant}
+					decoration={
+						tile.decoration ??
+						//@ts-expect-error Comparison is not unintentional
+						(tile.onStep === 'ENCOUNTER'
+							? DecorationMap['tallGrass']
+							: undefined)
+					}
+				/>
 			</div>
 		</>
 	);

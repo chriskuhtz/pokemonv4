@@ -1,10 +1,10 @@
 import { Headline } from '../../components/Headline/Headline';
-import { MarketListItem } from '../../components/MarketListItem/MarketListItem';
 import { RoutesEnum } from '../../router/router';
-import { Pill } from '../../ui_components/Pill/Pill';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
 import { FetchingScreen } from '../FetchingScreen/FetchingScreen';
 import './MarketScreen.css';
+import { Cart } from './components/Cart';
+import { HydratedInventory } from './components/HydratedInventory';
 import { useMarketScreen } from './hooks/useMarketScreen';
 
 export const MarketScreen = (): JSX.Element => {
@@ -28,49 +28,22 @@ export const MarketScreen = (): JSX.Element => {
 			/>
 			{isError && <ErrorScreen />}
 			{isFetching && <FetchingScreen />}
-			{hydratedInventory && data && (
+			{data && (
 				<div className="marketScreen">
 					<div>
 						<h3 className="availableFunds">Available Funds: {data.money}$</h3>
-						<div
-							style={{ display: 'flex', flexDirection: 'column', gap: '.5rem' }}
-						>
-							{hydratedInventory.map((inventoryItem) => (
-								<MarketListItem
-									item={inventoryItem}
-									onClick={() => addToCart(inventoryItem)}
-								/>
-							))}
-						</div>
+						<HydratedInventory
+							addToCart={addToCart}
+							hydratedInventory={hydratedInventory}
+						/>
 					</div>
-					{cart.length > 0 && (
-						<div className="cart">
-							<div>
-								{cart.map((cartItem) => (
-									<h3 className="cartItem">
-										<span>
-											{cartItem.amount} {cartItem.item.id}
-										</span>
-										<span onClick={() => removeFromCart(cartItem)}>
-											{cartItem.amount === 1 ? 'X' : '-'}
-										</span>
-									</h3>
-								))}
-							</div>
-							<div>
-								<h3 className="cartTotal">
-									<span>TOTAL :</span>
-									<span>{totalCost}$</span>{' '}
-								</h3>
-								<Pill
-									disabled={totalCost > data.money}
-									className="buyButton"
-									center={'Buy'}
-									onClick={purchase}
-								/>
-							</div>
-						</div>
-					)}
+					<Cart
+						cart={cart}
+						removeFromCart={removeFromCart}
+						totalCost={totalCost}
+						money={data.money}
+						purchase={purchase}
+					/>
 				</div>
 			)}
 		</div>

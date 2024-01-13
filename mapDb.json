@@ -2,7 +2,7 @@
 	"maps": [
 		{
 			"id": "starterTown",
-			"baseTile": "cobblestone",
+			"baseTile": "grass",
 			"encounters": ["pidgey", "rattata", "spearow"],
 			"occupants": [
 				{

@@ -2,41 +2,19 @@ import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../api/store';
+import { useIsQuestCompleted } from '../../../hooks/useIsQuestCompleted';
 import { Direction } from '../../../interfaces/Direction';
 import { RoutesEnum } from '../../../router/router';
 import {
 	continueDialogue,
-	initiateHealerDialogue,
-	initiateItemDialogue,
-	initiateMerchantDialogue,
-	initiateNpcDialogue,
 	selectCurrentDialogue,
 } from '../../../slices/dialogueSlice';
+import { isHealer, isMerchant, isNpc } from '../functions/OccupantTypeGuards';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
 import { isImpassableOccupant } from '../functions/isImpassableOccupant';
-import {
-	isHealer,
-	isMerchant,
-	isNpc,
-	isObstacle,
-	isOverworldItem,
-} from '../functions/isNpc';
 import { Merchant, Occupant } from '../interfaces/Occupant';
-import { OverworldEvent } from '../interfaces/OverworldEvent';
-import { useIsQuestCompleted } from './useIsQuestCompleted';
+import { useHandleEnterAndSpace } from './useHandleEnterAndSpace';
 import { NextFieldInfo } from './useNextField';
-
-export const useHandleOverworldEvent = () => {
-	const navigate = useNavigate();
-	return useCallback(
-		(event: OverworldEvent) => {
-			if (event.type === 'ROUTE') {
-				navigate(event.to);
-			}
-		},
-		[navigate]
-	);
-};
 
 export const useHandleKeyPress = (
 	focusOccupant: (id: string) => void,
@@ -87,39 +65,12 @@ export const useHandleKeyPress = (
 			healTeam,
 		]
 	);
-	const handleOverworldEvent = useHandleOverworldEvent();
 
-	const handleEnterAndSpace = useCallback(() => {
-		if (isOverworldItem(nextField.occupant) && !nextField.occupant.handled) {
-			dispatch(initiateItemDialogue(nextField.occupant));
-			handleOccupants([nextField.occupant.id]);
-			return;
-		}
-		if (isNpc(nextField.occupant)) {
-			focusOccupant(nextField.occupant.id);
-			dispatch(initiateNpcDialogue(nextField.occupant));
-			return;
-		}
-		if (isMerchant(nextField.occupant)) {
-			focusOccupant(nextField.occupant.id);
-			dispatch(initiateMerchantDialogue(nextField.occupant));
-			return;
-		}
-		if (isHealer(nextField.occupant)) {
-			focusOccupant(nextField.occupant.id);
-			dispatch(initiateHealerDialogue());
-			return;
-		}
-		if (isObstacle(nextField.occupant) && nextField.occupant.onClick) {
-			handleOverworldEvent(nextField.occupant.onClick);
-		}
-	}, [
-		nextField.occupant,
-		dispatch,
+	const handleEnterAndSpace = useHandleEnterAndSpace(
 		handleOccupants,
 		focusOccupant,
-		handleOverworldEvent,
-	]);
+		nextField.occupant
+	);
 
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {

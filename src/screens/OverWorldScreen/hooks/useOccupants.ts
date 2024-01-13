@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { isOverworldItem } from '../functions/isNpc';
+import { isOverworldItem } from '../functions/OccupantTypeGuards';
 import { Occupant, OverworldItem } from '../interfaces/Occupant';
 import { OverworldMap } from '../interfaces/Overworld';
 
+//redux slice
 export const useOccupants = (currentWorld: OverworldMap) => {
 	const [occupants, setOccupants] = useState<Occupant[]>([]);
 	useEffect(() => {

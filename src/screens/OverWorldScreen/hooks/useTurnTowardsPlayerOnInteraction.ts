@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Direction } from '../../../interfaces/Direction';
 import { selectCurrentDialogue } from '../../../slices/dialogueSlice';
-import { isHealer, isMerchant, isNpc } from '../functions/isNpc';
+import { isHealer, isMerchant, isNpc } from '../functions/OccupantTypeGuards';
 import { oppositeDirection } from '../functions/oppositeDirection';
 import { Occupant } from '../interfaces/Occupant';
 import { NextFieldInfo } from './useNextField';

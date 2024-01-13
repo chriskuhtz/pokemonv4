@@ -4,7 +4,7 @@ import {
 	isNpc,
 	isObstacle,
 	isOverworldItem,
-} from '../../functions/isNpc';
+} from '../../functions/OccupantTypeGuards';
 import { Occupant } from '../../interfaces/Occupant';
 import { Tile } from '../../interfaces/Overworld';
 import { OverworldCharacter } from '../OverworldCharacter/OverworldCharacter';

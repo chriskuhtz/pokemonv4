@@ -1,5 +1,5 @@
 import { Occupant, QuestCheck } from '../interfaces/Occupant';
-import { isOverworldItem, isQuestCheck } from './isNpc';
+import { isOverworldItem, isQuestCheck } from './OccupantTypeGuards';
 
 export const isImpassableOccupant = (
 	isQuestCompleted: (x: QuestCheck) => boolean,

@@ -1,10 +1,10 @@
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useCallback } from 'react';
-import { useGetSaveFileQuery } from '../../../api/saveFileApi';
-import { useAppDispatch } from '../../../api/store';
-import { getUserName } from '../../../functions/getUserName';
-import { initiateQuestDialogue } from '../../../slices/dialogueSlice';
-import { QuestCheck } from '../interfaces/Occupant';
+import { useGetSaveFileQuery } from '../api/saveFileApi';
+import { useAppDispatch } from '../api/store';
+import { getUserName } from '../functions/getUserName';
+import { QuestCheck } from '../screens/OverWorldScreen/interfaces/Occupant';
+import { initiateQuestDialogue } from '../slices/dialogueSlice';
 
 export const useIsQuestCompleted = () => {
 	const dispatch = useAppDispatch();

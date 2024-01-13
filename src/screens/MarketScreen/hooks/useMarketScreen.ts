@@ -7,8 +7,9 @@ import {
 	usePutSaveFileMutation,
 } from '../../../api/saveFileApi';
 import { addItemStacksToInventory } from '../../../functions/addItemStacksToInventory';
+import { addItemToStackList } from '../../../functions/addItemToStackList';
 import { getUserName } from '../../../functions/getUserName';
-import { Item, ItemName, ItemStack } from '../../../interfaces/Item';
+import { Item, ItemStack } from '../../../interfaces/Item';
 import { ItemData } from '../../../shared/interfaces/ItemData';
 
 export const useMarketScreen = () => {
@@ -31,23 +32,9 @@ export const useMarketScreen = () => {
 
 	const [cart, setCart] = useState<ItemStack[]>([]);
 
-	const addToCart = useCallback(
-		(x: ItemData) => {
-			const existingStack = cart.find((stack) => stack.item.id === x.name);
-
-			if (existingStack) {
-				setCart((cart) =>
-					cart
-						.filter((stack) => stack.item.id !== x.name)
-						.concat({ ...existingStack, amount: existingStack.amount + 1 })
-				);
-			} else
-				setCart((cart) =>
-					cart.concat({ item: { id: x.name as ItemName }, amount: 1 })
-				);
-		},
-		[cart]
-	);
+	const addToCart = useCallback((x: ItemData) => {
+		setCart((cart) => addItemToStackList(cart, x));
+	}, []);
 
 	const removeFromCart = useCallback((x: ItemStack) => {
 		const updatedStack = { ...x, amount: x.amount - 1 };

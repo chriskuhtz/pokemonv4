@@ -27,7 +27,6 @@ import { useOnPortalStep } from './useOnPortalStep';
 import { useOnSaveFileLoad } from './useOnSaveFileLoad';
 import { useSaveGame } from './useSaveGame';
 import { useTurnTowardsPlayerOnInteraction } from './useTurnTowardsPlayerOnInteraction';
-import { useWatchedFields } from './useWatchedFields';
 
 const fps = 15;
 
@@ -107,14 +106,8 @@ export const useOverworld = () => {
 	>();
 
 	const nextField = useNextField(orientation, offsetX, offsetY, currentWorld);
-	const watchedFields = useWatchedFields();
-	const currentField = useCurrentField(
-		watchedFields,
-		offsetX,
-		offsetY,
 
-		currentWorld
-	);
+	const currentField = useCurrentField(offsetX, offsetY, currentWorld);
 
 	const handlePortalEvent = useCallback(
 		async (portalEvent: PortalEvent) => {
@@ -207,7 +200,6 @@ export const useOverworld = () => {
 		offsetX,
 		offsetY,
 		orientation,
-		watchedFields,
 		saveGame: saveCurrentGameState,
 		saveFile,
 		isFetching: isMapFetching || isSaveFileFetching,

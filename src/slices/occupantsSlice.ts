@@ -1,11 +1,17 @@
 import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '../api/store';
-import { isOverworldItem } from '../screens/OverWorldScreen/functions/OccupantTypeGuards';
+import {
+	isNpc,
+	isOverworldItem,
+} from '../screens/OverWorldScreen/functions/OccupantTypeGuards';
+import { getWatchedFields } from '../screens/OverWorldScreen/functions/getWatchedFields';
 import {
 	Occupant,
 	OverworldItem,
 } from '../screens/OverWorldScreen/interfaces/Occupant';
+import { Position } from '../screens/OverWorldScreen/interfaces/Position';
+import { WatchedField } from '../screens/OverWorldScreen/interfaces/WatchedField';
 
 export interface OccupantsSlice {
 	occupants: Occupant[];
@@ -75,9 +81,36 @@ export const selectOccupantById = (
 	return rootState.occupantsSlice.occupants.find((o) => o.id === id);
 };
 
-export const selectOccupantsByYCoordinate = createSelector(
-	[selectOccupants, (state, y) => y],
-	(occupants, y) => {
-		return occupants.filter((o) => o.position.y === y);
+export const selectOccupantByPosition = createSelector(
+	[selectOccupants, (state, position: Position) => position],
+	(occupants, position) => {
+		return occupants.find(
+			(o) => o.position.x === position.x && o.position.y === position.y
+		);
+	}
+);
+
+export const selectWatchedFields = createSelector(
+	[selectOccupants],
+	(occupants) => {
+		let res: WatchedField[] = [];
+
+		occupants.forEach((o) => {
+			if (!isNpc(o)) {
+				return;
+			}
+			res = [...res, ...getWatchedFields(o)];
+		});
+
+		return res;
+	}
+);
+
+export const selectIsFieldWatched = createSelector(
+	[selectWatchedFields, (state, position: Position) => position],
+	(watchedFields, position) => {
+		return watchedFields.some(
+			(f) => f.position.x === position.x && f.position.y === position.y
+		);
 	}
 );

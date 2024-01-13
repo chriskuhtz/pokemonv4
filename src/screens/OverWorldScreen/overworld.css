@@ -14,7 +14,7 @@
 	overflow: hidden;
 }
 
-.map {
+.layer {
 	display: flex;
 	flex-direction: column;
 	position: relative;

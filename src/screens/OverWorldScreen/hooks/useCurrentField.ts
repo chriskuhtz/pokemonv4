@@ -1,17 +1,20 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../../api/store';
-import { focusOccupant, selectOccupants } from '../../../slices/occupantsSlice';
+import {
+	focusOccupant,
+	selectOccupants,
+	selectWatchedFields,
+} from '../../../slices/occupantsSlice';
 import { OverworldMap, Tile } from '../interfaces/Overworld';
-import { WatchedField } from '../interfaces/WatchedField';
 
 export const useCurrentField = (
-	watchedFields: WatchedField[],
 	offsetX: number,
 	offsetY: number,
 	currentWorld: OverworldMap
 ) => {
 	const occupants = useSelector(selectOccupants);
+	const watchedFields = useSelector(selectWatchedFields);
 	const dispatch = useAppDispatch();
 
 	return useMemo((): Tile => {

@@ -1,4 +1,5 @@
-import { Occupant } from '../../interfaces/Occupant';
+import { useSelector } from 'react-redux';
+import { selectOccupantsByYCoordinate } from '../../../../slices/occupantsSlice';
 import { Tile } from '../../interfaces/Overworld';
 import { WatchedField } from '../../interfaces/WatchedField';
 import { OverworldTile } from '../OverworldTile/OverworldTile';
@@ -7,16 +8,19 @@ import './OverworldRow.css';
 export const OverworldRow = ({
 	row,
 	index,
-	occupants,
+
 	watchedFields,
 	baseTile,
 }: {
 	index: number;
 	row: Tile[];
-	occupants: Occupant[];
 	watchedFields: WatchedField[];
 	baseTile: string;
 }): JSX.Element => {
+	const occupants = useSelector((state) =>
+		selectOccupantsByYCoordinate(state, index)
+	);
+	console.log(occupants);
 	return (
 		<div className="row" key={index}>
 			{row.map((tile, j) => {

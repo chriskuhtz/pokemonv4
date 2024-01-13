@@ -1,11 +1,18 @@
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useGetOverworldMapQuery } from '../../../api/mapApi';
 import { useGetSaveFileQuery } from '../../../api/saveFileApi';
+import { useAppDispatch } from '../../../api/store';
 import { getUserName } from '../../../functions/getUserName';
 import { Direction } from '../../../interfaces/Direction';
 import { ForwardFoot } from '../../../interfaces/ForwardFoot';
-import { moveOccupants } from '../functions/moveOccupants';
+import {
+	handleOccupants,
+	moveOccupantsReducer,
+	selectFocusedOccupant,
+	setOccupants,
+} from '../../../slices/occupantsSlice';
 import { OverworldMap } from '../interfaces/Overworld';
 import { PortalEvent } from '../interfaces/OverworldEvent';
 import { mockMap } from '../mockMap';
@@ -15,7 +22,6 @@ import { useEncounter } from './useEncounter';
 import { useHandleKeyPress } from './useHandleKeyPress';
 import { useHandleMovement } from './useHandleMovement';
 import { useNextField } from './useNextField';
-import { useOccupants } from './useOccupants';
 import { useOnPortalStep } from './useOnPortalStep';
 import { useOnSaveFileLoad } from './useOnSaveFileLoad';
 import { useSaveGame } from './useSaveGame';
@@ -25,6 +31,7 @@ import { useWatchedFields } from './useWatchedFields';
 const fps = 15;
 
 export const useOverworld = () => {
+	const dispatch = useAppDispatch();
 	const username = getUserName();
 	const {
 		data: saveFile,
@@ -44,6 +51,10 @@ export const useOverworld = () => {
 			setCurrentWorld(rawMap);
 		}
 	}, [currentWorld, rawMap]);
+
+	useEffect(() => {
+		dispatch(setOccupants(currentWorld.occupants));
+	}, [currentWorld, dispatch]);
 
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);
@@ -69,16 +80,6 @@ export const useOverworld = () => {
 
 	const [orientation, setOrientation] = useState<Direction>('Up');
 
-	const {
-		occupants,
-		focusOccupant,
-		handleOccupants,
-		setOccupants,
-		focusedOccupant,
-		handledOccupantIds,
-		collectedItems,
-	} = useOccupants(currentWorld);
-
 	useOnSaveFileLoad(
 		setOffsetX,
 		setOffsetY,
@@ -92,69 +93,50 @@ export const useOverworld = () => {
 	const saveCurrentGameState = useCallback(
 		(heal?: boolean) => {
 			saveGame(
-				currentWorld.id,
-				{ [`${currentWorld.id}`]: handledOccupantIds },
-				offsetX,
-				offsetY,
-				orientation,
-				collectedItems,
+				{ mapId: currentWorld.id, offsetX, offsetY, orientation },
+				undefined,
 				heal
 			);
 		},
-		[
-			collectedItems,
-			currentWorld.id,
-			handledOccupantIds,
-			offsetX,
-			offsetY,
-			orientation,
-			saveGame,
-		]
+		[currentWorld.id, offsetX, offsetY, orientation, saveGame]
 	);
 
 	const [nextInput, setNextInput] = useState<
 		React.KeyboardEvent<HTMLDivElement>['key'] | undefined
 	>();
 
-	const nextField = useNextField(
-		orientation,
-		offsetX,
-		offsetY,
-		currentWorld,
-		occupants
-	);
-	const watchedFields = useWatchedFields(occupants);
+	const nextField = useNextField(orientation, offsetX, offsetY, currentWorld);
+	const watchedFields = useWatchedFields();
 	const currentField = useCurrentField(
 		watchedFields,
 		offsetX,
 		offsetY,
-		occupants,
-		focusOccupant,
+
 		currentWorld
 	);
 
 	const handlePortalEvent = useCallback(
 		async (portalEvent: PortalEvent) => {
 			await saveGame(
-				portalEvent.mapId,
-				{ [`${currentWorld.id}`]: handledOccupantIds },
-				portalEvent.x,
-				portalEvent.y,
-				portalEvent.orientation,
-				collectedItems
+				{ mapId: currentWorld.id, offsetX, offsetY, orientation },
+				{
+					mapId: portalEvent.mapId,
+					offsetX: portalEvent.x,
+					offsetY: portalEvent.y,
+					orientation: portalEvent.orientation,
+				}
 			);
 
 			// await save current map, then save new map
 		},
-		[collectedItems, currentWorld, handledOccupantIds, saveGame]
+		[currentWorld.id, offsetX, offsetY, orientation, saveGame]
 	);
 	useOnPortalStep(currentField, handlePortalEvent);
 	useEncounter(currentWorld, currentField);
 
 	useTurnTowardsPlayerOnInteraction(
 		nextField,
-		occupants,
-		setOccupants,
+
 		orientation
 	);
 
@@ -167,16 +149,16 @@ export const useOverworld = () => {
 	);
 
 	const handleKeyPress = useHandleKeyPress(
-		focusOccupant,
 		nextField,
 		orientation,
 		setOrientation,
 		handleMovement,
-		focusedOccupant,
-		handleOccupants,
+
 		() => saveCurrentGameState(true),
 		() => saveCurrentGameState()
 	);
+
+	const focusedOccupant = useSelector(selectFocusedOccupant);
 
 	const update = useCallback(() => {
 		if (nextInput) {
@@ -186,24 +168,15 @@ export const useOverworld = () => {
 			setForwardFoot('center1');
 		}
 		if (!focusedOccupant) {
-			const { newOccupants, hasChanges } = moveOccupants(occupants, {
-				x: offsetX,
-				y: offsetY,
-			});
-			if (hasChanges) {
-				setOccupants(newOccupants);
-			}
+			dispatch(
+				moveOccupantsReducer({
+					x: offsetX,
+					y: offsetY,
+				})
+			);
 		}
 		setNextInput(undefined);
-	}, [
-		focusedOccupant,
-		handleKeyPress,
-		nextInput,
-		occupants,
-		offsetX,
-		offsetY,
-		setOccupants,
-	]);
+	}, [dispatch, focusedOccupant, handleKeyPress, nextInput, offsetX, offsetY]);
 
 	const tryToSetNextInput = useCallback(
 		(x: React.KeyboardEvent<HTMLDivElement>) => {
@@ -222,7 +195,6 @@ export const useOverworld = () => {
 		offsetX,
 		offsetY,
 		orientation,
-		occupants,
 		watchedFields,
 		saveGame: saveCurrentGameState,
 		saveFile,

@@ -1,4 +1,4 @@
-import './EncounterGrass.css';
+import './TileDecoration.css';
 
 export const TileDecoration = ({
 	occupantOffset,

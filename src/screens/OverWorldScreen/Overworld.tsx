@@ -27,9 +27,7 @@ export const Overworld = (): JSX.Element => {
 		offsetX,
 		offsetY,
 		orientation,
-
 		tryToSetNextInput,
-		occupants,
 		watchedFields,
 		saveGame,
 		saveFile,
@@ -38,6 +36,7 @@ export const Overworld = (): JSX.Element => {
 		forwardFoot,
 	} = useOverworld();
 	const currentDialogue = useSelector(selectCurrentDialogue);
+
 	if (isFetching) {
 		return <FetchingScreen />;
 	}
@@ -73,7 +72,6 @@ export const Overworld = (): JSX.Element => {
 								key={i}
 								index={i}
 								row={row}
-								occupants={occupants.filter((o) => o.position.y === i)}
 								watchedFields={watchedFields.filter((f) => f.position.y === i)}
 							/>
 						))}

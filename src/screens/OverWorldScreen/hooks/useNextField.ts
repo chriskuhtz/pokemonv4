@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { Direction } from '../../../interfaces/Direction';
+import { selectOccupants } from '../../../slices/occupantsSlice';
 import { getNewCoordinates } from '../functions/getNewCoordinates';
 import { Occupant } from '../interfaces/Occupant';
 import { OverworldMap, Tile } from '../interfaces/Overworld';
@@ -14,9 +16,10 @@ export const useNextField = (
 	orientation: Direction,
 	offsetX: number,
 	offsetY: number,
-	currentWorld: OverworldMap,
-	occupants: Occupant[]
+	currentWorld: OverworldMap
 ) => {
+	const occupants = useSelector(selectOccupants);
+
 	const nextCoordinates = useMemo(
 		(): Position | undefined =>
 			getNewCoordinates(orientation, offsetX, offsetY, currentWorld),

@@ -3,6 +3,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { useDispatch } from 'react-redux';
 import { dialogueSlice } from '../slices/dialogueSlice';
+import { occupantsSlice } from '../slices/occupantsSlice';
 import { mapApi } from './mapApi';
 import { pokeApi } from './pokeApi';
 import { saveFileApi } from './saveFileApi';
@@ -14,6 +15,7 @@ export const store = configureStore({
 		[mapApi.reducerPath]: mapApi.reducer,
 		[pokeApi.reducerPath]: pokeApi.reducer,
 		dialogueSlice: dialogueSlice.reducer,
+		occupantsSlice: occupantsSlice.reducer,
 	},
 	// Adding the api middleware enables caching, invalidation, polling,
 	// and other useful features of `rtk-query`.
@@ -31,5 +33,8 @@ setupListeners(store.dispatch);
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch: () => AppDispatch = useDispatch; // Export a hook that can be reused to resolve types
 
-const rootReducer = combineReducers({ dialogueSlice: dialogueSlice.reducer });
+const rootReducer = combineReducers({
+	dialogueSlice: dialogueSlice.reducer,
+	occupantsSlice: occupantsSlice.reducer,
+});
 export type RootState = ReturnType<typeof rootReducer>;

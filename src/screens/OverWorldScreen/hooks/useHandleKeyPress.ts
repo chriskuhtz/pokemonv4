@@ -9,26 +9,28 @@ import {
 	continueDialogue,
 	selectCurrentDialogue,
 } from '../../../slices/dialogueSlice';
+import {
+	handleOccupants,
+	selectFocusedOccupant,
+} from '../../../slices/occupantsSlice';
 import { isHealer, isMerchant, isNpc } from '../functions/OccupantTypeGuards';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
 import { isImpassableOccupant } from '../functions/isImpassableOccupant';
-import { Merchant, Occupant } from '../interfaces/Occupant';
+import { Merchant } from '../interfaces/Occupant';
 import { useHandleEnterAndSpace } from './useHandleEnterAndSpace';
 import { NextFieldInfo } from './useNextField';
 
 export const useHandleKeyPress = (
-	focusOccupant: (id: string) => void,
 	nextField: NextFieldInfo,
 	orientation: Direction,
 	setOrientation: (x: Direction) => void,
 	handleMovement: (key: string) => void,
-	focusedOccupant: Occupant | undefined,
-	handleOccupants: (x: string[]) => void,
 	healTeam: () => void,
 	save: () => void
 ) => {
 	const dispatch = useAppDispatch();
 	const currentDialogue = useSelector(selectCurrentDialogue);
+	const focusedOccupant = useSelector(selectFocusedOccupant);
 	const isQuestCompleted = useIsQuestCompleted();
 	const navigate = useNavigate();
 	const openMarketScreen = useCallback(
@@ -44,7 +46,7 @@ export const useHandleKeyPress = (
 			if (key === ' ' || key === 'Enter') {
 				if (currentDialogue.length === 1) {
 					if (focusedOccupant && isNpc(focusedOccupant)) {
-						handleOccupants([focusedOccupant.id]);
+						dispatch(handleOccupants([focusedOccupant.id]));
 					}
 					if (focusedOccupant && isMerchant(focusedOccupant)) {
 						openMarketScreen(focusedOccupant);
@@ -56,21 +58,10 @@ export const useHandleKeyPress = (
 				dispatch(continueDialogue());
 			}
 		},
-		[
-			currentDialogue,
-			dispatch,
-			focusedOccupant,
-			handleOccupants,
-			openMarketScreen,
-			healTeam,
-		]
+		[currentDialogue, dispatch, focusedOccupant, openMarketScreen, healTeam]
 	);
 
-	const handleEnterAndSpace = useHandleEnterAndSpace(
-		handleOccupants,
-		focusOccupant,
-		nextField.occupant
-	);
+	const handleEnterAndSpace = useHandleEnterAndSpace(nextField.occupant);
 
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {

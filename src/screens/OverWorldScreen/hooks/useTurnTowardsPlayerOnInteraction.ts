@@ -1,19 +1,20 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../../api/store';
 import { Direction } from '../../../interfaces/Direction';
 import { selectCurrentDialogue } from '../../../slices/dialogueSlice';
+import { selectOccupants, setOccupants } from '../../../slices/occupantsSlice';
 import { isHealer, isMerchant, isNpc } from '../functions/OccupantTypeGuards';
 import { oppositeDirection } from '../functions/oppositeDirection';
-import { Occupant } from '../interfaces/Occupant';
 import { NextFieldInfo } from './useNextField';
 
 export const useTurnTowardsPlayerOnInteraction = (
 	nextField: NextFieldInfo,
-	occupants: Occupant[],
-	setOccupants: (x: Occupant[]) => void,
 	orientation: Direction
 ) => {
 	const currentDialogue = useSelector(selectCurrentDialogue);
+	const occupants = useSelector(selectOccupants);
+	const dispatch = useAppDispatch();
 	useEffect(() => {
 		if (currentDialogue.length > 0 && nextField.occupant) {
 			const selectedOccupant = occupants.find(
@@ -25,19 +26,21 @@ export const useTurnTowardsPlayerOnInteraction = (
 					isHealer(selectedOccupant)) &&
 				selectedOccupant.orientation !== oppositeDirection(orientation)
 			) {
-				setOccupants(
-					occupants.map((o) => {
-						if (o.id === nextField.occupant?.id) {
-							return {
-								...o,
-								orientation: oppositeDirection(orientation),
-								watching: false,
-							};
-						}
-						return o;
-					})
+				dispatch(
+					setOccupants(
+						occupants.map((o) => {
+							if (o.id === nextField.occupant?.id) {
+								return {
+									...o,
+									orientation: oppositeDirection(orientation),
+									watching: false,
+								};
+							}
+							return o;
+						})
+					)
 				);
 			}
 		}
-	}, [currentDialogue, nextField, occupants, orientation, setOccupants]);
+	}, [currentDialogue, dispatch, nextField, occupants, orientation]);
 };

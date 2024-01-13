@@ -6,6 +6,7 @@ import {
 	initiateMerchantDialogue,
 	initiateNpcDialogue,
 } from '../../../slices/dialogueSlice';
+import { focusOccupant, handleOccupants } from '../../../slices/occupantsSlice';
 import {
 	isHealer,
 	isMerchant,
@@ -16,43 +17,33 @@ import {
 import { Occupant } from '../interfaces/Occupant';
 import { useHandleOverworldEvent } from './useHandleOverworldEvent';
 
-export const useHandleEnterAndSpace = (
-	handleOccupants: (x: string[]) => void,
-	focusOccupant: (id: string) => void,
-	occupant?: Occupant
-) => {
+export const useHandleEnterAndSpace = (occupant?: Occupant) => {
 	const dispatch = useAppDispatch();
 	const handleOverworldEvent = useHandleOverworldEvent();
 
 	return useCallback(() => {
 		if (isOverworldItem(occupant) && !occupant.handled) {
 			dispatch(initiateItemDialogue(occupant));
-			handleOccupants([occupant.id]);
+			dispatch(handleOccupants([occupant.id]));
 			return;
 		}
 		if (isNpc(occupant)) {
-			focusOccupant(occupant.id);
+			dispatch(focusOccupant(occupant.id));
 			dispatch(initiateNpcDialogue(occupant));
 			return;
 		}
 		if (isMerchant(occupant)) {
-			focusOccupant(occupant.id);
+			dispatch(focusOccupant(occupant.id));
 			dispatch(initiateMerchantDialogue(occupant));
 			return;
 		}
 		if (isHealer(occupant)) {
-			focusOccupant(occupant.id);
+			dispatch(focusOccupant(occupant.id));
 			dispatch(initiateHealerDialogue());
 			return;
 		}
 		if (isObstacle(occupant) && occupant.onClick) {
 			handleOverworldEvent(occupant.onClick);
 		}
-	}, [
-		occupant,
-		dispatch,
-		handleOccupants,
-		focusOccupant,
-		handleOverworldEvent,
-	]);
+	}, [occupant, dispatch, handleOverworldEvent]);
 };

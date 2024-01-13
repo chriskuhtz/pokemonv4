@@ -1,6 +1,7 @@
 import { useGetPokemonDataByDexIdQuery } from '../../api/pokeApi';
 import { getPokemonSpriteUrl } from '../../functions/getPokemonSpriteUrl';
-import { DexEntry } from '../../interfaces/SaveFile';
+import { DexEntry } from '../../interfaces/DexEntry';
+
 import { ErrorPill } from '../../ui_components/ErrorPill/ErrorPill';
 import { FetchingPill } from '../../ui_components/FetchingPill/FetchingPill';
 import { Pill } from '../../ui_components/Pill/Pill';

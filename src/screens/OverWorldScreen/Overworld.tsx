@@ -56,7 +56,9 @@ export const OverworldWrapper = (): JSX.Element => {
 				/>
 				<Modal
 					open={currentDialogue.length > 0}
-					modalContent={<Pill center={currentDialogue[0]} />}
+					modalContent={
+						<Pill center={currentDialogue[0]} style={{ margin: '0 2rem' }} />
+					}
 				/>
 				<div className="camera">
 					<div

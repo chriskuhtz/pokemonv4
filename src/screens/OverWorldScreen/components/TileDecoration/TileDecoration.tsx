@@ -8,10 +8,6 @@ export const TileDecoration = ({
 	occupantOffset: boolean;
 	decoration?: Decoration;
 }) => {
-	if (decoration) {
-		console.log(decoration);
-	}
-
 	if (!decoration) {
 		return <></>;
 	}

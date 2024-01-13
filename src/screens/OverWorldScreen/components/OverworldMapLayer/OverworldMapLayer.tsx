@@ -8,7 +8,6 @@ const UnmemoizedOverworldMapLayer = ({
 }: {
 	currentWorld: OverworldMap;
 }): React.JSX.Element => {
-	console.log('render mapLayer');
 	return (
 		<div className="layer" id="mapLayer">
 			{currentWorld.map.map((row, i) => (

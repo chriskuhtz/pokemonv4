@@ -11,8 +11,6 @@ export const OverworldRow = ({
 	row: Tile[];
 	baseTile: string;
 }): JSX.Element => {
-	console.log('render row');
-
 	return (
 		<div className="row" key={index}>
 			{row.map((tile, j) => {

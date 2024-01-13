@@ -35,8 +35,6 @@ export const OverworldWrapper = (): JSX.Element => {
 	} = useOverworld();
 	const currentDialogue = useSelector(selectCurrentDialogue);
 
-	console.log('render overworld');
-
 	if (isFetching) {
 		return <FetchingScreen />;
 	}

@@ -1,7 +1,8 @@
 import { useCallback, useEffect } from 'react';
 import { Combatant } from '../../../interfaces/Combatant';
 import { assembleRound } from '../functions/assembleRound';
-import { BattleMode, BattleSnapshot } from './useBattleScreen';
+import { BattleMode } from './useBattleScreen';
+import { BattleSnapshot } from '../interfaces/BattleSnapshot';
 
 export const useHandleSnapshots = ({
 	snapshots,

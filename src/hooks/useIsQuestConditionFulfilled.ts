@@ -2,6 +2,7 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { useMemo } from 'react';
 import { useGetSaveFileQuery } from '../api/saveFileApi';
 import { getUserName } from '../functions/getUserName';
+import { isOwnedPokemonQuestFulfilled } from '../functions/isOwnedPokemonQuestFulfilled';
 import { Quest } from '../interfaces/Quest';
 
 export const useIsQuestConditionFulfilled = (quest: Quest) => {
@@ -12,23 +13,7 @@ export const useIsQuestConditionFulfilled = (quest: Quest) => {
 		if (!data) {
 			return false;
 		}
-		if (quest.condition.type === 'OWNED_POKEMON') {
-			if (quest.condition.mode === 'ALL') {
-				return quest.condition.ids.every((id) =>
-					data.pokedex.some(
-						(dexEntry) => dexEntry.dexId === id && dexEntry.status === 'owned'
-					)
-				);
-			}
-			if (quest.condition.mode === 'SOME') {
-				return quest.condition.ids.some((id) =>
-					data.pokedex.some(
-						(dexEntry) => dexEntry.dexId === id && dexEntry.status === 'owned'
-					)
-				);
-			}
-		}
 
-		return false;
+		return isOwnedPokemonQuestFulfilled(quest, data.pokedex);
 	}, [data, quest]);
 };

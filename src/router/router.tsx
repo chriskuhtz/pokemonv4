@@ -3,7 +3,7 @@ import { BagScreen } from '../screens/BagScreen/BagScreen';
 import { BattleScreen } from '../screens/BattleScreen/BattleScreen';
 import { MarketScreen } from '../screens/MarketScreen/MarketScreen';
 import { NewGameProcess } from '../screens/NewGameProcessScreen/NewGameProcess';
-import { Overworld } from '../screens/OverWorldScreen/Overworld';
+import { OverworldWrapper } from '../screens/OverWorldScreen/Overworld';
 import { PlayerCardScreen } from '../screens/PlayerCardScreen/PlayerCardScreen';
 import { PlayerMenu } from '../screens/PlayerMenuScreen/PlayerMenuScreen';
 import { PokedexScreen } from '../screens/PokedexScreen/PokedexScreen';
@@ -11,10 +11,10 @@ import { QuestsScreen } from '../screens/QuestsScreen/QuestsScreen';
 import { SaveFileSelection } from '../screens/SaveFileSelectionScreen/SaveFileSelection';
 import { StorageScreen } from '../screens/StorageScreen/StorageScreen';
 import { TeamScreen } from '../screens/TeamScreen/TeamScreen';
+import { TestArea } from '../screens/TestArea/TestArea';
 import { OPPOID, TRAINERID } from '../testing/constants/trainerIds';
 import { combatantGenerator } from '../testing/generators/combatantGenerator';
 import { pokemonGenerator } from '../testing/generators/pokemonGenerator';
-import { TestArea } from '../screens/TestArea/TestArea';
 
 export enum RoutesEnum {
 	overworld = '/overworld',
@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: RoutesEnum.overworld,
-		element: <Overworld />,
+		element: <OverworldWrapper />,
 	},
 	{
 		path: RoutesEnum.battle,

@@ -1,6 +1,6 @@
-import { ItemStack } from '../../../interfaces/Item';
-import { Pill } from '../../../ui_components/Pill/Pill';
-
+import { ItemStack } from '../../../../interfaces/Item';
+import { Pill } from '../../../../ui_components/Pill/Pill';
+import './Cart.css';
 export const Cart = ({
 	cart,
 	removeFromCart,

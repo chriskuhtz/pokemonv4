@@ -3,8 +3,8 @@ import { RoutesEnum } from '../../router/router';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
 import { FetchingScreen } from '../FetchingScreen/FetchingScreen';
 import './MarketScreen.css';
-import { Cart } from './components/Cart';
-import { HydratedInventory } from './components/HydratedInventory';
+import { Cart } from './components/Cart/Cart';
+import { HydratedInventory } from './components/HydratedInventory/HydratedInventory';
 import { useMarketScreen } from './hooks/useMarketScreen';
 
 export const MarketScreen = (): JSX.Element => {

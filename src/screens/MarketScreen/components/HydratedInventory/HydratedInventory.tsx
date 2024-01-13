@@ -1,5 +1,5 @@
-import { MarketListItem } from '../../../components/MarketListItem/MarketListItem';
-import { ItemData } from '../../../shared/interfaces/ItemData';
+import { MarketListItem } from '../../../../components/MarketListItem/MarketListItem';
+import { ItemData } from '../../../../shared/interfaces/ItemData';
 
 export const HydratedInventory = ({
 	hydratedInventory,

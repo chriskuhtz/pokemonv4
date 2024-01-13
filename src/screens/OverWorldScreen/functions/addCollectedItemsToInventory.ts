@@ -1,4 +1,7 @@
-import { RouteProgress, SaveFile } from '../../../interfaces/SaveFile';
+import { addItemStacksToInventory } from '../../../functions/addItemStacksToInventory';
+import { ItemStack } from '../../../interfaces/Item';
+import { RouteProgress } from '../../../interfaces/RouteProgress';
+import { SaveFile } from '../../../interfaces/SaveFile';
 import { OverworldItem } from '../interfaces/Occupant';
 
 export const addCollectedItemsToInventory = (
@@ -6,17 +9,15 @@ export const addCollectedItemsToInventory = (
 	collectedItems?: OverworldItem[],
 	mapProgress?: Record<string, RouteProgress>
 ): SaveFile['inventory'] => {
-	const updatedInventory = { ...currentInventory };
-
 	if (collectedItems && mapProgress) {
-		collectedItems.map(({ item }) => {
-			if (updatedInventory[item]) {
-				updatedInventory[item] = {
-					...updatedInventory[item],
-					amount: updatedInventory[item].amount + 1,
-				};
-			} else updatedInventory[item] = { amount: 1, item: { id: item } };
+		const collectedItemsAsStacks: ItemStack[] = collectedItems?.map((o) => {
+			return { amount: 1, item: { id: o.item } };
 		});
+		const updatedInventory = addItemStacksToInventory(
+			currentInventory,
+			collectedItemsAsStacks
+		);
+		return updatedInventory;
 	}
-	return updatedInventory;
+	return currentInventory;
 };

@@ -7,10 +7,10 @@ import {
 } from '../../functions/isNpc';
 import { Occupant } from '../../interfaces/Occupant';
 import { Tile } from '../../interfaces/Overworld';
-import { EncounterGrass } from '../EncounterGrass/EncounterGrass';
 import { OverworldCharacter } from '../OverworldCharacter/OverworldCharacter';
 import { OverworldItem } from '../OverworldItem/OverworldItem';
 import { OverworldObstacle } from '../OverworldObstacle/OverworldObstacle';
+import { TileDecoration } from '../TileDecoration/TileDecoration';
 import './OverworldTile.css';
 
 export const OverworldTile = ({
@@ -49,7 +49,7 @@ export const OverworldTile = ({
 					<OverworldObstacle obstacle={occupant} zIndex={index} />
 				)}
 				{tile.onStep?.type === 'ENCOUNTER' && (
-					<EncounterGrass occupantOffset={!!occupant} />
+					<TileDecoration occupantOffset={!!occupant} />
 				)}
 			</div>
 		</>

@@ -2,7 +2,7 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { useMemo } from 'react';
 import { useGetSaveFileQuery } from '../../api/saveFileApi';
 import { Headline } from '../../components/Headline/Headline';
-import { TeamGrid } from '../../components/PokemonList/TeamGrid';
+import { TeamGrid } from '../../components/TeamGrid/TeamGrid';
 import { getUserName } from '../../functions/getUserName';
 import { RoutesEnum } from '../../router/router';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';

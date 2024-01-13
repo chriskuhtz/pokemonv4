@@ -7,7 +7,7 @@ export interface TeamGridProps {
 
 export const TeamGrid = ({ pokemon }: TeamGridProps): JSX.Element => {
 	return (
-		<div className="pokemonList">
+		<div className="teamgrid">
 			{pokemon.map((p) => (
 				<PokemonListItem pokemon={p} />
 			))}

@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import {
 	selectIsFieldWatched,
@@ -12,14 +11,13 @@ import {
 	isObstacle,
 	isOverworldItem,
 } from '../../functions/OccupantTypeGuards';
-import { BaseTileId, DecorationMap, Tile } from '../../interfaces/Overworld';
 import { Position } from '../../interfaces/Position';
+import { BaseTileId, DecorationMap, Tile } from '../../interfaces/Tile';
 import { OverworldCharacter } from '../OverworldCharacter/OverworldCharacter';
 import { OverworldItem } from '../OverworldItem/OverworldItem';
 import { OverworldObstacle } from '../OverworldObstacle/OverworldObstacle';
 import { TileDecoration } from '../TileDecoration/TileDecoration';
 import './OverworldTile.css';
-import { getBaseTileIndex } from './functions/getBaseTileIndex';
 
 export const OverworldTile = ({
 	baseTile,
@@ -36,7 +34,7 @@ export const OverworldTile = ({
 	const occupant = useSelector((state) =>
 		selectOccupantByPosition(state, position)
 	);
-	const tileIndex = useMemo(() => getBaseTileIndex(baseTile), [baseTile]);
+	const tileIndex = tile.baseTileIndex ?? 1;
 
 	return (
 		<>

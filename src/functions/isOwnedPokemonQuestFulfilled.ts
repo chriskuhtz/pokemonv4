@@ -1,7 +1,7 @@
 import { DexEntry } from '../interfaces/DexEntry';
 import { Condition } from '../interfaces/Quest';
 
-export const isOwnedPokemonQuestFulfilled = (
+export const isOwnedPokemonConditionFulfilled = (
 	condition: Condition,
 	pokedex: DexEntry[]
 ): boolean => {

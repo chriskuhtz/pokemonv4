@@ -1,13 +1,11 @@
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useNavigate } from 'react-router-dom';
 import { v4 } from 'uuid';
-import {
-	useGetSaveFileQuery,
-	usePutSaveFileMutation,
-} from '../../api/saveFileApi';
+import { useGetSaveFileQuery } from '../../api/saveFileApi';
 import { Headline } from '../../components/Headline/Headline';
 import { PokemonCardWithImage } from '../../components/PokemonCardWithImage/PokemonCardWithImage';
 import { getUserName } from '../../functions/getUserName';
+import { useSaveGame } from '../../hooks/useSaveGame';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
 import { FetchingScreen } from '../FetchingScreen/FetchingScreen';
 
@@ -20,7 +18,7 @@ export const PokemonSelectionScreen = ({
 }): JSX.Element => {
 	const username = getUserName();
 	const { data, isFetching } = useGetSaveFileQuery(username ?? skipToken);
-	const [save] = usePutSaveFileMutation();
+	const save = useSaveGame();
 	const navigate = useNavigate();
 
 	if (isFetching) {
@@ -46,9 +44,7 @@ export const PokemonSelectionScreen = ({
 							key={c}
 							onClick={() => {
 								void save({
-									...data,
-									pokemon: [
-										...data.pokemon,
+									pokemonUpdates: [
 										{
 											dexId: c,
 											id: v4(),
@@ -57,8 +53,14 @@ export const PokemonSelectionScreen = ({
 											damage: 0,
 										},
 									],
-									pokedex: [...data.pokedex, { dexId: c, status: 'owned' }],
+									dexUpdates: choices.map((choice) => {
+										return {
+											dexId: choice,
+											status: choice === c ? 'owned' : 'seen',
+										};
+									}),
 								});
+
 								navigate('/overworld');
 							}}
 						/>

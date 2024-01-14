@@ -7,7 +7,7 @@ export const addItemStacksToInventory = (
 ): SaveFile['inventory'] => {
 	const updatedInventory = { ...inventory };
 
-	stacks?.forEach((itemStack) => {
+	stacks.forEach((itemStack) => {
 		if (updatedInventory[itemStack.item.id]) {
 			updatedInventory[itemStack.item.id] = {
 				...updatedInventory[itemStack.item.id],
@@ -16,5 +16,5 @@ export const addItemStacksToInventory = (
 		} else updatedInventory[itemStack.item.id] = itemStack;
 	});
 
-	return inventory;
+	return updatedInventory;
 };

@@ -1,16 +1,18 @@
 import { RouterButton, RouterButtonProps } from '../RouterButton/RouterButton';
 import './Headline.css';
+
+export interface HeadlineProps {
+	text: string;
+	routerButtonProps?: RouterButtonProps;
+	className?: string;
+	style?: React.CSSProperties;
+}
 export const Headline = ({
 	text,
 	routerButtonProps,
 	className,
 	style,
-}: {
-	text: string;
-	routerButtonProps?: RouterButtonProps;
-	className?: string;
-	style?: React.CSSProperties;
-}): JSX.Element => {
+}: HeadlineProps): JSX.Element => {
 	return (
 		<div className={`headline ${className}`} style={style}>
 			{routerButtonProps && (

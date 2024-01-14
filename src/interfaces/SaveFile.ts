@@ -2,11 +2,10 @@ import { UniqueOccupantIds } from '../constants/UniqueOccupantRecord';
 import { Position } from '../screens/OverWorldScreen/interfaces/Position';
 import { DexEntry } from './DexEntry';
 import { Direction } from './Direction';
-import { ItemName } from './Item';
+import { Inventory } from './Inventory';
 import { OwnedPokemon } from './OwnedPokemon';
 import { QuestStatus, QuestsEnum } from './Quest';
 
-export type Inventory = Record<ItemName, number>;
 export interface OverworldPosition {
 	position: Position;
 	currentMapId: string;

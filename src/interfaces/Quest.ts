@@ -1,5 +1,4 @@
-import { joinInventories } from '../functions/joinInventories';
-import { Inventory } from './SaveFile';
+import { Inventory, generateInventory } from './Inventory';
 
 export interface OwnedPokemonCondition {
 	type: 'OWNED_POKEMON';
@@ -41,14 +40,6 @@ export enum QuestsEnum {
 	talkToNurseJoy = 'talkToNurseJoy',
 }
 
-export const EmptyInventory: Inventory = {
-	potion: 0,
-	'poke-ball': 0,
-	repel: 0,
-};
-export const generateInventory = (wanted: Partial<Inventory>): Inventory => {
-	return joinInventories(EmptyInventory, wanted);
-};
 export const PickStarterQuest: Quest = {
 	status: 'inactive',
 	id: QuestsEnum.pickStarter,
@@ -73,4 +64,9 @@ export const TalkToNurseJoyQuest: Quest = {
 		type: 'HANDLED_OCCUPANT',
 		id: 'starter-town-nurse',
 	},
+};
+
+export const QuestRecord: Record<QuestsEnum, Quest> = {
+	pickStarter: PickStarterQuest,
+	talkToNurseJoy: TalkToNurseJoyQuest,
 };

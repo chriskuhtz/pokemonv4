@@ -1,5 +1,5 @@
+import { Inventory } from '../interfaces/Inventory';
 import { ItemName } from '../interfaces/Item';
-import { Inventory } from '../interfaces/SaveFile';
 
 export const joinInventories = (
 	existing: Inventory,

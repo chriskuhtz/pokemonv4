@@ -16,11 +16,7 @@ export const useIsQuestCompleted = () => {
 			if (!saveFile) {
 				return false;
 			}
-			if (
-				!saveFile.quests.some(
-					(q) => q.id === x.questId && q.status === 'completed'
-				)
-			) {
+			if (saveFile.quests[x.questId] !== 'completed') {
 				dispatch(initiateQuestDialogue(x.questId));
 				return false;
 			}

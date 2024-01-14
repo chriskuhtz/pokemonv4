@@ -14,12 +14,7 @@ export const filterOccupantsByQuestStatus = (
 			return true;
 		}
 		if (o.questCondition) {
-			const quest = quests.find((q) => q.id === o.questCondition?.id);
-			if (!quest) {
-				//Player has not even started the quest to see this Occupant, dont display
-				return false;
-			}
-			return quest.status === o.questCondition.status;
+			return quests[o.questCondition.id] === o.questCondition.status;
 		}
 		return false;
 	});

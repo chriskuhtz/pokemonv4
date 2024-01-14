@@ -9,7 +9,6 @@ import { Direction } from '../../../interfaces/Direction';
 import { ForwardFoot } from '../../../interfaces/ForwardFoot';
 import { OverworldPosition } from '../../../interfaces/SaveFile';
 import {
-	handleOccupants,
 	selectFocusedOccupant,
 	selectOccupants,
 	setOccupants,
@@ -94,7 +93,6 @@ export const useOverworld = () => {
 		setOffsetX,
 		setOffsetY,
 		setOrientation,
-		handleOccupants,
 		currentWorld,
 		saveFile
 	);

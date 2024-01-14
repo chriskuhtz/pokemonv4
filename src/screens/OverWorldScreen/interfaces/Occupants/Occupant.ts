@@ -1,7 +1,7 @@
 import { Direction } from '../../../../interfaces/Direction';
+import { Inventory } from '../../../../interfaces/Inventory';
 import { QuestsEnum } from '../../../../interfaces/Quest';
 import { QuestIdAndStatus } from '../../../../interfaces/QuestIdAndStatus';
-import { Inventory } from '../../../../interfaces/SaveFile';
 import { Movement } from '../Movement';
 import { OverworldEvent } from '../OverworldEvent';
 import { Position } from '../Position';

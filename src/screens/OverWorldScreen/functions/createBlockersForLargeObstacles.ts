@@ -11,18 +11,21 @@ export const createBlockersForLargeObstacles = (
 	largeObstacles.forEach((largeObstacle) => {
 		const positionsArray: Position[] = [];
 
-		let i = largeObstacle.position.y;
+		let i = largeObstacle.position.position.y;
 
 		while (
 			i >
-			largeObstacle.position.y -
+			largeObstacle.position.position.y -
 				(largeObstacle.height - (largeObstacle.clearanceBehind ?? 0))
 		) {
-			let j = largeObstacle.position.x;
-			while (j < largeObstacle.position.x + largeObstacle.width) {
+			let j = largeObstacle.position.position.x;
+			while (j < largeObstacle.position.position.x + largeObstacle.width) {
 				//Do nothing for the actual position of the obstacle
 				if (
-					!(i === largeObstacle.position.y && j === largeObstacle.position.x)
+					!(
+						i === largeObstacle.position.position.y &&
+						j === largeObstacle.position.position.x
+					)
 				) {
 					positionsArray.push({ y: i, x: j });
 				}
@@ -37,7 +40,11 @@ export const createBlockersForLargeObstacles = (
 				type: 'INVISIBLE_BLOCKER',
 				id: largeObstacle.id,
 				onClick: largeObstacle.onClick,
-				position: p,
+				position: {
+					position: p,
+					orientation: 'Down',
+					currentMapId: occupants[0].position.currentMapId,
+				},
 			})
 		);
 	});

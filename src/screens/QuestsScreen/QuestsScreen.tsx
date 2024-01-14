@@ -5,6 +5,7 @@ import { useGetSaveFileQuery } from '../../api/saveFileApi';
 import { Headline, HeadlineProps } from '../../components/Headline/Headline';
 import { QuestListItem } from '../../components/QuestListItem/QuestListItem';
 import { getUserName } from '../../functions/getUserName';
+import { QuestRecord, QuestsEnum } from '../../interfaces/Quest';
 import { RoutesEnum } from '../../router/router';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
 import { FetchingScreen } from '../FetchingScreen/FetchingScreen';
@@ -24,7 +25,8 @@ export const QuestsScreen = ({
 
 	useEffect(() => {
 		if (
-			data?.quests.every((q) => q.status === 'completed') &&
+			data &&
+			Object.values(data.quests).every((status) => status === 'completed') &&
 			routeAwayAfterAllClaimed
 		) {
 			navigate(routeAwayAfterAllClaimed.to);
@@ -43,11 +45,15 @@ export const QuestsScreen = ({
 			{isFetching && <FetchingScreen />}
 			{data && (
 				<div style={{ display: 'flex', flexDirection: 'column', gap: '.5rem' }}>
-					{Object.values(data.quests)
-						.filter((q) => q.status !== 'inactive')
-						.map((quest) => (
-							<QuestListItem quest={quest} key={quest.id} />
-						))}
+					{Object.entries(data.quests)
+						.filter((q) => q[1] !== 'inactive')
+						.map((questEntry) => {
+							const key = questEntry[0];
+							if (key in QuestsEnum) {
+								const quest = QuestRecord[key as QuestsEnum];
+								return <QuestListItem quest={quest} key={key} />;
+							}
+						})}
 				</div>
 			)}
 		</div>

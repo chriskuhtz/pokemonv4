@@ -12,7 +12,8 @@ export type OccupantType =
 	| 'HEALER'
 	| 'QUEST_CHECK'
 	| 'OBSTACLE'
-	| 'INVISIBLE_BLOCKER';
+	| 'INVISIBLE_BLOCKER'
+	| 'LARGE_OBSTACLE';
 export interface BaseOccupant {
 	id: string;
 	position: Position;
@@ -51,15 +52,24 @@ export interface QuestCheck extends BaseOccupant {
 	questId: QuestsEnum;
 }
 
+export const UniqueObstacleIds = 'STARTER_SELECTOR';
+
 export interface Obstacle extends BaseOccupant {
 	sprite: string;
 	type: 'OBSTACLE';
+	onClick?: OverworldEvent;
+}
+export interface LargeObstacle extends BaseOccupant {
+	sprite: string;
+	type: 'LARGE_OBSTACLE';
 	height: number;
 	width: number;
+	clearanceBehind?: number;
 	onClick?: OverworldEvent;
 }
 export interface InvisibleBlocker extends BaseOccupant {
 	type: 'INVISIBLE_BLOCKER';
+	onClick?: OverworldEvent;
 }
 export type Occupant =
 	| Npc
@@ -68,4 +78,5 @@ export type Occupant =
 	| Healer
 	| QuestCheck
 	| Obstacle
-	| InvisibleBlocker;
+	| InvisibleBlocker
+	| LargeObstacle;

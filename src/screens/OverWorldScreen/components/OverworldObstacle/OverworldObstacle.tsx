@@ -1,11 +1,12 @@
-import { Obstacle } from '../../interfaces/Occupant';
+import { isLargeObstacle } from '../../functions/OccupantTypeGuards';
+import { LargeObstacle, Obstacle } from '../../interfaces/Occupant';
 import './OverworldObstacle.css';
 
 export const OverworldObstacle = ({
 	obstacle,
 	zIndex,
 }: {
-	obstacle: Obstacle;
+	obstacle: Obstacle | LargeObstacle;
 	zIndex: number;
 }) => {
 	return (
@@ -13,8 +14,8 @@ export const OverworldObstacle = ({
 			className="overworldObstacle"
 			style={
 				{
-					'--obstacleHeight': obstacle.height,
-					'--obstacleWidth': obstacle.width,
+					'--obstacleHeight': isLargeObstacle(obstacle) ? obstacle.height : 1,
+					'--obstacleWidth': isLargeObstacle(obstacle) ? obstacle.width : 1,
 				} as React.CSSProperties
 			}
 		>

@@ -9,6 +9,8 @@ import {
 import { focusOccupant, handleOccupants } from '../../../slices/occupantsSlice';
 import {
 	isHealer,
+	isInvisibleBlocker,
+	isLargeObstacle,
 	isMerchant,
 	isNpc,
 	isObstacle,
@@ -46,7 +48,12 @@ export const useHandleEnterAndSpace = (
 			dispatch(initiateHealerDialogue());
 			return;
 		}
-		if (isObstacle(occupant) && occupant.onClick) {
+		if (
+			(isObstacle(occupant) ||
+				isLargeObstacle(occupant) ||
+				isInvisibleBlocker(occupant)) &&
+			occupant?.onClick
+		) {
 			handleOverworldEvent(occupant.onClick);
 		}
 	}, [occupant, dispatch, handleOverworldEvent]);

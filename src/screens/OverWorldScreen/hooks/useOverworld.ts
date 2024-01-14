@@ -27,6 +27,7 @@ import { useOnPortalStep } from './useOnPortalStep';
 import { useOnSaveFileLoad } from './useOnSaveFileLoad';
 import { useSaveGame } from './useSaveGame';
 import { useTurnTowardsPlayerOnInteraction } from './useTurnTowardsPlayerOnInteraction';
+import { completeRawMap } from '../functions/completeRawMap';
 
 const fps = 15;
 
@@ -48,7 +49,7 @@ export const useOverworld = () => {
 
 	useEffect(() => {
 		if (rawMap && currentWorld.id !== rawMap.id) {
-			setCurrentWorld(rawMap);
+			setCurrentWorld(completeRawMap(rawMap));
 		}
 	}, [currentWorld, rawMap]);
 

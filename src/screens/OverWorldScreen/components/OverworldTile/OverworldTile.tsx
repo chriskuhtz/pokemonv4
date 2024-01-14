@@ -6,6 +6,7 @@ import {
 } from '../../../../slices/occupantsSlice';
 import {
 	isHealer,
+	isLargeObstacle,
 	isMerchant,
 	isNpc,
 	isObstacle,
@@ -57,9 +58,10 @@ export const OverworldTile = ({
 				{isOverworldItem(occupant) && (
 					<OverworldItem handled={occupant.handled} />
 				)}
-				{isObstacle(occupant) && (
-					<OverworldObstacle obstacle={occupant} zIndex={index} />
-				)}
+				{isObstacle(occupant) ||
+					(isLargeObstacle(occupant) && (
+						<OverworldObstacle obstacle={occupant} zIndex={index} />
+					))}
 
 				<TileDecoration
 					occupantOffset={!!occupant}

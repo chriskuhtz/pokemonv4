@@ -18,23 +18,15 @@
 					],
 					"sprite": "136"
 				},
-				{
-					"id": "invi15",
-					"type": "INVISIBLE_BLOCKER",
-					"position": { "y": 1, "x": 5 }
-				},
-				{
-					"id": "invi16",
-					"type": "INVISIBLE_BLOCKER",
-					"position": { "y": 1, "x": 6 }
-				},
+
 				{
 					"id": "ballMachine25",
-					"type": "OBSTACLE",
+					"type": "LARGE_OBSTACLE",
 					"position": { "y": 2, "x": 5 },
 					"sprite": "pokeballMachine",
 					"height": 3,
 					"width": 2,
+					"clearanceBehind": 1,
 					"onClick": {
 						"type": "ROUTE",
 						"to": "/starterSelection",
@@ -46,11 +38,7 @@
 						}
 					}
 				},
-				{
-					"id": "invi26",
-					"type": "INVISIBLE_BLOCKER",
-					"position": { "y": 2, "x": 6 }
-				},
+
 				{
 					"id": "merchant",
 					"type": "MERCHANT",
@@ -69,30 +57,24 @@
 				},
 				{
 					"id": "largeRock80",
-					"type": "OBSTACLE",
+					"type": "LARGE_OBSTACLE",
 					"sprite": "largeRock",
 					"position": { "y": 8, "x": 0 },
 					"height": 2,
-					"width": 2
+					"width": 2,
+					"clearanceBehind": 1
 				},
-				{
-					"id": "invi81",
-					"type": "INVISIBLE_BLOCKER",
-					"position": { "y": 8, "x": 1 }
-				},
+
 				{
 					"id": "largeRock82",
-					"type": "OBSTACLE",
+					"type": "LARGE_OBSTACLE",
 					"sprite": "largeRock",
 					"position": { "y": 8, "x": 2 },
 					"height": 2,
-					"width": 2
+					"width": 2,
+					"clearanceBehind": 1
 				},
-				{
-					"id": "invi83",
-					"type": "INVISIBLE_BLOCKER",
-					"position": { "y": 8, "x": 3 }
-				},
+
 				{
 					"id": "questcheck84",
 					"type": "QUEST_CHECK",
@@ -101,29 +83,22 @@
 				},
 				{
 					"id": "largeRock85",
-					"type": "OBSTACLE",
+					"type": "LARGE_OBSTACLE",
 					"sprite": "largeRock",
 					"position": { "y": 8, "x": 5 },
 					"height": 2,
-					"width": 2
+					"width": 2,
+					"clearanceBehind": 1
 				},
-				{
-					"id": "invi86",
-					"type": "INVISIBLE_BLOCKER",
-					"position": { "y": 8, "x": 6 }
-				},
+
 				{
 					"id": "largeRock87",
-					"type": "OBSTACLE",
+					"type": "LARGE_OBSTACLE",
 					"sprite": "largeRock",
 					"position": { "y": 8, "x": 7 },
 					"height": 2,
-					"width": 2
-				},
-				{
-					"id": "invi88",
-					"type": "INVISIBLE_BLOCKER",
-					"position": { "y": 8, "x": 8 }
+					"width": 2,
+					"clearanceBehind": 1
 				}
 			],
 			"map": [

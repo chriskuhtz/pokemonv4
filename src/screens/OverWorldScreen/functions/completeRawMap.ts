@@ -33,7 +33,12 @@ export const completeRawMap = (
 		saveFile.quests
 	);
 	updatedOccupants = createBlockersForLargeObstacles(updatedOccupants);
-	console.log(updatedOccupants);
+	console.log(
+		Object.values(UniqueOccupantRecord).filter(
+			(occ) => occ.position.currentMapId === rawMap.id
+		),
+		updatedOccupants
+	);
 
 	const updatedTiles: OverworldMap['map'] = updatedMap.map.map((row) => {
 		return row.map((t) => {

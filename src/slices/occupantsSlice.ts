@@ -85,7 +85,9 @@ export const selectOccupantByPosition = createSelector(
 	[selectOccupants, (state, position: Position) => position],
 	(occupants, position) => {
 		return occupants.find(
-			(o) => o.position.x === position.x && o.position.y === position.y
+			(o) =>
+				o.position.position.x === position.x &&
+				o.position.position.y === position.y
 		);
 	}
 );

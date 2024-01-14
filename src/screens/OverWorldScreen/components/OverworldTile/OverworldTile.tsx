@@ -49,7 +49,7 @@ export const OverworldTile = ({
 				{(isNpc(occupant) || isMerchant(occupant) || isHealer(occupant)) && (
 					<OverworldCharacter
 						sprite={occupant.sprite}
-						orientation={occupant.orientation}
+						orientation={occupant.position.orientation}
 						zIndex={index}
 					/>
 				)}

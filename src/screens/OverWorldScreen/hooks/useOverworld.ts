@@ -49,13 +49,11 @@ export const useOverworld = () => {
 
 	useEffect(() => {
 		if (saveFile && rawMap && currentWorld.id !== rawMap.id) {
-			setCurrentWorld(completeRawMap(rawMap, saveFile));
+			const completeMap = completeRawMap(rawMap, saveFile);
+			dispatch(setOccupants(completeMap.occupants ?? []));
+			setCurrentWorld(completeMap);
 		}
-	}, [currentWorld, rawMap, saveFile]);
-
-	useEffect(() => {
-		dispatch(setOccupants(currentWorld.occupants));
-	}, [currentWorld, dispatch]);
+	}, [currentWorld, dispatch, rawMap, saveFile]);
 
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);

@@ -29,7 +29,7 @@ export const useSaveGame = () => {
 			handledOccupants,
 			fundsUpdate,
 		}: {
-			currentPosition: OverworldPosition;
+			currentPosition?: OverworldPosition;
 			inventoryChanges?: Partial<Inventory>;
 			portalEvent?: PortalEvent;
 			questUpdates?: SaveFile['quests'];
@@ -47,7 +47,8 @@ export const useSaveGame = () => {
 			const updatedInventory = inventoryChanges
 				? joinInventories(data.inventory, inventoryChanges)
 				: data.inventory;
-			const updatedPosition = portalEvent?.to ?? currentPosition;
+			const updatedPosition =
+				portalEvent?.to ?? currentPosition ?? data.overworldPosition;
 
 			let updatedPokemon = pokemonUpdates
 				? data.pokemon

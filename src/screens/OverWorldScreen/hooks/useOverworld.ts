@@ -1,5 +1,5 @@
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetOverworldMapQuery } from '../../../api/mapApi';
 import { useGetSaveFileQuery } from '../../../api/saveFileApi';
@@ -7,6 +7,7 @@ import { useAppDispatch } from '../../../api/store';
 import { getUserName } from '../../../functions/getUserName';
 import { Direction } from '../../../interfaces/Direction';
 import { ForwardFoot } from '../../../interfaces/ForwardFoot';
+import { OverworldPosition } from '../../../interfaces/SaveFile';
 import {
 	handleOccupants,
 	selectFocusedOccupant,
@@ -25,7 +26,6 @@ import { useHandleMovement } from './useHandleMovement';
 import { useNextField } from './useNextField';
 import { useOnPortalStep } from './useOnPortalStep';
 import { useOnSaveFileLoad } from './useOnSaveFileLoad';
-import { useSaveGame } from './useSaveGame';
 import { useTurnTowardsPlayerOnInteraction } from './useTurnTowardsPlayerOnInteraction';
 
 const fps = 15;
@@ -43,7 +43,9 @@ export const useOverworld = () => {
 		data: rawMap,
 		isError: mapError,
 		isFetching: isMapFetching,
-	} = useGetOverworldMapQuery(saveFile?.currentMapId ?? skipToken);
+	} = useGetOverworldMapQuery(
+		saveFile?.overworldPosition.currentMapId ?? skipToken
+	);
 	const [currentWorld, setCurrentWorld] = useState<OverworldMap>(mockMap);
 
 	useEffect(() => {
@@ -59,6 +61,16 @@ export const useOverworld = () => {
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);
 	const [forwardFoot, setForwardFoot] = useState<ForwardFoot>('center1');
+	const [orientation, setOrientation] = useState<Direction>('Up');
+
+	const currentPosition: OverworldPosition = useMemo(() => {
+		return {
+			orientation: orientation,
+			position: { x: offsetX, y: offsetY },
+			currentMapId: currentWorld.id,
+		};
+	}, [currentWorld.id, offsetX, offsetY, orientation]);
+
 	const toggleForwardFoot = useCallback(() => {
 		if (forwardFoot === 'center1') {
 			setForwardFoot('right');
@@ -78,8 +90,6 @@ export const useOverworld = () => {
 		}
 	}, [forwardFoot]);
 
-	const [orientation, setOrientation] = useState<Direction>('Up');
-
 	useOnSaveFileLoad(
 		setOffsetX,
 		setOffsetY,
@@ -87,18 +97,6 @@ export const useOverworld = () => {
 		handleOccupants,
 		currentWorld,
 		saveFile
-	);
-	const saveGame = useSaveGame();
-
-	const saveCurrentGameState = useCallback(
-		(heal?: boolean) => {
-			saveGame(
-				{ mapId: currentWorld.id, offsetX, offsetY, orientation },
-				undefined,
-				heal
-			);
-		},
-		[currentWorld.id, offsetX, offsetY, orientation, saveGame]
 	);
 
 	const [nextInput, setNextInput] = useState<
@@ -109,14 +107,10 @@ export const useOverworld = () => {
 
 	const currentField = useCurrentField(offsetX, offsetY, currentWorld);
 
-	useOnPortalStep(currentField);
+	useOnPortalStep(currentField, currentPosition);
 	useEncounter(currentWorld, currentField);
 
-	useTurnTowardsPlayerOnInteraction(
-		nextField,
-
-		orientation
-	);
+	useTurnTowardsPlayerOnInteraction(nextField, orientation);
 
 	const handleMovement = useHandleMovement(
 		setOffsetX,
@@ -128,12 +122,9 @@ export const useOverworld = () => {
 
 	const handleKeyPress = useHandleKeyPress(
 		nextField,
-		orientation,
+		currentPosition,
 		setOrientation,
-		handleMovement,
-
-		() => saveCurrentGameState(true),
-		() => saveCurrentGameState()
+		handleMovement
 	);
 
 	const focusedOccupant = useSelector(selectFocusedOccupant);
@@ -184,10 +175,10 @@ export const useOverworld = () => {
 		offsetX,
 		offsetY,
 		orientation,
-		saveGame: saveCurrentGameState,
 		saveFile,
 		isFetching: isMapFetching || isSaveFileFetching,
 		isError: saveFileError || mapError || !username,
 		forwardFoot,
+		currentPosition,
 	};
 };

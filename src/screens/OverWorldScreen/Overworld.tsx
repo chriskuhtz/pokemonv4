@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { RouterButton } from '../../components/RouterButton/RouterButton';
+import { useSaveGame } from '../../hooks/useSaveGame';
 import { RoutesEnum } from '../../router/router';
 import { selectCurrentDialogue } from '../../slices/dialogueSlice';
 import { Modal } from '../../ui_components/Modal/Modal';
@@ -28,12 +29,13 @@ export const OverworldWrapper = (): JSX.Element => {
 		offsetY,
 		orientation,
 		tryToSetNextInput,
-		saveGame,
 		saveFile,
 		isFetching,
 		forwardFoot,
+		currentPosition,
 	} = useOverworld();
 	const currentDialogue = useSelector(selectCurrentDialogue);
+	const save = useSaveGame();
 
 	if (isFetching) {
 		return <FetchingScreen />;
@@ -50,7 +52,7 @@ export const OverworldWrapper = (): JSX.Element => {
 					to={RoutesEnum.menu}
 					text={'Menu'}
 					className="leftCorner"
-					sideEffect={saveGame}
+					sideEffect={() => save({ currentPosition })}
 				/>
 				<Modal
 					open={currentDialogue.length > 0}

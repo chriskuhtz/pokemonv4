@@ -30,17 +30,9 @@
 					"type": "MERCHANT",
 					"position": { "y": 4, "x": 8 },
 					"orientation": "Left",
-					"inventory": [{ "id": "potion" }],
+					"inventory": { "potion": 100, "poke-ball": 100, "repel": 100 },
 					"dialogue": ["What do you need?"],
 					"sprite": "113"
-				},
-				{
-					"id": "nurse",
-					"type": "HEALER",
-					"position": { "y": 5, "x": 8 },
-					"orientation": "Left",
-					"sprite": "115",
-					"questCondition": { "id": "talkToNurseJoy", "status": "completed" }
 				},
 				{
 					"id": "largeRock80",
@@ -51,7 +43,6 @@
 					"width": 2,
 					"clearanceBehind": 1
 				},
-
 				{
 					"id": "largeRock82",
 					"type": "LARGE_OBSTACLE",

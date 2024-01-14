@@ -43,7 +43,7 @@ export const dialogueSlice = createSlice({
 		initiateQuestDialogue: (state, action: PayloadAction<QuestsEnum>) => {
 			state.dialogue = [
 				`You must complete the following quest to continue: ${action.payload}`,
-				'Quests can be completed in the Quests Tab in the Menu.',
+				'You can see your active quests in the Quests tab of the menu.',
 			];
 		},
 	},

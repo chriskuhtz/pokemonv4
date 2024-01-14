@@ -1,23 +1,43 @@
 import { skipToken } from '@reduxjs/toolkit/query';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useGetSaveFileQuery } from '../../api/saveFileApi';
-import { Headline } from '../../components/Headline/Headline';
+import { Headline, HeadlineProps } from '../../components/Headline/Headline';
 import { QuestListItem } from '../../components/QuestListItem/QuestListItem';
 import { getUserName } from '../../functions/getUserName';
 import { RoutesEnum } from '../../router/router';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
 import { FetchingScreen } from '../FetchingScreen/FetchingScreen';
 
-export const QuestsScreen = (): JSX.Element => {
+export const QuestsScreen = ({
+	headlineProps,
+	routeAwayAfterAllClaimed,
+}: {
+	headlineProps: HeadlineProps;
+	routeAwayAfterAllClaimed?: { to: RoutesEnum };
+}): JSX.Element => {
 	const username = getUserName();
+	const navigate = useNavigate();
 	const { data, isError, isFetching } = useGetSaveFileQuery(
 		username ?? skipToken
 	);
 
+	useEffect(() => {
+		if (
+			data?.quests.every((q) => q.status === 'completed') &&
+			routeAwayAfterAllClaimed
+		) {
+			navigate(routeAwayAfterAllClaimed.to);
+		}
+	}, [data, navigate, routeAwayAfterAllClaimed]);
+
 	return (
 		<div className="container">
 			<Headline
-				text={'Quests'}
-				routerButtonProps={{ to: RoutesEnum.menu, text: 'Menu' }}
+				text={headlineProps.text}
+				routerButtonProps={headlineProps.routerButtonProps}
+				style={headlineProps.style}
+				className={headlineProps.className}
 			/>
 			{isError && <ErrorScreen />}
 			{isFetching && <FetchingScreen />}

@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useIsConditionFulfilled } from '../../../hooks/useIsConditionFulfilled';
 import { Direction } from '../../../interfaces/Direction';
 import { SaveFile } from '../../../interfaces/SaveFile';
+import { RoutesEnum } from '../../../router/router';
 import { OverworldMap } from '../interfaces/Overworld';
 
 export const useOnSaveFileLoad = (
@@ -11,6 +14,8 @@ export const useOnSaveFileLoad = (
 	currentWorld: OverworldMap,
 	saveFile?: SaveFile
 ) => {
+	const isConditionFulfilled = useIsConditionFulfilled();
+	const navigate = useNavigate();
 	useEffect(() => {
 		if (saveFile) {
 			setOffsetX(saveFile.position.x);
@@ -28,4 +33,17 @@ export const useOnSaveFileLoad = (
 		setOffsetY,
 		setOrientation,
 	]);
+
+	useEffect(() => {
+		if (!saveFile) {
+			return;
+		}
+		const unclaimedQuest = saveFile.quests.find(
+			(q) => q.status === 'active' && isConditionFulfilled(q.condition)
+		);
+		console.log(unclaimedQuest);
+		if (unclaimedQuest) {
+			navigate(RoutesEnum.newFulfilledQuest);
+		}
+	}, [isConditionFulfilled, navigate, saveFile]);
 };

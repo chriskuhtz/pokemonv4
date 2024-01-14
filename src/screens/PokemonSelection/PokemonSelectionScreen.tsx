@@ -43,6 +43,7 @@ export const PokemonSelectionScreen = ({
 					{choices.map((c) => (
 						<PokemonCardWithImage
 							dexId={c}
+							key={c}
 							onClick={() => {
 								void save({
 									...data,

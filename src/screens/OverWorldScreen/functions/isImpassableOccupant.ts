@@ -1,4 +1,4 @@
-import { Occupant, QuestCheck } from '../interfaces/Occupant';
+import { Occupant, QuestCheck } from '../interfaces/Occupants/Occupant';
 import { isOverworldItem, isQuestCheck } from './OccupantTypeGuards';
 
 export const isImpassableOccupant = (

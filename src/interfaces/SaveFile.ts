@@ -1,22 +1,26 @@
+import { UniqueOccupantId } from '../constants/UniqueOccupantRecord';
 import { Position } from '../screens/OverWorldScreen/interfaces/Position';
 import { DexEntry } from './DexEntry';
 import { Direction } from './Direction';
-import { ItemName, ItemStack } from './Item';
+import { ItemName } from './Item';
 import { OwnedPokemon } from './OwnedPokemon';
-import { Quest } from './Quest';
-import { RouteProgress } from './RouteProgress';
+import { QuestStatus, QuestsEnum } from './Quest';
 
-export interface SaveFile {
-	username: string;
-	orientation: Direction;
-	sprite: string;
+export type Inventory = Record<ItemName, number>;
+export interface OverworldPosition {
 	position: Position;
 	currentMapId: string;
+	orientation: Direction;
+}
+export interface SaveFile {
+	username: string;
+	overworldPosition: OverworldPosition;
+	sprite: string;
 	id: string;
-	mapProgress: Record<string, RouteProgress>;
-	inventory: Record<ItemName, ItemStack>;
+	handledOccupants: Record<UniqueOccupantId, boolean>;
+	inventory: Inventory;
 	money: number;
 	pokemon: OwnedPokemon[];
 	pokedex: DexEntry[];
-	quests: Quest[];
+	quests: Record<QuestsEnum, QuestStatus>;
 }

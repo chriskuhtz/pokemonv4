@@ -9,7 +9,7 @@ import { getWatchedFields } from '../screens/OverWorldScreen/functions/getWatche
 import {
 	Occupant,
 	OverworldItem,
-} from '../screens/OverWorldScreen/interfaces/Occupant';
+} from '../screens/OverWorldScreen/interfaces/Occupants/Occupant';
 import { Position } from '../screens/OverWorldScreen/interfaces/Position';
 import { WatchedField } from '../screens/OverWorldScreen/interfaces/WatchedField';
 

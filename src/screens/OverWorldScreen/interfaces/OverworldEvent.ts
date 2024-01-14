@@ -1,5 +1,5 @@
-import { Direction } from '../../../interfaces/Direction';
 import { Condition } from '../../../interfaces/Quest';
+import { OverworldPosition } from '../../../interfaces/SaveFile';
 import { RoutesEnum } from '../../../router/router';
 
 export interface BaseEvent {
@@ -13,10 +13,7 @@ export interface EncounterEvent extends BaseEvent {
 
 export interface PortalEvent extends BaseEvent {
 	type: 'PORTAL';
-	mapId: string;
-	x: number;
-	y: number;
-	orientation: Direction;
+	to: OverworldPosition;
 }
 export interface RouterEvent extends BaseEvent {
 	type: 'ROUTE';

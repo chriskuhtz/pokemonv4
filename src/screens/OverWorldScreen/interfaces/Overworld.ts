@@ -1,5 +1,5 @@
-import { Occupant } from './Occupant';
-import { Tile, BaseTileId } from './Tile';
+import { Occupant } from './Occupants/Occupant';
+import { BaseTileId, Tile } from './Tile';
 
 export type OverworldMap = {
 	id: string;

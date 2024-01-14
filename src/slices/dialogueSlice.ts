@@ -5,7 +5,7 @@ import {
 	Merchant,
 	Npc,
 	OverworldItem,
-} from '../screens/OverWorldScreen/interfaces/Occupant';
+} from '../screens/OverWorldScreen/interfaces/Occupants/Occupant';
 
 export interface DialogueSlice {
 	dialogue: string[];

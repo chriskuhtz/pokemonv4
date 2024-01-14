@@ -16,7 +16,7 @@ import {
 	isObstacle,
 	isOverworldItem,
 } from '../functions/OccupantTypeGuards';
-import { Occupant } from '../interfaces/Occupant';
+import { Occupant } from '../interfaces/Occupants/Occupant';
 import { useHandleOverworldEvent } from './useHandleOverworldEvent';
 
 export const useHandleEnterAndSpace = (

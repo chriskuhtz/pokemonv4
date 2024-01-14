@@ -1,4 +1,4 @@
-import { Npc } from '../interfaces/Occupant';
+import { Npc } from '../interfaces/Occupants/Occupant';
 import { WatchedField } from '../interfaces/WatchedField';
 
 export const getWatchedFields = (npc: Npc): WatchedField[] => {

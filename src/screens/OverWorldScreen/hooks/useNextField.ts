@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Direction } from '../../../interfaces/Direction';
 import { selectOccupants } from '../../../slices/occupantsSlice';
 import { getNewCoordinates } from '../functions/getNewCoordinates';
-import { Occupant } from '../interfaces/Occupant';
+import { Occupant } from '../interfaces/Occupants/Occupant';
 import { OverworldMap, Tile } from '../interfaces/Overworld';
 import { Position } from '../interfaces/Position';
 

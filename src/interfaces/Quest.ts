@@ -1,4 +1,5 @@
-import { ItemStack } from './Item';
+import { joinInventories } from '../functions/joinInventories';
+import { Inventory } from './SaveFile';
 
 export interface OwnedPokemonCondition {
 	type: 'OWNED_POKEMON';
@@ -31,7 +32,7 @@ export interface Quest {
 	title: string;
 	description: string;
 	rewardMoney?: number;
-	rewardItems?: ItemStack[];
+	rewardItems?: Inventory;
 	condition: Condition;
 }
 
@@ -40,13 +41,21 @@ export enum QuestsEnum {
 	talkToNurseJoy = 'talkToNurseJoy',
 }
 
+export const EmptyInventory: Inventory = {
+	potion: 0,
+	'poke-ball': 0,
+	repel: 0,
+};
+export const generateInventory = (wanted: Partial<Inventory>): Inventory => {
+	return joinInventories(EmptyInventory, wanted);
+};
 export const PickStarterQuest: Quest = {
 	status: 'inactive',
 	id: QuestsEnum.pickStarter,
 	title: 'Pick a Starter Pokemon',
 	description: 'Every Trainer must choose a Starter Pokemon.',
 	rewardMoney: 1000,
-	rewardItems: [{ amount: 5, item: { id: 'poke-ball' } }],
+	rewardItems: generateInventory({ 'poke-ball': 5 }),
 	condition: {
 		type: 'OWNED_POKEMON',
 		ids: [1, 4, 7],
@@ -59,7 +68,7 @@ export const TalkToNurseJoyQuest: Quest = {
 	title: 'Speak with Nurse Joy',
 	description: 'Take your Pokemon to her if they are hurt.',
 	rewardMoney: 100,
-	rewardItems: [{ amount: 5, item: { id: 'potion' } }],
+	rewardItems: generateInventory({ potion: 5 }),
 	condition: {
 		type: 'HANDLED_OCCUPANT',
 		id: 'starter-town-nurse',

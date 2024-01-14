@@ -16,7 +16,7 @@ import {
 import { isHealer, isMerchant, isNpc } from '../functions/OccupantTypeGuards';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
 import { isImpassableOccupant } from '../functions/isImpassableOccupant';
-import { Merchant } from '../interfaces/Occupant';
+import { Merchant } from '../interfaces/Occupants/Occupant';
 import { useHandleEnterAndSpace } from './useHandleEnterAndSpace';
 import { NextFieldInfo } from './useNextField';
 

@@ -1,9 +1,10 @@
-import { Direction } from '../../../interfaces/Direction';
-import { Item, ItemName } from '../../../interfaces/Item';
-import { QuestStatus, QuestsEnum } from '../../../interfaces/Quest';
-import { Movement } from './Movement';
-import { OverworldEvent } from './OverworldEvent';
-import { Position } from './Position';
+import { Direction } from '../../../../interfaces/Direction';
+import { QuestsEnum } from '../../../../interfaces/Quest';
+import { QuestIdAndStatus } from '../../../../interfaces/QuestIdAndStatus';
+import { Inventory } from '../../../../interfaces/SaveFile';
+import { Movement } from '../Movement';
+import { OverworldEvent } from '../OverworldEvent';
+import { Position } from '../Position';
 
 export type OccupantType =
 	| 'NPC'
@@ -14,20 +15,15 @@ export type OccupantType =
 	| 'OBSTACLE'
 	| 'INVISIBLE_BLOCKER'
 	| 'LARGE_OBSTACLE';
+
 export interface BaseOccupant {
 	id: string;
 	position: Position;
 	type: OccupantType;
 	handled?: boolean;
 	focused?: boolean;
-	questUpdates?: {
-		id: QuestsEnum;
-		status: QuestStatus;
-	}[];
-	questCondition?: {
-		id: QuestsEnum;
-		status: QuestStatus;
-	};
+	questUpdates?: QuestIdAndStatus[];
+	questCondition?: QuestIdAndStatus;
 }
 
 export interface Npc extends BaseOccupant {
@@ -45,7 +41,7 @@ export interface Merchant extends BaseOccupant {
 	dialogue: string[];
 	orientation: Direction;
 	sprite: string;
-	inventory: Item[];
+	inventory: Inventory;
 }
 export interface Healer extends BaseOccupant {
 	type: 'HEALER';
@@ -53,16 +49,13 @@ export interface Healer extends BaseOccupant {
 	sprite: string;
 }
 export interface OverworldItem extends BaseOccupant {
-	item: ItemName;
+	inventory: Inventory;
 	type: 'ITEM';
 }
 export interface QuestCheck extends BaseOccupant {
 	type: 'QUEST_CHECK';
 	questId: QuestsEnum;
 }
-
-export const UniqueObstacleIds = 'STARTER_SELECTOR';
-
 export interface Obstacle extends BaseOccupant {
 	sprite: string;
 	type: 'OBSTACLE';

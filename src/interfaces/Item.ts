@@ -1,8 +1,5 @@
-export type ItemName = 'potion' | 'poke-ball' | 'repel';
-export interface Item {
-	id: ItemName;
-}
-export interface ItemStack {
-	item: Item;
-	amount: number;
+export enum ItemName {
+	potion = 'potion',
+	'poke-ball' = 'poke-ball',
+	repel = 'repel',
 }

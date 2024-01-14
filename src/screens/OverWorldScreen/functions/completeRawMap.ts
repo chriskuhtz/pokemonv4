@@ -1,5 +1,5 @@
 import { SaveFile } from '../../../interfaces/SaveFile';
-import { Occupant } from '../interfaces/Occupant';
+import { Occupant } from '../interfaces/Occupants/Occupant';
 import { OverworldMap } from '../interfaces/Overworld';
 import { createBlockersForLargeObstacles } from './createBlockersForLargeObstacles';
 import { getBaseTileIndex } from './getBaseTileIndex';

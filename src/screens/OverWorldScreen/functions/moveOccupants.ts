@@ -1,4 +1,4 @@
-import { Occupant } from '../interfaces/Occupant';
+import { Occupant } from '../interfaces/Occupants/Occupant';
 import { Position } from '../interfaces/Position';
 import { getDirection } from './getDirection';
 import { nextDirection } from './nextDirection';

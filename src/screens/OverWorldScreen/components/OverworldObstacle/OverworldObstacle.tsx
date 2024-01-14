@@ -1,5 +1,5 @@
 import { isLargeObstacle } from '../../functions/OccupantTypeGuards';
-import { LargeObstacle, Obstacle } from '../../interfaces/Occupant';
+import { LargeObstacle, Obstacle } from '../../interfaces/Occupants/Occupant';
 import './OverworldObstacle.css';
 
 export const OverworldObstacle = ({

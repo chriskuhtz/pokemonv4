@@ -1,10 +1,7 @@
 import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '../api/store';
-import {
-	isNpc,
-	isOverworldItem,
-} from '../screens/OverWorldScreen/functions/OccupantTypeGuards';
+import { isNpc } from '../screens/OverWorldScreen/functions/OccupantTypeGuards';
 import { getWatchedFields } from '../screens/OverWorldScreen/functions/getWatchedFields';
 import {
 	Occupant,
@@ -38,21 +35,10 @@ export const occupantsSlice = createSlice({
 				(o) => o.id === action.payload
 			);
 		},
-		handleOccupants: (state, action: PayloadAction<string[]>) => {
-			state.occupants = state.occupants.map((o) => {
-				if (action.payload.includes(o.id)) {
-					if (isOverworldItem(o)) {
-						state.collectedItems = [...state.collectedItems, o];
-					}
-
-					return { ...o, handled: true, focused: false, watching: false };
-				} else return o;
-			});
-		},
 	},
 });
 
-export const { unfocusOccupant, focusOccupant, handleOccupants, setOccupants } =
+export const { unfocusOccupant, focusOccupant, setOccupants } =
 	occupantsSlice.actions;
 
 export const selectOccupants = (rootState: RootState): Occupant[] => {

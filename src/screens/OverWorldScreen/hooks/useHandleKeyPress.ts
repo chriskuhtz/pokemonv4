@@ -13,8 +13,8 @@ import {
 	selectCurrentDialogue,
 } from '../../../slices/dialogueSlice';
 import {
-	handleOccupants,
 	selectFocusedOccupant,
+	unfocusOccupant,
 } from '../../../slices/occupantsSlice';
 import { isHealer, isMerchant, isNpc } from '../functions/OccupantTypeGuards';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
@@ -48,7 +48,6 @@ export const useHandleKeyPress = (
 			if (key === ' ' || key === 'Enter') {
 				if (currentDialogue.length === 1) {
 					if (focusedOccupant && isNpc(focusedOccupant)) {
-						dispatch(handleOccupants([focusedOccupant.id]));
 						if (focusedOccupant.id in UniqueOccupantIds) {
 							save({
 								currentPosition,
@@ -63,6 +62,7 @@ export const useHandleKeyPress = (
 					if (focusedOccupant && isHealer(focusedOccupant)) {
 						save({ currentPosition, visitedNurse: true });
 					}
+					dispatch(unfocusOccupant());
 				}
 				dispatch(continueDialogue());
 			}

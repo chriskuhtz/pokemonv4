@@ -9,9 +9,12 @@ export const PARTIAL_SAVE_FILE: Partial<SaveFile> = {
 	},
 	id: v4(),
 	handledOccupants: {
-		'nurse-quest': false,
-		'oak-afterStarterSelection': false,
-		'oak-beforeStarterSelection': false,
+		'starter-town-ballMachine': false,
+		'starter-town-merchant': false,
+		'starter-town-nurse': false,
+		'starter-town-nurse-quest': false,
+		'starter-town-oak-after-selection': false,
+		'starter-town-oak-before-selection': false,
 	},
 	money: 5000,
 	inventory: {

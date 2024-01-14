@@ -1,4 +1,4 @@
-import { Decoration } from '../../interfaces/Overworld';
+import { Decoration } from '../../interfaces/Tile';
 import './TileDecoration.css';
 
 export const TileDecoration = ({

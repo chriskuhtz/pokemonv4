@@ -6,14 +6,20 @@ export enum UniqueOccupantIds {
 	'oak-beforeStarterSelection' = 'oak-beforeStarterSelection',
 	'oak-afterStarterSelection' = 'oak-afterStarterSelection',
 	'nurse-quest' = 'nurse-quest',
+	'starter-town-merchant' = 'starter-town-merchant',
+	'starter-town-nurse' = 'starter-town-nurse',
+	'starter-town-ballMachine' = 'starter-town-ballMachine',
 }
 
 export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
 	'oak-beforeStarterSelection': {
 		id: 'oak-beforeStarterSelection',
 		type: 'NPC',
-		position: { y: 2, x: 4 },
-		orientation: 'Down',
+		position: {
+			position: { y: 2, x: 4 },
+			currentMapId: 'starter-town',
+			orientation: 'Down',
+		},
 		dialogue: [
 			'Hello',
 			"It's nice to meet you.",
@@ -33,8 +39,11 @@ export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
 	'oak-afterStarterSelection': {
 		id: 'oakAfterStarterPick',
 		type: 'NPC',
-		position: { y: 2, x: 4 },
-		orientation: 'Down',
+		position: {
+			position: { y: 2, x: 4 },
+			currentMapId: 'starter-town',
+			orientation: 'Down',
+		},
 		dialogue: [
 			'Aah, what an excellent choice',
 			'I am sure this Pokemon will become an excellent Partner',
@@ -49,8 +58,11 @@ export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
 	'nurse-quest': {
 		id: 'talkToNurseJoy-active',
 		type: 'NPC',
-		position: { y: 5, x: 8 },
-		orientation: 'Left',
+		position: {
+			position: { y: 5, x: 8 },
+			currentMapId: 'starter-town',
+			orientation: 'Left',
+		},
 		dialogue: [
 			'Welcome to the world of Pokemon',
 			'Please visit me any time your Pokemon is hurt',
@@ -65,5 +77,51 @@ export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
 		],
 		sprite: '115',
 		questCondition: { id: QuestsEnum['talkToNurseJoy'], status: 'active' },
+	},
+	'starter-town-merchant': {
+		id: 'starter-town-merchant',
+		type: 'MERCHANT',
+		position: {
+			position: { y: 4, x: 8 },
+			currentMapId: 'starter-town',
+			orientation: 'Left',
+		},
+		inventory: { potion: 100, 'poke-ball': 100, repel: 100 },
+		dialogue: ['What do you need?'],
+		sprite: '113',
+	},
+	'starter-town-nurse': {
+		id: 'starter-town-nurse',
+		type: 'HEALER',
+		position: {
+			position: { y: 5, x: 8 },
+			currentMapId: 'starter-town',
+			orientation: 'Left',
+		},
+		sprite: '113',
+		questCondition: { id: QuestsEnum.talkToNurseJoy, status: 'completed' },
+	},
+	'starter-town-ballMachine': {
+		id: 'starter-town-ballMachine',
+		type: 'LARGE_OBSTACLE',
+		position: {
+			position: { y: 2, x: 5 },
+			currentMapId: 'starter-town',
+			orientation: 'Left',
+		},
+		sprite: 'pokeballMachine',
+		height: 3,
+		width: 2,
+		clearanceBehind: 1,
+		onClick: {
+			type: 'ROUTE',
+			to: '/starterSelection',
+			condition: {
+				type: 'NOT_REGISTERED_POKEMON',
+				ids: [1, 4, 7],
+				mode: 'ALL',
+				conditionFailMessage: 'You already chose a starter Pokemon.',
+			},
+		},
 	},
 };

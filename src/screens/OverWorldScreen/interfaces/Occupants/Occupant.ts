@@ -1,10 +1,9 @@
-import { Direction } from '../../../../interfaces/Direction';
 import { Inventory } from '../../../../interfaces/Inventory';
 import { QuestsEnum } from '../../../../interfaces/Quest';
 import { QuestIdAndStatus } from '../../../../interfaces/QuestIdAndStatus';
+import { OverworldPosition } from '../../../../interfaces/SaveFile';
 import { Movement } from '../Movement';
 import { OverworldEvent } from '../OverworldEvent';
-import { Position } from '../Position';
 
 export type OccupantType =
 	| 'NPC'
@@ -18,7 +17,7 @@ export type OccupantType =
 
 export interface BaseOccupant {
 	id: string;
-	position: Position;
+	position: OverworldPosition;
 	type: OccupantType;
 	handled?: boolean;
 	focused?: boolean;
@@ -28,7 +27,6 @@ export interface BaseOccupant {
 
 export interface Npc extends BaseOccupant {
 	dialogue: string[];
-	orientation: Direction;
 	sprite: string;
 	movement?: Movement;
 	viewRange?: number;
@@ -39,13 +37,11 @@ export interface Npc extends BaseOccupant {
 export interface Merchant extends BaseOccupant {
 	type: 'MERCHANT';
 	dialogue: string[];
-	orientation: Direction;
 	sprite: string;
 	inventory: Inventory;
 }
 export interface Healer extends BaseOccupant {
 	type: 'HEALER';
-	orientation: Direction;
 	sprite: string;
 }
 export interface OverworldItem extends BaseOccupant {

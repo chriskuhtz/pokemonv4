@@ -1,4 +1,5 @@
 import { UniqueOccupantIds } from '../constants/UniqueOccupantRecord';
+import { MapId } from '../screens/OverWorldScreen/interfaces/Overworld';
 import { Position } from '../screens/OverWorldScreen/interfaces/Position';
 import { DexEntry } from './DexEntry';
 import { Direction } from './Direction';
@@ -8,7 +9,7 @@ import { QuestStatus, QuestsEnum } from './Quest';
 
 export interface OverworldPosition {
 	position: Position;
-	currentMapId: string;
+	currentMapId: MapId;
 	orientation: Direction;
 }
 export interface SaveFile {

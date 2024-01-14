@@ -1,10 +1,12 @@
 import { Occupant } from './Occupants/Occupant';
 import { BaseTileId, Tile } from './Tile';
 
+export type MapId = 'starter-town';
+
 export type OverworldMap = {
-	id: string;
+	id: MapId;
 	map: Tile[][];
 	encounters: string[];
-	occupants: Occupant[];
+	occupants?: Occupant[];
 	baseTile: BaseTileId;
 };

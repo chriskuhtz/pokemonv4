@@ -8,8 +8,9 @@ import { UniqueOccupantIds } from '../constants/UniqueOccupantRecord';
 import { getUserName } from '../functions/getUserName';
 import { joinInventories } from '../functions/joinInventories';
 import { DexEntry } from '../interfaces/DexEntry';
+import { Inventory } from '../interfaces/Inventory';
 import { OwnedPokemon } from '../interfaces/OwnedPokemon';
-import { Inventory, OverworldPosition, SaveFile } from '../interfaces/SaveFile';
+import { OverworldPosition, SaveFile } from '../interfaces/SaveFile';
 import { PortalEvent } from '../screens/OverWorldScreen/interfaces/OverworldEvent';
 
 export const useSaveGame = () => {
@@ -32,7 +33,7 @@ export const useSaveGame = () => {
 			currentPosition?: OverworldPosition;
 			inventoryChanges?: Partial<Inventory>;
 			portalEvent?: PortalEvent;
-			questUpdates?: SaveFile['quests'];
+			questUpdates?: Partial<SaveFile['quests']>;
 			pokemonUpdates?: OwnedPokemon[];
 			visitedNurse?: boolean;
 			dexUpdates?: DexEntry[];

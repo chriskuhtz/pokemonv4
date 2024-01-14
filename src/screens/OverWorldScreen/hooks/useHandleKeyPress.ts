@@ -1,25 +1,12 @@
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../api/store';
-import { UniqueOccupantIds } from '../../../constants/UniqueOccupantRecord';
 import { useIsQuestCompleted } from '../../../hooks/useIsQuestCompleted';
-import { useSaveGame } from '../../../hooks/useSaveGame';
 import { Direction } from '../../../interfaces/Direction';
 import { OverworldPosition } from '../../../interfaces/SaveFile';
-import { RoutesEnum } from '../../../router/router';
-import {
-	continueDialogue,
-	selectCurrentDialogue,
-} from '../../../slices/dialogueSlice';
-import {
-	selectFocusedOccupant,
-	unfocusOccupant,
-} from '../../../slices/occupantsSlice';
-import { isHealer, isMerchant, isNpc } from '../functions/OccupantTypeGuards';
+import { selectCurrentDialogue } from '../../../slices/dialogueSlice';
 import { getNewOrientationAfterKeyPress } from '../functions/getNewOrientationAfterKeyPress';
 import { isImpassableOccupant } from '../functions/isImpassableOccupant';
-import { Merchant } from '../interfaces/Occupants/Occupant';
+import { useHandleDialogue } from './useHandleDialogue';
 import { useHandleEnterAndSpace } from './useHandleEnterAndSpace';
 import { NextFieldInfo } from './useNextField';
 
@@ -29,58 +16,14 @@ export const useHandleKeyPress = (
 	setOrientation: (x: Direction) => void,
 	handleMovement: (key: string) => void
 ) => {
-	const dispatch = useAppDispatch();
 	const currentDialogue = useSelector(selectCurrentDialogue);
-	const focusedOccupant = useSelector(selectFocusedOccupant);
 	const isQuestCompleted = useIsQuestCompleted();
-	const navigate = useNavigate();
-	const save = useSaveGame();
-	const openMarketScreen = useCallback(
-		async (x: Merchant) => {
-			save({ currentPosition });
-			navigate(RoutesEnum.market, { state: x.inventory });
-		},
-		[currentPosition, navigate, save]
-	);
-
-	const handleDialogue = useCallback(
-		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
-			if (key === ' ' || key === 'Enter') {
-				if (currentDialogue.length === 1) {
-					if (focusedOccupant && isNpc(focusedOccupant)) {
-						if (focusedOccupant.id in UniqueOccupantIds) {
-							save({
-								currentPosition,
-								handledOccupants: { [focusedOccupant.id]: true },
-							});
-						}
-					}
-					if (focusedOccupant && isMerchant(focusedOccupant)) {
-						openMarketScreen(focusedOccupant);
-						save({ currentPosition });
-					}
-					if (focusedOccupant && isHealer(focusedOccupant)) {
-						save({ currentPosition, visitedNurse: true });
-					}
-					dispatch(unfocusOccupant());
-				}
-				dispatch(continueDialogue());
-			}
-		},
-		[
-			currentDialogue.length,
-			dispatch,
-			focusedOccupant,
-			save,
-			currentPosition,
-			openMarketScreen,
-		]
-	);
 
 	const handleEnterAndSpace = useHandleEnterAndSpace(
 		currentPosition,
 		nextField.occupant
 	);
+	const handleDialogue = useHandleDialogue(currentPosition);
 
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {

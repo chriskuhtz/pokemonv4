@@ -8,18 +8,14 @@ import { SaveFile } from '../interfaces/SaveFile';
 
 export const isHandledOccupantConditionFulfilled = (
 	condition: Condition,
-	mapProgress: SaveFile['mapProgress'],
-	currentMapId: SaveFile['currentMapId']
+	saveFile: SaveFile
 ) => {
 	if (condition.type !== 'HANDLED_OCCUPANT') {
 		return false;
 	}
 	const { id } = condition;
-	const progressForThisMap = mapProgress[currentMapId];
-	if (!progressForThisMap) {
-		return false;
-	}
-	return progressForThisMap.handledOccupants.some((h) => h === id);
+
+	return saveFile.handledOccupants[id];
 };
 export const useIsConditionFulfilled = () => {
 	const username = getUserName();
@@ -33,11 +29,7 @@ export const useIsConditionFulfilled = () => {
 
 			return (
 				isOwnedPokemonConditionFulfilled(condition, data.pokedex) ||
-				isHandledOccupantConditionFulfilled(
-					condition,
-					data.mapProgress,
-					data.currentMapId
-				)
+				isHandledOccupantConditionFulfilled(condition, data)
 			);
 		},
 		[data]

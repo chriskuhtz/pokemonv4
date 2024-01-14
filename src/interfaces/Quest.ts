@@ -1,3 +1,4 @@
+import { UniqueOccupantIds } from '../constants/UniqueOccupantRecord';
 import { Inventory, generateInventory } from './Inventory';
 
 export interface OwnedPokemonCondition {
@@ -14,7 +15,7 @@ export interface NotRegisteredPokemonCondition {
 }
 export interface HandledOccupantCondition {
 	type: 'HANDLED_OCCUPANT';
-	id: string;
+	id: UniqueOccupantIds;
 	conditionFailMessage?: string;
 }
 
@@ -62,7 +63,7 @@ export const TalkToNurseJoyQuest: Quest = {
 	rewardItems: generateInventory({ potion: 5 }),
 	condition: {
 		type: 'HANDLED_OCCUPANT',
-		id: 'starter-town-nurse',
+		id: 'starter-town-nurse-quest',
 	},
 };
 

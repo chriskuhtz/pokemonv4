@@ -49,8 +49,9 @@ export const QuestsScreen = ({
 						.filter((q) => q[1] !== 'inactive')
 						.map((questEntry) => {
 							const key = questEntry[0];
+							const status = questEntry[1];
 							if (key in QuestsEnum) {
-								const quest = QuestRecord[key as QuestsEnum];
+								const quest = { ...QuestRecord[key as QuestsEnum], status };
 								return <QuestListItem quest={quest} key={key} />;
 							}
 						})}

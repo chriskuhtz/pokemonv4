@@ -1,7 +1,7 @@
 import { Inventory } from '../../../../interfaces/Inventory';
 import { QuestsEnum } from '../../../../interfaces/Quest';
 import { QuestIdAndStatus } from '../../../../interfaces/QuestIdAndStatus';
-import { OverworldPosition } from '../../../../interfaces/SaveFile';
+import { OverworldPosition, SaveFile } from '../../../../interfaces/SaveFile';
 import { Movement } from '../Movement';
 import { OverworldEvent } from '../OverworldEvent';
 
@@ -21,7 +21,7 @@ export interface BaseOccupant {
 	type: OccupantType;
 	handled?: boolean;
 	focused?: boolean;
-	questUpdates?: QuestIdAndStatus[];
+	questUpdates?: Partial<SaveFile['quests']>;
 	questCondition?: QuestIdAndStatus;
 }
 

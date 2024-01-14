@@ -5,6 +5,7 @@ import { IconWithTag } from '../../shared/components/IconWithTag/IconWithTag';
 import { Pill } from '../../ui_components/Pill/Pill';
 
 export const QuestListItem = ({ quest }: { quest: Quest }) => {
+	console.log(quest);
 	const isConditionFulfilled = useIsConditionFulfilled();
 	const claimQuest = useClaimQuest();
 
@@ -29,15 +30,19 @@ export const QuestListItem = ({ quest }: { quest: Quest }) => {
 				</div>
 			}
 			rightSide={
-				<div style={{ display: 'flex' }}>
-					{quest.rewardItems?.map((itemStack) => (
-						<IconWithTag
-							key={itemStack.item.id}
-							src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${itemStack.item.id}.png`}
-							tag={itemStack.amount}
-						/>
-					))}
-				</div>
+				quest.rewardItems && (
+					<div style={{ display: 'flex' }}>
+						{Object.entries(quest.rewardItems)
+							.filter((entry) => entry[1] > 0)
+							.map((entry) => (
+								<IconWithTag
+									key={entry[0]}
+									src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${entry[0]}.png`}
+									tag={entry[1]}
+								/>
+							))}
+					</div>
+				)
 			}
 		/>
 	);

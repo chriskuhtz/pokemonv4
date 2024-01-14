@@ -17,7 +17,7 @@ export interface PortalEvent extends BaseEvent {
 }
 export interface RouterEvent extends BaseEvent {
 	type: 'ROUTE';
-	to: RoutesEnum;
+	to: RoutesEnum | string;
 }
 
 export type OverworldEvent = EncounterEvent | PortalEvent | RouterEvent;

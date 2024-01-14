@@ -4,6 +4,7 @@ import { Occupant } from '../screens/OverWorldScreen/interfaces/Occupants/Occupa
 //every occupant that can be handled should be unique
 export enum UniqueOccupantIds {
 	'starter-town-oak-before-selection' = 'starter-town-oak-before-selection',
+	'starter-town-oak-during-selection' = 'starter-town-oak-during-selection',
 	'starter-town-oak-after-selection' = 'starter-town-oak-after-selection',
 	'starter-town-nurse-quest' = 'starter-town-nurse-quest',
 	'starter-town-merchant' = 'starter-town-merchant',
@@ -28,12 +29,25 @@ export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
 			'For your first Pokemon Partner, you can choose one from the Machine next to me.',
 		],
 		sprite: '136',
-		questUpdates: [
-			{
-				id: QuestsEnum.talkToNurseJoy,
-				status: 'active',
-			},
+		questUpdates: {
+			[QuestsEnum.talkToNurseJoy]: 'active',
+			[QuestsEnum.pickStarter]: 'active',
+		},
+		questCondition: { id: QuestsEnum.pickStarter, status: 'inactive' },
+	},
+	'starter-town-oak-during-selection': {
+		id: 'starter-town-oak-during-selection',
+		type: 'NPC',
+		position: {
+			position: { y: 2, x: 4 },
+			currentMapId: 'starter-town',
+			orientation: 'Down',
+		},
+		dialogue: [
+			'Choosing the right Pokemon Partner is important',
+			'Consider your choices carefully',
 		],
+		sprite: '136',
 		questCondition: { id: QuestsEnum.pickStarter, status: 'active' },
 	},
 	'starter-town-oak-after-selection': {
@@ -69,12 +83,9 @@ export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
 			'I will also give these potions',
 			'Use them for first aid in the field',
 		],
-		questUpdates: [
-			{
-				id: QuestsEnum['talkToNurseJoy'],
-				status: 'completed',
-			},
-		],
+		questUpdates: {
+			[QuestsEnum.talkToNurseJoy]: 'completed',
+		},
 		sprite: '115',
 		questCondition: { id: QuestsEnum['talkToNurseJoy'], status: 'active' },
 	},

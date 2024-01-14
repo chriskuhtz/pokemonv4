@@ -65,8 +65,7 @@ export const OverworldTile = ({
 					occupantOffset={!!occupant}
 					decoration={
 						tile.decoration ??
-						//@ts-expect-error Comparison is not unintentional
-						(tile.onStep === 'ENCOUNTER'
+						(tile.onStep?.type === 'ENCOUNTER'
 							? DecorationMap['tallGrass']
 							: undefined)
 					}

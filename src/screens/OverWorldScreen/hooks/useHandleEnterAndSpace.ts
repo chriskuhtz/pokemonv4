@@ -1,12 +1,13 @@
 import { useCallback } from 'react';
 import { useAppDispatch } from '../../../api/store';
+import { OverworldPosition } from '../../../interfaces/SaveFile';
 import {
 	initiateHealerDialogue,
 	initiateItemDialogue,
 	initiateMerchantDialogue,
 	initiateNpcDialogue,
 } from '../../../slices/dialogueSlice';
-import { focusOccupant, handleOccupants } from '../../../slices/occupantsSlice';
+import { focusOccupant } from '../../../slices/occupantsSlice';
 import {
 	isHealer,
 	isInvisibleBlocker,
@@ -20,17 +21,15 @@ import { Occupant } from '../interfaces/Occupants/Occupant';
 import { useHandleOverworldEvent } from './useHandleOverworldEvent';
 
 export const useHandleEnterAndSpace = (
-	save: () => void,
+	currentPosition: OverworldPosition,
 	occupant?: Occupant
 ) => {
 	const dispatch = useAppDispatch();
-	const handleOverworldEvent = useHandleOverworldEvent(save);
+	const handleOverworldEvent = useHandleOverworldEvent(currentPosition);
 
 	return useCallback(() => {
-		console.log(occupant);
 		if (isOverworldItem(occupant) && !occupant.handled) {
 			dispatch(initiateItemDialogue(occupant));
-			dispatch(handleOccupants([occupant.id]));
 			return;
 		}
 		if (isNpc(occupant)) {

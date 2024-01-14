@@ -1,4 +1,4 @@
-import { UniqueOccupantId } from '../constants/UniqueOccupantRecord';
+import { UniqueOccupantIds } from '../constants/UniqueOccupantRecord';
 import { Position } from '../screens/OverWorldScreen/interfaces/Position';
 import { DexEntry } from './DexEntry';
 import { Direction } from './Direction';
@@ -17,7 +17,7 @@ export interface SaveFile {
 	overworldPosition: OverworldPosition;
 	sprite: string;
 	id: string;
-	handledOccupants: Record<UniqueOccupantId, boolean>;
+	handledOccupants: Record<UniqueOccupantIds, boolean>;
 	inventory: Inventory;
 	money: number;
 	pokemon: OwnedPokemon[];

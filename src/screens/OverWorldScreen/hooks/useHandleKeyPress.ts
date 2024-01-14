@@ -2,8 +2,11 @@ import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../api/store';
+import { UniqueOccupantIds } from '../../../constants/UniqueOccupantRecord';
 import { useIsQuestCompleted } from '../../../hooks/useIsQuestCompleted';
+import { useSaveGame } from '../../../hooks/useSaveGame';
 import { Direction } from '../../../interfaces/Direction';
+import { OverworldPosition } from '../../../interfaces/SaveFile';
 import { RoutesEnum } from '../../../router/router';
 import {
 	continueDialogue,
@@ -22,23 +25,22 @@ import { NextFieldInfo } from './useNextField';
 
 export const useHandleKeyPress = (
 	nextField: NextFieldInfo,
-	orientation: Direction,
+	currentPosition: OverworldPosition,
 	setOrientation: (x: Direction) => void,
-	handleMovement: (key: string) => void,
-	healTeam: () => void,
-	save: () => void
+	handleMovement: (key: string) => void
 ) => {
 	const dispatch = useAppDispatch();
 	const currentDialogue = useSelector(selectCurrentDialogue);
 	const focusedOccupant = useSelector(selectFocusedOccupant);
 	const isQuestCompleted = useIsQuestCompleted();
 	const navigate = useNavigate();
+	const save = useSaveGame();
 	const openMarketScreen = useCallback(
 		async (x: Merchant) => {
-			save();
+			save({ currentPosition });
 			navigate(RoutesEnum.market, { state: x.inventory });
 		},
-		[navigate, save]
+		[currentPosition, navigate, save]
 	);
 
 	const handleDialogue = useCallback(
@@ -47,21 +49,38 @@ export const useHandleKeyPress = (
 				if (currentDialogue.length === 1) {
 					if (focusedOccupant && isNpc(focusedOccupant)) {
 						dispatch(handleOccupants([focusedOccupant.id]));
+						if (focusedOccupant.id in UniqueOccupantIds) {
+							save({
+								currentPosition,
+								handledOccupants: { [focusedOccupant.id]: true },
+							});
+						}
 					}
 					if (focusedOccupant && isMerchant(focusedOccupant)) {
 						openMarketScreen(focusedOccupant);
+						save({ currentPosition });
 					}
 					if (focusedOccupant && isHealer(focusedOccupant)) {
-						healTeam();
+						save({ currentPosition, visitedNurse: true });
 					}
 				}
 				dispatch(continueDialogue());
 			}
 		},
-		[currentDialogue, dispatch, focusedOccupant, openMarketScreen, healTeam]
+		[
+			currentDialogue.length,
+			dispatch,
+			focusedOccupant,
+			save,
+			currentPosition,
+			openMarketScreen,
+		]
 	);
 
-	const handleEnterAndSpace = useHandleEnterAndSpace(save, nextField.occupant);
+	const handleEnterAndSpace = useHandleEnterAndSpace(
+		currentPosition,
+		nextField.occupant
+	);
 
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
@@ -78,8 +97,11 @@ export const useHandleKeyPress = (
 			}
 
 			//handle orientation
-			const nextOrientation = getNewOrientationAfterKeyPress(key, orientation);
-			if (nextOrientation && nextOrientation !== orientation) {
+			const nextOrientation = getNewOrientationAfterKeyPress(
+				key,
+				currentPosition.orientation
+			);
+			if (nextOrientation && nextOrientation !== currentPosition.orientation) {
 				setOrientation(nextOrientation);
 				return;
 			}
@@ -94,14 +116,13 @@ export const useHandleKeyPress = (
 			handleMovement(key);
 		},
 		[
-			currentDialogue.length,
+			currentDialogue,
+			currentPosition,
 			handleDialogue,
 			handleEnterAndSpace,
 			handleMovement,
 			isQuestCompleted,
-			nextField?.occupant,
-			nextField.tile,
-			orientation,
+			nextField,
 			setOrientation,
 		]
 	);

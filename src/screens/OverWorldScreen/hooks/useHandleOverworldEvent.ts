@@ -2,16 +2,18 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../api/store';
 import { useIsConditionFulfilled } from '../../../hooks/useIsConditionFulfilled';
+import { useSaveGame } from '../../../hooks/useSaveGame';
+import { OverworldPosition } from '../../../interfaces/SaveFile';
 import { addDialogue } from '../../../slices/dialogueSlice';
 import { OverworldEvent } from '../interfaces/OverworldEvent';
 
-export const useHandleOverworldEvent = (save: () => void) => {
+export const useHandleOverworldEvent = (currentPosition: OverworldPosition) => {
 	const navigate = useNavigate();
 	const checkCondition = useIsConditionFulfilled();
 	const dispatch = useAppDispatch();
+	const save = useSaveGame();
 	return useCallback(
 		(event: OverworldEvent) => {
-			console.log(event, checkCondition(event.condition!));
 			if (event.condition && !checkCondition(event.condition)) {
 				dispatch(
 					addDialogue([
@@ -21,10 +23,13 @@ export const useHandleOverworldEvent = (save: () => void) => {
 				return;
 			}
 			if (event.type === 'ROUTE') {
-				save();
+				save({ currentPosition });
 				navigate(event.to);
 			}
+			if (event.type === 'PORTAL') {
+				save({ currentPosition, portalEvent: event });
+			}
 		},
-		[checkCondition, dispatch, navigate, save]
+		[checkCondition, currentPosition, dispatch, navigate, save]
 	);
 };

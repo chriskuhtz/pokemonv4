@@ -4,7 +4,7 @@ import {
 	useGetSaveFileQuery,
 	usePutSaveFileMutation,
 } from '../api/saveFileApi';
-import { UniqueOccupantId } from '../constants/UniqueOccupantRecord';
+import { UniqueOccupantIds } from '../constants/UniqueOccupantRecord';
 import { getUserName } from '../functions/getUserName';
 import { joinInventories } from '../functions/joinInventories';
 import { DexEntry } from '../interfaces/DexEntry';
@@ -36,7 +36,7 @@ export const useSaveGame = () => {
 			pokemonUpdates?: OwnedPokemon[];
 			visitedNurse?: boolean;
 			dexUpdates?: DexEntry[];
-			handledOccupants?: Record<UniqueOccupantId, boolean>;
+			handledOccupants?: Partial<Record<UniqueOccupantIds, boolean>>;
 			fundsUpdate?: number;
 		}) => {
 			if (!data) {

@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
-import { Tile } from '../interfaces/Overworld';
-import { PortalEvent } from '../interfaces/OverworldEvent';
+import { OverworldPosition } from '../../../interfaces/SaveFile';
+import { Tile } from '../interfaces/Tile';
+import { useHandleOverworldEvent } from './useHandleOverworldEvent';
 
 export const useOnPortalStep = (
 	currentField: Tile,
-	handlePortalEvent: (x: PortalEvent) => void
+	currentPosition: OverworldPosition
 ) => {
+	const handlePortalEvent = useHandleOverworldEvent(currentPosition);
 	return useMemo(() => {
 		if (currentField?.onStep?.type === 'PORTAL') {
 			handlePortalEvent(currentField.onStep);

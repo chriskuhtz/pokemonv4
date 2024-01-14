@@ -16,7 +16,6 @@ import {
 import { completeRawMap } from '../functions/completeRawMap';
 import { moveOccupants } from '../functions/moveOccupants';
 import { OverworldMap } from '../interfaces/Overworld';
-import { PortalEvent } from '../interfaces/OverworldEvent';
 import { mockMap } from '../mockMap';
 import { useAnimationFrame } from './useAnimationFrame';
 import { useCurrentField } from './useCurrentField';
@@ -110,23 +109,7 @@ export const useOverworld = () => {
 
 	const currentField = useCurrentField(offsetX, offsetY, currentWorld);
 
-	const handlePortalEvent = useCallback(
-		async (portalEvent: PortalEvent) => {
-			await saveGame(
-				{ mapId: currentWorld.id, offsetX, offsetY, orientation },
-				{
-					mapId: portalEvent.mapId,
-					offsetX: portalEvent.x,
-					offsetY: portalEvent.y,
-					orientation: portalEvent.orientation,
-				}
-			);
-
-			// await save current map, then save new map
-		},
-		[currentWorld.id, offsetX, offsetY, orientation, saveGame]
-	);
-	useOnPortalStep(currentField, handlePortalEvent);
+	useOnPortalStep(currentField);
 	useEncounter(currentWorld, currentField);
 
 	useTurnTowardsPlayerOnInteraction(

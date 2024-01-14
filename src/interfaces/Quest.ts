@@ -23,8 +23,9 @@ export type Condition =
 	| HandledOccupantCondition
 	| NotRegisteredPokemonCondition;
 
+export type QuestStatus = 'active' | 'completed';
 export interface Quest {
-	status: 'active' | 'completed';
+	status: QuestStatus;
 	id: QuestsEnum;
 	title: string;
 	description: string;

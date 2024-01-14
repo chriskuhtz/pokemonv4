@@ -13,6 +13,7 @@ import {
 	selectOccupants,
 	setOccupants,
 } from '../../../slices/occupantsSlice';
+import { completeRawMap } from '../functions/completeRawMap';
 import { moveOccupants } from '../functions/moveOccupants';
 import { OverworldMap } from '../interfaces/Overworld';
 import { PortalEvent } from '../interfaces/OverworldEvent';
@@ -27,7 +28,6 @@ import { useOnPortalStep } from './useOnPortalStep';
 import { useOnSaveFileLoad } from './useOnSaveFileLoad';
 import { useSaveGame } from './useSaveGame';
 import { useTurnTowardsPlayerOnInteraction } from './useTurnTowardsPlayerOnInteraction';
-import { completeRawMap } from '../functions/completeRawMap';
 
 const fps = 15;
 
@@ -48,10 +48,10 @@ export const useOverworld = () => {
 	const [currentWorld, setCurrentWorld] = useState<OverworldMap>(mockMap);
 
 	useEffect(() => {
-		if (rawMap && currentWorld.id !== rawMap.id) {
-			setCurrentWorld(completeRawMap(rawMap));
+		if (saveFile && rawMap && currentWorld.id !== rawMap.id) {
+			setCurrentWorld(completeRawMap(rawMap, saveFile));
 		}
-	}, [currentWorld, rawMap]);
+	}, [currentWorld, rawMap, saveFile]);
 
 	useEffect(() => {
 		dispatch(setOccupants(currentWorld.occupants));

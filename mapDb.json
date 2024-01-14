@@ -6,7 +6,7 @@
 			"encounters": ["pidgey", "rattata", "spearow"],
 			"occupants": [
 				{
-					"id": "oak",
+					"id": "oakInitial",
 					"type": "NPC",
 					"position": { "y": 2, "x": 4 },
 					"dialogue": [
@@ -16,7 +16,23 @@
 						"It is my privilege and responsibility to give you your first Pokemon.",
 						"For your first Pokemon Partner, you can choose one from the Machine next to me."
 					],
-					"sprite": "136"
+					"sprite": "136",
+					"questCondition": { "id": "pickStarter", "status": "active" }
+				},
+				{
+					"id": "oakAfterStarterPick",
+					"type": "NPC",
+					"position": { "y": 2, "x": 4 },
+					"dialogue": [
+						"Aah, what an excellent choice",
+						"I am sure this Pokemon will become an excellent Partner",
+						"I look forward to hearing about your many adventures"
+					],
+					"sprite": "136",
+					"questCondition": {
+						"id": "pickStarter",
+						"status": "completed"
+					}
 				},
 
 				{

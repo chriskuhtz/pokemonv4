@@ -1,6 +1,6 @@
 import { Direction } from '../../../interfaces/Direction';
 import { Item, ItemName } from '../../../interfaces/Item';
-import { QuestsEnum } from '../../../interfaces/Quest';
+import { QuestStatus, QuestsEnum } from '../../../interfaces/Quest';
 import { Movement } from './Movement';
 import { OverworldEvent } from './OverworldEvent';
 import { Position } from './Position';
@@ -20,7 +20,12 @@ export interface BaseOccupant {
 	type: OccupantType;
 	handled?: boolean;
 	focused?: boolean;
+	questCondition?: {
+		id: QuestsEnum;
+		status: QuestStatus;
+	};
 }
+
 export interface Npc extends BaseOccupant {
 	dialogue: string[];
 	orientation: Direction;

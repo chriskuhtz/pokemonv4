@@ -2,14 +2,12 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLazyGetItemDataByNameQuery } from '../../../api/pokeApi';
-import {
-	useGetSaveFileQuery,
-	usePutSaveFileMutation,
-} from '../../../api/saveFileApi';
-import { addItemStacksToInventory } from '../../../functions/addItemStacksToInventory';
-import { addItemToStackList } from '../../../functions/addItemToStackList';
+import { useGetSaveFileQuery } from '../../../api/saveFileApi';
 import { getUserName } from '../../../functions/getUserName';
-import { Item, ItemStack } from '../../../interfaces/Item';
+import { joinInventories } from '../../../functions/joinInventories';
+import { useSaveGame } from '../../../hooks/useSaveGame';
+import { Inventory, generateInventory } from '../../../interfaces/Inventory';
+import { ItemName } from '../../../interfaces/Item';
 import { ItemData } from '../../../shared/interfaces/ItemData';
 
 export const useMarketScreen = () => {
@@ -18,38 +16,44 @@ export const useMarketScreen = () => {
 		username ?? skipToken
 	);
 	const [getItemData] = useLazyGetItemDataByNameQuery();
-	const [saveFile] = usePutSaveFileMutation();
+	const save = useSaveGame();
 	const { state } = useLocation();
 
 	const [hydratedInventory, setHydratedInventory] = useState<ItemData[]>([]);
 
 	useEffect(() => {
-		const inventory = state as Item[];
+		const inventory = state as Partial<Inventory>;
 		const getHydratedItems = () =>
-			Promise.all(inventory.map((i) => getItemData(i.id).unwrap()));
-		void getHydratedItems().then((res) => setHydratedInventory(res));
+			Promise.all(
+				Object.keys(inventory).map((i) => {
+					if (i in ItemName) {
+						return getItemData(i as ItemName).unwrap();
+					}
+				})
+			);
+		void getHydratedItems().then((res) => {
+			const filteredRes: ItemData[] = res.filter(
+				(r) => r !== undefined
+			) as ItemData[];
+			setHydratedInventory(filteredRes);
+		});
 	}, [getItemData, state]);
 
-	const [cart, setCart] = useState<ItemStack[]>([]);
+	const [cart, setCart] = useState<Inventory>(generateInventory({}));
 
 	const addToCart = useCallback((x: ItemData) => {
-		setCart((cart) => addItemToStackList(cart, x));
+		setCart((cart) => joinInventories(cart, { [x.name]: 1 }));
 	}, []);
 
-	const removeFromCart = useCallback((x: ItemStack) => {
-		const updatedStack = { ...x, amount: x.amount - 1 };
-
-		setCart((cart) =>
-			cart
-				.filter((cartItem) => cartItem.item.id !== x.item.id)
-				.concat(updatedStack.amount > 0 ? [updatedStack] : [])
-		);
+	const removeFromCart = useCallback((x: ItemName) => {
+		setCart((cart) => joinInventories(cart, { [x]: -1 }));
 	}, []);
+
 	const totalCost = useMemo(() => {
-		return cart.reduce((sum, summand) => {
-			const cost =
-				hydratedInventory.find((x) => x.name === summand.item.id)?.cost ?? 0;
-			return sum + summand.amount * cost;
+		return Object.entries(cart).reduce((sum, summand) => {
+			const [name, amount] = summand;
+			const cost = hydratedInventory.find((x) => x.name === name)?.cost ?? 0;
+			return sum + amount * cost;
 		}, 0);
 	}, [cart, hydratedInventory]);
 
@@ -57,15 +61,10 @@ export const useMarketScreen = () => {
 		if (!data) {
 			return;
 		}
-		const updatedFunds = data.money - totalCost;
-		const updatedInventory = addItemStacksToInventory(data.inventory, cart);
-		void saveFile({
-			...data,
-			inventory: updatedInventory,
-			money: updatedFunds,
-		});
-		setCart([]);
-	}, [cart, data, saveFile, totalCost]);
+
+		void save({ fundsUpdate: -totalCost, inventoryChanges: cart });
+		setCart(generateInventory({}));
+	}, [cart, data, save, totalCost]);
 
 	return {
 		addToCart,

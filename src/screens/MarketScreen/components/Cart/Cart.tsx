@@ -1,4 +1,5 @@
-import { ItemStack } from '../../../../interfaces/Item';
+import { Inventory } from '../../../../interfaces/Inventory';
+import { ItemName } from '../../../../interfaces/Item';
 import { Pill } from '../../../../ui_components/Pill/Pill';
 import './Cart.css';
 export const Cart = ({
@@ -8,28 +9,37 @@ export const Cart = ({
 	money,
 	purchase,
 }: {
-	cart: ItemStack[];
-	removeFromCart: (x: ItemStack) => void;
+	cart: Inventory;
+	removeFromCart: (x: ItemName) => void;
 	totalCost: number;
 	money: number;
 	purchase: () => void;
 }): React.JSX.Element => {
-	if (cart.length === 0) {
+	if (Object.values(cart).every((value) => value === 0)) {
 		return <></>;
 	}
 	return (
 		<div className="cart">
 			<div>
-				{cart.map((cartItem) => (
-					<h3 className="cartItem">
-						<span>
-							{cartItem.amount} {cartItem.item.id}
-						</span>
-						<span onClick={() => removeFromCart(cartItem)}>
-							{cartItem.amount === 1 ? 'X' : '-'}
-						</span>
-					</h3>
-				))}
+				{Object.entries(cart).map((cartItem) => {
+					const [name, amount] = cartItem;
+					return (
+						<h3 className="cartItem">
+							<span>
+								{amount} {name}
+							</span>
+							<span
+								onClick={() => {
+									if (name in ItemName) {
+										removeFromCart(name as ItemName);
+									}
+								}}
+							>
+								{amount === 1 ? 'X' : '-'}
+							</span>
+						</h3>
+					);
+				})}
 			</div>
 			<div>
 				<h3 className="cartTotal">

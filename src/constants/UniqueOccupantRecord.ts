@@ -3,17 +3,17 @@ import { Occupant } from '../screens/OverWorldScreen/interfaces/Occupants/Occupa
 
 //every occupant that can be handled should be unique
 export enum UniqueOccupantIds {
-	'oak-beforeStarterSelection' = 'oak-beforeStarterSelection',
-	'oak-afterStarterSelection' = 'oak-afterStarterSelection',
-	'nurse-quest' = 'nurse-quest',
+	'starter-town-oak-before-selection' = 'starter-town-oak-before-selection',
+	'starter-town-oak-after-selection' = 'starter-town-oak-after-selection',
+	'starter-town-nurse-quest' = 'starter-town-nurse-quest',
 	'starter-town-merchant' = 'starter-town-merchant',
 	'starter-town-nurse' = 'starter-town-nurse',
 	'starter-town-ballMachine' = 'starter-town-ballMachine',
 }
 
 export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
-	'oak-beforeStarterSelection': {
-		id: 'oak-beforeStarterSelection',
+	'starter-town-oak-before-selection': {
+		id: 'starter-town-oak-before-selection',
 		type: 'NPC',
 		position: {
 			position: { y: 2, x: 4 },
@@ -36,7 +36,7 @@ export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
 		],
 		questCondition: { id: QuestsEnum.pickStarter, status: 'active' },
 	},
-	'oak-afterStarterSelection': {
+	'starter-town-oak-after-selection': {
 		id: 'oakAfterStarterPick',
 		type: 'NPC',
 		position: {
@@ -55,7 +55,7 @@ export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
 			status: 'completed',
 		},
 	},
-	'nurse-quest': {
+	'starter-town-nurse-quest': {
 		id: 'talkToNurseJoy-active',
 		type: 'NPC',
 		position: {

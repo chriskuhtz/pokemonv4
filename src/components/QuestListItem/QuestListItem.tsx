@@ -12,7 +12,11 @@ export const QuestListItem = ({ quest }: { quest: Quest }) => {
 		<Pill
 			leftSide={
 				quest.status === 'active' && isConditionFulfilled(quest.condition) ? (
-					<Pill onClick={() => claimQuest(quest)} center={'claim'} />
+					<Pill
+						style={{ backgroundColor: 'green' }}
+						onClick={() => claimQuest(quest)}
+						center={'claim'}
+					/>
 				) : (
 					quest.status
 				)

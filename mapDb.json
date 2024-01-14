@@ -1,7 +1,7 @@
 {
 	"maps": [
 		{
-			"id": "starterTown",
+			"id": "starter-town",
 			"baseTile": "grass",
 			"encounters": ["pidgey", "rattata", "spearow"],
 			"occupants": [
@@ -17,6 +17,12 @@
 						"For your first Pokemon Partner, you can choose one from the Machine next to me."
 					],
 					"sprite": "136",
+					"questUpdates": [
+						{
+							"id": "talkToNurseJoy",
+							"status": "active"
+						}
+					],
 					"questCondition": { "id": "pickStarter", "status": "active" }
 				},
 				{
@@ -56,7 +62,7 @@
 				},
 
 				{
-					"id": "merchant",
+					"id": "starter-town-merchant",
 					"type": "MERCHANT",
 					"position": { "y": 4, "x": 8 },
 					"orientation": "Left",
@@ -69,7 +75,28 @@
 					"type": "HEALER",
 					"position": { "y": 5, "x": 8 },
 					"orientation": "Left",
-					"sprite": "115"
+					"sprite": "115",
+					"questCondition": { "id": "talkToNurseJoy", "status": "completed" }
+				},
+				{
+					"id": "talkToNurseJoy-active",
+					"type": "NPC",
+					"position": { "y": 5, "x": 8 },
+					"orientation": "Left",
+					"dialogue": [
+						"Welcome to the world of Pokemon",
+						"Please visit me any time your Pokemon is hurt",
+						"I will also give these potions",
+						"Use them for first aid in the field"
+					],
+					"questUpdates": [
+						{
+							"id": "talkToNurseJoy",
+							"status": "completed"
+						}
+					],
+					"sprite": "115",
+					"questCondition": { "id": "talkToNurseJoy", "status": "active" }
 				},
 				{
 					"id": "largeRock80",

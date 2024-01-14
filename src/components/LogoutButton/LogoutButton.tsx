@@ -6,6 +6,7 @@ export const LogoutButton = (): JSX.Element => {
 	const navigate = useNavigate();
 	return (
 		<Pill
+			style={{ backgroundColor: 'red' }}
 			onClick={() => {
 				logout();
 				navigate('/');

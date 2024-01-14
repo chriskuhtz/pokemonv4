@@ -31,6 +31,7 @@ export enum RoutesEnum {
 	market = '/market',
 	starterSelection = '/starterSelection',
 	test = '/test',
+	newFulfilledQuest = '/newFulfilledQuest',
 }
 
 export const router = createBrowserRouter([
@@ -86,7 +87,28 @@ export const router = createBrowserRouter([
 	{ path: RoutesEnum.storage, element: <StorageScreen /> },
 	{ path: RoutesEnum.pokedex, element: <PokedexScreen /> },
 	{ path: RoutesEnum.bag, element: <BagScreen /> },
-	{ path: RoutesEnum.quests, element: <QuestsScreen /> },
+	{
+		path: RoutesEnum.quests,
+		element: (
+			<QuestsScreen
+				headlineProps={{
+					text: 'Quests',
+					routerButtonProps: { text: 'Menu', to: RoutesEnum.menu },
+				}}
+			/>
+		),
+	},
+	{
+		path: RoutesEnum.newFulfilledQuest,
+		element: (
+			<QuestsScreen
+				headlineProps={{
+					text: 'Claim your Quest Rewards',
+				}}
+				routeAwayAfterAllClaimed={{ to: RoutesEnum.overworld }}
+			/>
+		),
+	},
 	{ path: RoutesEnum.market, element: <MarketScreen /> },
 	{
 		path: RoutesEnum.newGame,

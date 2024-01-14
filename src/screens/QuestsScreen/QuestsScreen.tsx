@@ -43,9 +43,11 @@ export const QuestsScreen = ({
 			{isFetching && <FetchingScreen />}
 			{data && (
 				<div style={{ display: 'flex', flexDirection: 'column', gap: '.5rem' }}>
-					{Object.values(data.quests).map((quest) => (
-						<QuestListItem quest={quest} key={quest.id} />
-					))}
+					{Object.values(data.quests)
+						.filter((q) => q.status !== 'inactive')
+						.map((quest) => (
+							<QuestListItem quest={quest} key={quest.id} />
+						))}
 				</div>
 			)}
 		</div>

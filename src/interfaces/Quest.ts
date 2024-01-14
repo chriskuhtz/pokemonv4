@@ -21,9 +21,10 @@ export interface HandledOccupantCondition {
 export type Condition =
 	| OwnedPokemonCondition
 	| HandledOccupantCondition
-	| NotRegisteredPokemonCondition;
+	| NotRegisteredPokemonCondition
+	| HandledOccupantCondition;
 
-export type QuestStatus = 'active' | 'completed';
+export type QuestStatus = 'inactive' | 'active' | 'completed';
 export interface Quest {
 	status: QuestStatus;
 	id: QuestsEnum;
@@ -36,18 +37,31 @@ export interface Quest {
 
 export enum QuestsEnum {
 	pickStarter = 'pickStarter',
+	talkToNurseJoy = 'talkToNurseJoy',
 }
 
 export const PickStarterQuest: Quest = {
-	status: 'active',
+	status: 'inactive',
 	id: QuestsEnum.pickStarter,
 	title: 'Pick a Starter Pokemon',
 	description: 'Every Trainer must choose a Starter Pokemon.',
 	rewardMoney: 1000,
-	rewardItems: [{ amount: 5, item: { id: 'potion' } }],
+	rewardItems: [{ amount: 5, item: { id: 'poke-ball' } }],
 	condition: {
 		type: 'OWNED_POKEMON',
 		ids: [1, 4, 7],
 		mode: 'SOME',
+	},
+};
+export const TalkToNurseJoyQuest: Quest = {
+	status: 'inactive',
+	id: QuestsEnum.talkToNurseJoy,
+	title: 'Speak with Nurse Joy',
+	description: 'Take your Pokemon to her if they are hurt.',
+	rewardMoney: 100,
+	rewardItems: [{ amount: 5, item: { id: 'potion' } }],
+	condition: {
+		type: 'HANDLED_OCCUPANT',
+		id: 'starter-town-nurse',
 	},
 };

@@ -20,6 +20,10 @@ export interface BaseOccupant {
 	type: OccupantType;
 	handled?: boolean;
 	focused?: boolean;
+	questUpdates?: {
+		id: QuestsEnum;
+		status: QuestStatus;
+	}[];
 	questCondition?: {
 		id: QuestsEnum;
 		status: QuestStatus;

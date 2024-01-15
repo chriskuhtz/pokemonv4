@@ -1,7 +1,7 @@
 import { v4 } from 'uuid';
 import { SaveFile } from '../../../interfaces/SaveFile';
 
-export const PARTIAL_SAVE_FILE: Partial<SaveFile> = {
+export const PARTIAL_SAVE_FILE: Omit<SaveFile, 'username' | 'sprite'> = {
 	overworldPosition: {
 		position: { x: 0, y: 0 },
 		orientation: 'Down',
@@ -15,6 +15,7 @@ export const PARTIAL_SAVE_FILE: Partial<SaveFile> = {
 		'starter-town-nurse-quest': false,
 		'starter-town-oak-after-selection': false,
 		'starter-town-oak-before-selection': false,
+		'starter-town-oak-during-selection': false,
 	},
 	money: 5000,
 	inventory: {

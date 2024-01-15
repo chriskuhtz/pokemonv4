@@ -13,7 +13,10 @@ import {
 	selectOccupants,
 	setOccupants,
 } from '../../../slices/occupantsSlice';
-import { completeRawMap } from '../functions/completeRawMap';
+import {
+	completeRawMap,
+	updateOccupantsOnChange,
+} from '../functions/completeRawMap';
 import { moveOccupants } from '../functions/moveOccupants';
 import { OverworldMap } from '../interfaces/Overworld';
 import { mockMap } from '../mockMap';
@@ -54,6 +57,19 @@ export const useOverworld = () => {
 			setCurrentWorld(completeMap);
 		}
 	}, [currentWorld, dispatch, rawMap, saveFile]);
+
+	useEffect(() => {
+		if (saveFile) {
+			dispatch(
+				setOccupants(
+					updateOccupantsOnChange(
+						saveFile.overworldPosition.currentMapId,
+						saveFile.quests
+					)
+				)
+			);
+		}
+	}, [dispatch, saveFile]);
 
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);

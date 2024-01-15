@@ -49,6 +49,7 @@ export const useHandleDialogue = (currentPosition: OverworldPosition) => {
 						openMarketScreen(focusedOccupant);
 						save({
 							currentPosition,
+							handledOccupants: { [focusedOccupant.id]: true },
 							questUpdates: focusedOccupant.questUpdates,
 						});
 					}
@@ -56,6 +57,7 @@ export const useHandleDialogue = (currentPosition: OverworldPosition) => {
 						save({
 							currentPosition,
 							visitedNurse: true,
+							handledOccupants: { [focusedOccupant.id]: true },
 							questUpdates: focusedOccupant.questUpdates,
 						});
 					}

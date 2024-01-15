@@ -1,9 +1,31 @@
 import { UniqueOccupantRecord } from '../../../constants/UniqueOccupantRecord';
 import { filterOccupantsByQuestStatus } from '../../../functions/filterOccupantsByQuestStatus';
 import { SaveFile } from '../../../interfaces/SaveFile';
-import { OverworldMap } from '../interfaces/Overworld';
+import { Occupant } from '../interfaces/Occupants/Occupant';
+import { MapId, OverworldMap } from '../interfaces/Overworld';
 import { createBlockersForLargeObstacles } from './createBlockersForLargeObstacles';
 import { getBaseTileIndex } from './getBaseTileIndex';
+
+export const updateOccupantsOnChange = (
+	mapId: MapId,
+	quests: SaveFile['quests']
+): Occupant[] => {
+	let updatedOccupants = filterOccupantsByQuestStatus(
+		Object.values(UniqueOccupantRecord).filter(
+			(occ) => occ.position.currentMapId === mapId
+		),
+		quests
+	);
+	updatedOccupants = createBlockersForLargeObstacles(updatedOccupants);
+	console.log(
+		Object.values(UniqueOccupantRecord).filter(
+			(occ) => occ.position.currentMapId === mapId
+		),
+		updatedOccupants
+	);
+
+	return updatedOccupants;
+};
 
 export const completeRawMap = (
 	rawMap: OverworldMap,
@@ -11,19 +33,7 @@ export const completeRawMap = (
 ): OverworldMap => {
 	let updatedMap = { ...rawMap };
 
-	let updatedOccupants = filterOccupantsByQuestStatus(
-		Object.values(UniqueOccupantRecord).filter(
-			(occ) => occ.position.currentMapId === rawMap.id
-		),
-		saveFile.quests
-	);
-	updatedOccupants = createBlockersForLargeObstacles(updatedOccupants);
-	console.log(
-		Object.values(UniqueOccupantRecord).filter(
-			(occ) => occ.position.currentMapId === rawMap.id
-		),
-		updatedOccupants
-	);
+	const updatedOccupants = updateOccupantsOnChange(rawMap.id, saveFile.quests);
 
 	const updatedTiles: OverworldMap['map'] = updatedMap.map.map((row) => {
 		return row.map((t) => {

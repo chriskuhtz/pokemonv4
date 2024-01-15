@@ -1,5 +1,5 @@
-import { useClaimQuest } from '../../hooks/useClaimQuest';
 import { useIsConditionFulfilled } from '../../hooks/useIsConditionFulfilled';
+import { useSaveGame } from '../../hooks/useSaveGame';
 import { Quest } from '../../interfaces/Quest';
 import { IconWithTag } from '../../shared/components/IconWithTag/IconWithTag';
 import { Pill } from '../../ui_components/Pill/Pill';
@@ -7,7 +7,7 @@ import { Pill } from '../../ui_components/Pill/Pill';
 export const QuestListItem = ({ quest }: { quest: Quest }) => {
 	console.log(quest);
 	const isConditionFulfilled = useIsConditionFulfilled();
-	const claimQuest = useClaimQuest();
+	const save = useSaveGame();
 
 	return (
 		<Pill
@@ -15,7 +15,7 @@ export const QuestListItem = ({ quest }: { quest: Quest }) => {
 				quest.status === 'active' && isConditionFulfilled(quest.condition) ? (
 					<Pill
 						style={{ backgroundColor: 'green' }}
-						onClick={() => claimQuest(quest)}
+						onClick={() => save({ questUpdates: { [quest.id]: 'completed' } })}
 						center={'claim'}
 					/>
 				) : (

@@ -51,7 +51,7 @@ export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
 		questCondition: { id: QuestsEnum.pickStarter, status: 'active' },
 	},
 	'starter-town-oak-after-selection': {
-		id: 'oakAfterStarterPick',
+		id: 'starter-town-oak-after-selection',
 		type: 'NPC',
 		position: {
 			position: { y: 2, x: 4 },
@@ -65,12 +65,12 @@ export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
 		],
 		sprite: '136',
 		questCondition: {
-			id: QuestsEnum['pickStarter'],
+			id: QuestsEnum.pickStarter,
 			status: 'completed',
 		},
 	},
 	'starter-town-nurse-quest': {
-		id: 'talkToNurseJoy-active',
+		id: 'starter-town-nurse-quest',
 		type: 'NPC',
 		position: {
 			position: { y: 5, x: 8 },
@@ -87,7 +87,7 @@ export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
 			[QuestsEnum.talkToNurseJoy]: 'completed',
 		},
 		sprite: '115',
-		questCondition: { id: QuestsEnum['talkToNurseJoy'], status: 'active' },
+		questCondition: { id: QuestsEnum.talkToNurseJoy, status: 'active' },
 	},
 	'starter-town-merchant': {
 		id: 'starter-town-merchant',
@@ -109,7 +109,7 @@ export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
 			currentMapId: 'starter-town',
 			orientation: 'Left',
 		},
-		sprite: '113',
+		sprite: '115',
 		questCondition: { id: QuestsEnum.talkToNurseJoy, status: 'completed' },
 	},
 	'starter-town-ballMachine': {

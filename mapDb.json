@@ -4,6 +4,64 @@
 			"id": "starter-town",
 			"baseTile": "grass",
 			"encounters": ["pidgey", "rattata", "spearow"],
+			"occupants": [
+				{
+					"id": "rock87",
+					"sprite": "largeRock",
+					"type": "LARGE_OBSTACLE",
+					"height": 2,
+					"width": 2,
+					"clearanceBehind": 1,
+
+					"position": {
+						"position": { "x": 7, "y": 8 },
+						"currentMapId": "starter-town",
+						"orientation": "DOWN"
+					}
+				},
+				{
+					"id": "rock87",
+					"sprite": "largeRock",
+					"type": "LARGE_OBSTACLE",
+					"height": 2,
+					"width": 2,
+					"clearanceBehind": 1,
+
+					"position": {
+						"position": { "x": 5, "y": 8 },
+						"currentMapId": "starter-town",
+						"orientation": "DOWN"
+					}
+				},
+				{
+					"id": "rock80",
+					"sprite": "largeRock",
+					"type": "LARGE_OBSTACLE",
+					"height": 2,
+					"width": 2,
+					"clearanceBehind": 1,
+
+					"position": {
+						"position": { "x": 0, "y": 8 },
+						"currentMapId": "starter-town",
+						"orientation": "DOWN"
+					}
+				},
+				{
+					"id": "rock82",
+					"sprite": "largeRock",
+					"type": "LARGE_OBSTACLE",
+					"height": 2,
+					"width": 2,
+					"clearanceBehind": 1,
+
+					"position": {
+						"position": { "x": 2, "y": 8 },
+						"currentMapId": "starter-town",
+						"orientation": "DOWN"
+					}
+				}
+			],
 			"map": [
 				[{}, {}, {}, {}, {}, {}, {}, {}, {}],
 				[{}, {}, {}, {}, {}, {}, {}, {}, {}],

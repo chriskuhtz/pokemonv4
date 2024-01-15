@@ -1,7 +1,3 @@
-:root {
-	--size: calc(100dvw / 15);
-}
-
 .camera {
 	min-height: 100dvh;
 	min-width: 100dvw;

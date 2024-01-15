@@ -1,6 +1,6 @@
 .player {
 	position: absolute;
-	top: calc(var(--size) * 3.5);
-	left: calc(var(--size) * 7);
+	top: calc(var(--size) * (var(--playerOffsetY) - 0.5));
+	left: calc(var(--size) * var(--playerOffsetX));
 	z-index: 3;
 }

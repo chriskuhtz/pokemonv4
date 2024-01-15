@@ -13,9 +13,9 @@ import { PlayerCharacter } from './components/PlayerCharacter/PlayerCharacter';
 import { useOverworld } from './hooks/useOverworld';
 import './overworld.css';
 
-const tileSize = window.innerWidth / 15;
-const playerOffsetX = 7;
-const playerOffsetY = 4;
+const tileSize = window.innerWidth / 25;
+const playerOffsetX = 12;
+const playerOffsetY = 6;
 
 export const OverworldWrapper = (): JSX.Element => {
 	const autoFocusFn = useCallback(
@@ -47,6 +47,13 @@ export const OverworldWrapper = (): JSX.Element => {
 				tabIndex={0}
 				id="overworld"
 				ref={autoFocusFn}
+				style={
+					{
+						'--size': `${tileSize}px`,
+						'--playerOffsetX': playerOffsetX,
+						'--playerOffsetY': playerOffsetY,
+					} as React.CSSProperties
+				}
 			>
 				<RouterButton
 					to={RoutesEnum.menu}

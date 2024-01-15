@@ -7,7 +7,7 @@ import { checkQuestCondition } from '../../../functions/checkQuestCondition';
 import { getUserName } from '../../../functions/getUserName';
 import { useSaveGame } from '../../../hooks/useSaveGame';
 import { OverworldPosition } from '../../../interfaces/SaveFile';
-import { addDialogue } from '../../../slices/dialogueSlice';
+import { initiateQuestDialogue } from '../../../slices/dialogueSlice';
 import { OverworldEvent } from '../interfaces/OverworldEvent';
 
 export const useHandleOverworldEvent = (currentPosition: OverworldPosition) => {
@@ -23,11 +23,7 @@ export const useHandleOverworldEvent = (currentPosition: OverworldPosition) => {
 				event.questCondition &&
 				!checkQuestCondition(data.quests, event.questCondition)
 			) {
-				dispatch(
-					addDialogue([
-						...(event.conditionFailMessage ?? 'Condition not fulfilled'),
-					])
-				);
+				dispatch(initiateQuestDialogue(event.questCondition.id));
 				return;
 			}
 			if (event.type === 'ROUTE') {

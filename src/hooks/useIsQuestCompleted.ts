@@ -2,6 +2,7 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { useCallback } from 'react';
 import { useGetSaveFileQuery } from '../api/saveFileApi';
 import { useAppDispatch } from '../api/store';
+import { checkQuestCondition } from '../functions/checkQuestCondition';
 import { getUserName } from '../functions/getUserName';
 import { QuestCheck } from '../screens/OverWorldScreen/interfaces/Occupants/Occupant';
 import { initiateQuestDialogue } from '../slices/dialogueSlice';
@@ -16,8 +17,8 @@ export const useIsQuestCompleted = () => {
 			if (!saveFile) {
 				return false;
 			}
-			if (saveFile.quests[x.questId] !== 'completed') {
-				dispatch(initiateQuestDialogue(x.questId));
+			if (checkQuestCondition(saveFile.quests, x.questCondition)) {
+				dispatch(initiateQuestDialogue(x.questCondition.id));
 				return false;
 			}
 			return true;

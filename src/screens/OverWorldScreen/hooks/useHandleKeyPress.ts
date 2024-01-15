@@ -28,7 +28,7 @@ export const useHandleKeyPress = (
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
 			//handle dialogue
-
+			console.log(nextField.occupant);
 			if (currentDialogue.length > 0) {
 				handleDialogue(key);
 				return;

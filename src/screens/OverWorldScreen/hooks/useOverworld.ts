@@ -63,13 +63,14 @@ export const useOverworld = () => {
 			dispatch(
 				setOccupants(
 					updateOccupantsOnChange(
+						rawMap?.occupants ?? [],
 						saveFile.overworldPosition.currentMapId,
 						saveFile.quests
 					)
 				)
 			);
 		}
-	}, [dispatch, saveFile]);
+	}, [dispatch, rawMap, saveFile]);
 
 	const [offsetX, setOffsetX] = useState<number>(0);
 	const [offsetY, setOffsetY] = useState<number>(0);

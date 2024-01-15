@@ -6,7 +6,8 @@ import {
 	selectOccupants,
 	selectWatchedFields,
 } from '../../../slices/occupantsSlice';
-import { OverworldMap, Tile } from '../interfaces/Overworld';
+import { OverworldMap } from '../interfaces/Overworld';
+import { Tile } from '../interfaces/Tile';
 
 export const useCurrentField = (
 	offsetX: number,

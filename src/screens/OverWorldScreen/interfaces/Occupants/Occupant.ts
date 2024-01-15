@@ -1,5 +1,4 @@
 import { Inventory } from '../../../../interfaces/Inventory';
-import { QuestsEnum } from '../../../../interfaces/Quest';
 import { QuestIdAndStatus } from '../../../../interfaces/QuestIdAndStatus';
 import { OverworldPosition, SaveFile } from '../../../../interfaces/SaveFile';
 import { Movement } from '../Movement';
@@ -50,7 +49,7 @@ export interface OverworldItem extends BaseOccupant {
 }
 export interface QuestCheck extends BaseOccupant {
 	type: 'QUEST_CHECK';
-	questId: QuestsEnum;
+	questCondition: QuestIdAndStatus;
 }
 export interface Obstacle extends BaseOccupant {
 	sprite: string;

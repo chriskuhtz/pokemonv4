@@ -1,10 +1,11 @@
-import { Condition } from '../../../interfaces/Quest';
+import { QuestIdAndStatus } from '../../../interfaces/QuestIdAndStatus';
 import { OverworldPosition } from '../../../interfaces/SaveFile';
 import { RoutesEnum } from '../../../router/router';
 
 export interface BaseEvent {
 	type: 'ENCOUNTER' | 'PORTAL' | 'ROUTE';
-	condition?: Condition;
+	questCondition: QuestIdAndStatus;
+	conditionFailMessage?: string[];
 }
 
 export interface EncounterEvent extends BaseEvent {

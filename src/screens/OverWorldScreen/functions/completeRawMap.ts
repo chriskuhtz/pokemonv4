@@ -7,22 +7,19 @@ import { createBlockersForLargeObstacles } from './createBlockersForLargeObstacl
 import { getBaseTileIndex } from './getBaseTileIndex';
 
 export const updateOccupantsOnChange = (
+	staticOccupants: Occupant[],
 	mapId: MapId,
 	quests: SaveFile['quests']
 ): Occupant[] => {
-	let updatedOccupants = filterOccupantsByQuestStatus(
-		Object.values(UniqueOccupantRecord).filter(
-			(occ) => occ.position.currentMapId === mapId
-		),
-		quests
+	let updatedOccupants = staticOccupants.concat(
+		filterOccupantsByQuestStatus(
+			Object.values(UniqueOccupantRecord).filter(
+				(occ) => occ.position.currentMapId === mapId
+			),
+			quests
+		)
 	);
 	updatedOccupants = createBlockersForLargeObstacles(updatedOccupants);
-	console.log(
-		Object.values(UniqueOccupantRecord).filter(
-			(occ) => occ.position.currentMapId === mapId
-		),
-		updatedOccupants
-	);
 
 	return updatedOccupants;
 };
@@ -33,7 +30,11 @@ export const completeRawMap = (
 ): OverworldMap => {
 	let updatedMap = { ...rawMap };
 
-	const updatedOccupants = updateOccupantsOnChange(rawMap.id, saveFile.quests);
+	const updatedOccupants = updateOccupantsOnChange(
+		rawMap.occupants ?? [],
+		rawMap.id,
+		saveFile.quests
+	);
 
 	const updatedTiles: OverworldMap['map'] = updatedMap.map.map((row) => {
 		return row.map((t) => {

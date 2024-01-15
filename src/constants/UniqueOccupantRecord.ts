@@ -10,6 +10,7 @@ export enum UniqueOccupantIds {
 	'starter-town-merchant' = 'starter-town-merchant',
 	'starter-town-nurse' = 'starter-town-nurse',
 	'starter-town-ballMachine' = 'starter-town-ballMachine',
+	'starter-town-grass-blocker' = 'starter-town-grass-blocker',
 }
 
 export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
@@ -127,12 +128,23 @@ export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
 		onClick: {
 			type: 'ROUTE',
 			to: '/starterSelection',
-			condition: {
-				type: 'NOT_REGISTERED_POKEMON',
-				ids: [1, 4, 7],
-				mode: 'ALL',
-				conditionFailMessage: 'You already chose a starter Pokemon.',
+			questCondition: {
+				id: QuestsEnum.pickStarter,
+				status: 'active',
 			},
+		},
+	},
+	'starter-town-grass-blocker': {
+		id: 'starter-town-grass-blocker',
+		type: 'QUEST_CHECK',
+		position: {
+			position: { y: 8, x: 4 },
+			currentMapId: 'starter-town',
+			orientation: 'Left',
+		},
+		questCondition: {
+			id: QuestsEnum.pickStarter,
+			status: 'completed',
 		},
 	},
 };

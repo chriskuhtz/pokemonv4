@@ -1,5 +1,6 @@
 import { SaveFile } from '../interfaces/SaveFile';
 import { Occupant } from '../screens/OverWorldScreen/interfaces/Occupants/Occupant';
+import { checkQuestCondition } from './checkQuestCondition';
 
 export const filterOccupantsByQuestStatus = (
 	occupants: Occupant[],
@@ -11,7 +12,7 @@ export const filterOccupantsByQuestStatus = (
 			return true;
 		}
 		if (o.questCondition) {
-			return quests[o.questCondition.id] === o.questCondition.status;
+			return checkQuestCondition(quests, o.questCondition);
 		}
 		return false;
 	});

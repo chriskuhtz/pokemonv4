@@ -5,7 +5,6 @@ import { IconWithTag } from '../../shared/components/IconWithTag/IconWithTag';
 import { Pill } from '../../ui_components/Pill/Pill';
 
 export const QuestListItem = ({ quest }: { quest: Quest }) => {
-	console.log(quest);
 	const isConditionFulfilled = useIsConditionFulfilled();
 	const save = useSaveGame();
 

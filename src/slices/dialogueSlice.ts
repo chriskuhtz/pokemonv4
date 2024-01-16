@@ -24,7 +24,9 @@ export const dialogueSlice = createSlice({
 			state.dialogue = [...state.dialogue.slice(1)];
 		},
 		initiateItemDialogue: (state, action: PayloadAction<OverworldItem>) => {
-			state.dialogue = [`You found a ${action.payload.item}`];
+			state.dialogue = [
+				`You found a ${Object.keys(action.payload).join(' and a ')}`,
+			];
 		},
 		initiateEncounterDialogue: (state, action: PayloadAction<string>) => {
 			state.dialogue = [

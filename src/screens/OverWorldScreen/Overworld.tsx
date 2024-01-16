@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { RouterButton } from '../../components/RouterButton/RouterButton';
+import { useHasUnclaimedQuests } from '../../hooks/useHasUnclaimedQuests';
 import { useSaveGame } from '../../hooks/useSaveGame';
 import { RoutesEnum } from '../../router/router';
 import { selectCurrentDialogue } from '../../slices/dialogueSlice';
@@ -35,6 +37,8 @@ export const OverworldWrapper = (): JSX.Element => {
 		currentPosition,
 	} = useOverworld();
 	const currentDialogue = useSelector(selectCurrentDialogue);
+	const hasUnclaimedQuests = useHasUnclaimedQuests();
+	const navigate = useNavigate();
 	const save = useSaveGame();
 
 	if (isFetching) {
@@ -65,6 +69,16 @@ export const OverworldWrapper = (): JSX.Element => {
 					open={currentDialogue.length > 0}
 					modalContent={
 						<Pill center={currentDialogue[0]} style={{ margin: '0 2rem' }} />
+					}
+				/>
+				<Modal
+					open={hasUnclaimedQuests}
+					modalContent={
+						<Pill
+							onClick={() => navigate(RoutesEnum.newFulfilledQuest)}
+							center={'You have completed a new Quest, claim your rewards'}
+							style={{ margin: '0 2rem' }}
+						/>
 					}
 				/>
 				<div className="camera">

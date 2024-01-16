@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import { useHasUnclaimedQuests } from '../../../hooks/useHasUnclaimedQuests';
 import { useIsQuestCompleted } from '../../../hooks/useIsQuestCompleted';
 import { Direction } from '../../../interfaces/Direction';
 import { OverworldPosition } from '../../../interfaces/SaveFile';
@@ -18,6 +19,7 @@ export const useHandleKeyPress = (
 ) => {
 	const currentDialogue = useSelector(selectCurrentDialogue);
 	const isQuestCompleted = useIsQuestCompleted();
+	const hasUnclaimedQuests = useHasUnclaimedQuests();
 
 	const handleEnterAndSpace = useHandleEnterAndSpace(
 		currentPosition,
@@ -27,8 +29,11 @@ export const useHandleKeyPress = (
 
 	return useCallback(
 		(key: React.KeyboardEvent<HTMLDivElement>['key']) => {
+			//quest modal blocks all keys
+			if (hasUnclaimedQuests) {
+				return;
+			}
 			//handle dialogue
-			console.log(nextField.occupant);
 			if (currentDialogue.length > 0) {
 				handleDialogue(key);
 				return;
@@ -59,13 +64,15 @@ export const useHandleKeyPress = (
 			handleMovement(key);
 		},
 		[
-			currentDialogue,
-			currentPosition,
+			currentDialogue.length,
+			currentPosition.orientation,
 			handleDialogue,
 			handleEnterAndSpace,
 			handleMovement,
+			hasUnclaimedQuests,
 			isQuestCompleted,
-			nextField,
+			nextField?.occupant,
+			nextField.tile,
 			setOrientation,
 		]
 	);

@@ -104,13 +104,7 @@ export const useOverworld = () => {
 		}
 	}, [forwardFoot]);
 
-	useOnSaveFileLoad(
-		setOffsetX,
-		setOffsetY,
-		setOrientation,
-		currentWorld,
-		saveFile
-	);
+	useOnSaveFileLoad(setOffsetX, setOffsetY, setOrientation, currentWorld);
 
 	const [nextInput, setNextInput] = useState<
 		React.KeyboardEvent<HTMLDivElement>['key'] | undefined

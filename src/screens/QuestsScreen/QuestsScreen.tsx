@@ -5,6 +5,7 @@ import { useGetSaveFileQuery } from '../../api/saveFileApi';
 import { Headline, HeadlineProps } from '../../components/Headline/Headline';
 import { QuestListItem } from '../../components/QuestListItem/QuestListItem';
 import { getUserName } from '../../functions/getUserName';
+import { useHasUnclaimedQuests } from '../../hooks/useHasUnclaimedQuests';
 import { QuestRecord, QuestsEnum } from '../../interfaces/Quest';
 import { RoutesEnum } from '../../router/router';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
@@ -22,16 +23,13 @@ export const QuestsScreen = ({
 	const { data, isError, isFetching } = useGetSaveFileQuery(
 		username ?? skipToken
 	);
+	const hasUnclaimedQuests = useHasUnclaimedQuests();
 
 	useEffect(() => {
-		if (
-			data &&
-			Object.values(data.quests).every((status) => status === 'completed') &&
-			routeAwayAfterAllClaimed
-		) {
+		if (routeAwayAfterAllClaimed && !hasUnclaimedQuests) {
 			navigate(routeAwayAfterAllClaimed.to);
 		}
-	}, [data, navigate, routeAwayAfterAllClaimed]);
+	}, [hasUnclaimedQuests, navigate, routeAwayAfterAllClaimed]);
 
 	return (
 		<div className="container">

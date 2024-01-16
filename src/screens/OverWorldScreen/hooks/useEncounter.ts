@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../api/store';
+import { RoutesEnum } from '../../../router/router';
 import { initiateEncounterDialogue } from '../../../slices/dialogueSlice';
-import { OverworldMap, Tile } from '../interfaces/Overworld';
+import { OverworldMap } from '../interfaces/Overworld';
+import { Tile } from '../interfaces/Tile';
 
 const baseEncounterChance: number = 0.2;
 const increaseFactor: number = 1.05;
@@ -11,6 +14,7 @@ export const useEncounter = (
 	currentField: Tile
 ) => {
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 	const [encounterChance, setEncounterChance] =
 		useState<number>(baseEncounterChance);
 
@@ -20,7 +24,8 @@ export const useEncounter = (
 		);
 		const randomEncounter = currentWorld.encounters[randomIndex];
 		dispatch(initiateEncounterDialogue(randomEncounter));
-	}, [currentWorld.encounters, dispatch]);
+		setTimeout(() => navigate(RoutesEnum.battle), 500);
+	}, [currentWorld.encounters, dispatch, navigate]);
 	useEffect(
 		() => {
 			if (currentField.onStep?.type === 'ENCOUNTER') {

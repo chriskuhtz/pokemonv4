@@ -17,8 +17,8 @@ export const useIsQuestCompleted = () => {
 			if (!saveFile) {
 				return false;
 			}
-			if (checkQuestCondition(saveFile.quests, x.questCondition)) {
-				dispatch(initiateQuestDialogue(x.questCondition.id));
+			if (!checkQuestCondition(saveFile.quests, x.questCheck)) {
+				dispatch(initiateQuestDialogue(x.questCheck.id));
 				return false;
 			}
 			return true;

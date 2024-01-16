@@ -142,7 +142,7 @@ export const UniqueOccupantRecord: Record<UniqueOccupantIds, Occupant> = {
 			currentMapId: 'starter-town',
 			orientation: 'Left',
 		},
-		questCondition: {
+		questCheck: {
 			id: QuestsEnum.pickStarter,
 			status: 'completed',
 		},

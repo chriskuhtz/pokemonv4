@@ -1,7 +1,7 @@
 import { Headline } from '../../components/Headline/Headline';
 import { RoutesEnum } from '../../router/router';
+import { FetchingPill } from '../../ui_components/FetchingPill/FetchingPill';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
-import { FetchingScreen } from '../FetchingScreen/FetchingScreen';
 import './MarketScreen.css';
 import { Cart } from './components/Cart/Cart';
 import { HydratedInventory } from './components/HydratedInventory/HydratedInventory';
@@ -27,15 +27,29 @@ export const MarketScreen = (): JSX.Element => {
 				routerButtonProps={{ to: RoutesEnum.overworld, text: 'Overworld' }}
 			/>
 			{isError && <ErrorScreen />}
-			{isFetching && <FetchingScreen />}
+			{isFetching && (
+				<>
+					<FetchingPill />
+					<FetchingPill />
+					<FetchingPill />
+				</>
+			)}
 			{data && (
 				<div className="marketScreen">
 					<div>
 						<h3 className="availableFunds">Available Funds: {data.money}$</h3>
-						<HydratedInventory
-							addToCart={addToCart}
-							hydratedInventory={hydratedInventory}
-						/>
+						{hydratedInventory ? (
+							<HydratedInventory
+								addToCart={addToCart}
+								hydratedInventory={hydratedInventory}
+							/>
+						) : (
+							<>
+								<FetchingPill />
+								<FetchingPill />
+								<FetchingPill />
+							</>
+						)}
 					</div>
 					<Cart
 						cart={cart}

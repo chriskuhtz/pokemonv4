@@ -6,7 +6,7 @@ export type MapId = 'starter-town';
 export type OverworldMap = {
 	id: MapId;
 	map: Tile[][];
-	encounters: string[];
+	encounters: number[];
 	occupants?: Occupant[];
 	baseTile: BaseTileId;
 };

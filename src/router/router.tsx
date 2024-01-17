@@ -13,9 +13,6 @@ import { SaveFileSelection } from '../screens/SaveFileSelectionScreen/SaveFileSe
 import { StorageScreen } from '../screens/StorageScreen/StorageScreen';
 import { TeamScreen } from '../screens/TeamScreen/TeamScreen';
 import { TestArea } from '../screens/TestArea/TestArea';
-import { OPPOID, TRAINERID } from '../testing/constants/trainerIds';
-import { combatantGenerator } from '../testing/generators/combatantGenerator';
-import { pokemonGenerator } from '../testing/generators/pokemonGenerator';
 
 export enum RoutesEnum {
 	overworld = '/overworld',
@@ -45,38 +42,7 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: RoutesEnum.battle,
-		element: (
-			<BattleScreen
-				initialCombatants={[
-					combatantGenerator({
-						pokemon: pokemonGenerator({ name: 'pikachu', ownerId: TRAINERID }),
-					}),
-					combatantGenerator({
-						pokemon: pokemonGenerator({
-							name: 'growlithe',
-							ownerId: TRAINERID,
-							dexId: 58,
-						}),
-					}),
-					combatantGenerator({
-						pokemon: pokemonGenerator({
-							name: 'ekans',
-							ownerId: OPPOID,
-							dexId: 23,
-						}),
-					}),
-					combatantGenerator({
-						pokemon: pokemonGenerator({
-							name: 'koffing',
-							ownerId: OPPOID,
-							dexId: 109,
-						}),
-					}),
-				]}
-				playerId={TRAINERID}
-				opponentIds={[OPPOID]}
-			/>
-		),
+		element: <BattleScreen />,
 	},
 	{
 		path: RoutesEnum.menu,

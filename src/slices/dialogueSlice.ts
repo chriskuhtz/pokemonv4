@@ -28,10 +28,8 @@ export const dialogueSlice = createSlice({
 				`You found a ${Object.keys(action.payload).join(' and a ')}`,
 			];
 		},
-		initiateEncounterDialogue: (state, action: PayloadAction<string>) => {
-			state.dialogue = [
-				`a wild ${action.payload} jumped out of the high grass`,
-			];
+		initiateEncounterDialogue: (state) => {
+			state.dialogue = [`a wild Pokemon jumps out of the high grass`];
 		},
 		initiateMerchantDialogue: (state, action: PayloadAction<Merchant>) => {
 			state.dialogue = action.payload.dialogue;

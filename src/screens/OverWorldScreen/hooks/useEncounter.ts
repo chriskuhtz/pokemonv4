@@ -23,9 +23,9 @@ export const useEncounter = (
 			Math.random() * currentWorld.encounters.length
 		);
 		const randomEncounter = currentWorld.encounters[randomIndex];
-		dispatch(initiateEncounterDialogue(randomEncounter));
+		dispatch(initiateEncounterDialogue());
 		setTimeout(
-			() => navigate(RoutesEnum.battle, { state: randomEncounter }),
+			() => navigate(RoutesEnum.battle, { state: [randomEncounter] }),
 			1000
 		);
 	}, [currentWorld.encounters, dispatch, navigate]);

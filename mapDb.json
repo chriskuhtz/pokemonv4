@@ -3,7 +3,7 @@
 		{
 			"id": "starter-town",
 			"baseTile": "grass",
-			"encounters": ["pidgey", "rattata", "spearow"],
+			"encounters": [13, 21, 30],
 			"occupants": [
 				{
 					"id": "rock87",

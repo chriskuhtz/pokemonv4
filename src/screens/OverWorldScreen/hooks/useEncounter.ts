@@ -24,7 +24,10 @@ export const useEncounter = (
 		);
 		const randomEncounter = currentWorld.encounters[randomIndex];
 		dispatch(initiateEncounterDialogue(randomEncounter));
-		setTimeout(() => navigate(RoutesEnum.battle), 500);
+		setTimeout(
+			() => navigate(RoutesEnum.battle, { state: randomEncounter }),
+			1000
+		);
 	}, [currentWorld.encounters, dispatch, navigate]);
 	useEffect(
 		() => {

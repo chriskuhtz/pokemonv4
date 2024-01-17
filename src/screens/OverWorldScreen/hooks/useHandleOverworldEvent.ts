@@ -23,7 +23,7 @@ export const useHandleOverworldEvent = (currentPosition: OverworldPosition) => {
 				event.questCondition &&
 				!checkQuestCondition(data.quests, event.questCondition)
 			) {
-				dispatch(initiateQuestDialogue(event.questCondition.id));
+				dispatch(initiateQuestDialogue(event.questCondition));
 				return;
 			}
 			if (event.type === 'ROUTE') {

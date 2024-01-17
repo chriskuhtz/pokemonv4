@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../api/store';
-import { QuestsEnum } from '../interfaces/Quest';
+import { QuestIdAndStatus } from '../interfaces/QuestIdAndStatus';
 import {
 	Merchant,
 	Npc,
@@ -42,10 +42,10 @@ export const dialogueSlice = createSlice({
 		initiateHealerDialogue: (state) => {
 			state.dialogue = ['Let me heal your Pokemon.'];
 		},
-		initiateQuestDialogue: (state, action: PayloadAction<QuestsEnum>) => {
+		initiateQuestDialogue: (state, action: PayloadAction<QuestIdAndStatus>) => {
 			state.dialogue = [
-				`You must complete the following quest to continue: ${action.payload}`,
-				'You can see your active quests in the Quests tab of the menu.',
+				`Requires Quest State: ${action.payload.id} = ${action.payload.status}`,
+				'You can see your active and completed quests in the Quests tab of the menu.',
 			];
 		},
 	},

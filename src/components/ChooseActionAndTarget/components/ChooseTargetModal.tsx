@@ -30,7 +30,10 @@ export const ChooseTargetModal = ({
 							onClick={() => {
 								setOpen(false);
 
-								selectAction(combatant.id, { name: actionName, target: c.id });
+								selectAction(combatant.id, {
+									name: actionName,
+									target: c.id,
+								});
 								//assign action to combatant
 							}}
 						>

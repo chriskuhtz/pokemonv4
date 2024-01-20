@@ -11,6 +11,7 @@ export const MarketListItem = ({
 	return (
 		<Pill
 			leftSide={<div>{item.cost}$</div>}
+			onClick={onClick}
 			center={
 				<div
 					style={{
@@ -27,7 +28,7 @@ export const MarketListItem = ({
 					{item.name}
 				</div>
 			}
-			rightSide={<div onClick={onClick}>ADD</div>}
+			rightSide={<div>ADD</div>}
 		/>
 	);
 };

@@ -1,6 +1,7 @@
 .battleScreen {
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 0.5rem;
 	height: 100dvh;
 }
 .devInfo {

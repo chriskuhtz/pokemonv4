@@ -57,8 +57,8 @@ export const NewGameProcess = (): JSX.Element => {
 	if (data) {
 		return (
 			<div className="container">
-				<h3 style={{ color: spriteError ? 'red' : undefined }}>
-					{spriteError ? 'Please enter your Name' : 'Whats your name'}
+				<h3 style={{ color: nameError ? 'red' : undefined }}>
+					Whats your name
 				</h3>
 
 				<input

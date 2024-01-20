@@ -42,7 +42,7 @@ export const OverworldWrapper = (): JSX.Element => {
 	const save = useSaveGame();
 
 	if (isFetching) {
-		return <FetchingScreen />;
+		return <FetchingScreen invisible />;
 	}
 	if (saveFile) {
 		return (

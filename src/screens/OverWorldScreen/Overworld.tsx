@@ -41,13 +41,21 @@ export const OverworldWrapper = (): JSX.Element => {
 	const navigate = useNavigate();
 	const save = useSaveGame();
 
+	const handleKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+		if (hasUnclaimedQuests) {
+			if (e.key === ' ' || e.key === 'Enter')
+				navigate(RoutesEnum.newFulfilledQuest);
+		}
+		tryToSetNextInput(e);
+	};
+
 	if (isFetching) {
 		return <FetchingScreen invisible />;
 	}
 	if (saveFile) {
 		return (
 			<div
-				onKeyDown={(e) => tryToSetNextInput(e)}
+				onKeyDown={handleKeyPress}
 				tabIndex={0}
 				id="overworld"
 				ref={autoFocusFn}

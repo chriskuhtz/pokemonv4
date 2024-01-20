@@ -6,15 +6,18 @@ import { Headline } from '../../components/Headline/Headline';
 import { PokemonCardWithImage } from '../../components/PokemonCardWithImage/PokemonCardWithImage';
 import { getUserName } from '../../functions/getUserName';
 import { useSaveGame } from '../../hooks/useSaveGame';
+import { Quest } from '../../interfaces/Quest';
 import { ErrorScreen } from '../ErrorScreen/ErrorScreen';
 import { FetchingScreen } from '../FetchingScreen/FetchingScreen';
 
 export const PokemonSelectionScreen = ({
 	choices,
 	headline,
+	quest,
 }: {
 	choices: number[];
 	headline: string;
+	quest?: Quest;
 }): JSX.Element => {
 	const username = getUserName();
 	const { data, isFetching } = useGetSaveFileQuery(username ?? skipToken);
@@ -59,6 +62,7 @@ export const PokemonSelectionScreen = ({
 											status: choice === c ? 'owned' : 'seen',
 										};
 									}),
+									questUpdates: quest ? { [quest.id]: 'completed' } : undefined,
 								});
 
 								navigate('/overworld');

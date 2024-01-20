@@ -1,3 +1,4 @@
+import { Pill } from '../Pill/Pill';
 import './errorMessage.css';
 
 export const ErrorMessage = ({
@@ -10,5 +11,5 @@ export const ErrorMessage = ({
 	if (log) {
 		console.error(JSON.parse(log));
 	}
-	return <div className="errorMessage">{message}</div>;
+	return <Pill className="errorMessage" center={message} />;
 };

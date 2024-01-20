@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
 	useGetAllSaveFilesQuery,
@@ -23,6 +23,8 @@ export const NewGameProcess = (): JSX.Element => {
 	const [postSaveFile] = usePostSaveFileMutation();
 	const [newSaveFile, setNewSaveFile] =
 		useState<Partial<SaveFile>>(PARTIAL_SAVE_FILE);
+	const [nameError, setNameError] = useState<boolean>(false);
+	const [spriteError, setSpriteError] = useState<boolean>(false);
 
 	const startGame = useCallback(async () => {
 		if (isValidSaveFile(newSaveFile)) {
@@ -30,7 +32,24 @@ export const NewGameProcess = (): JSX.Element => {
 			setUserName(newSaveFile.username);
 			navigate(RoutesEnum.overworld);
 		}
+		if (!newSaveFile.username) {
+			setNameError(true);
+		}
+		if (!newSaveFile.sprite) {
+			setSpriteError(true);
+		}
 	}, [navigate, newSaveFile, postSaveFile]);
+
+	useEffect(() => {
+		if (newSaveFile.username && nameError) {
+			setNameError(false);
+		}
+	}, [nameError, newSaveFile.username]);
+	useEffect(() => {
+		if (newSaveFile.sprite && spriteError) {
+			setSpriteError(false);
+		}
+	}, [newSaveFile.sprite, spriteError]);
 
 	if (isFetching) {
 		return <FetchingScreen />;
@@ -38,14 +57,19 @@ export const NewGameProcess = (): JSX.Element => {
 	if (data) {
 		return (
 			<div className="container">
-				<h3>Whats your name</h3>
+				<h3 style={{ color: spriteError ? 'red' : undefined }}>
+					{spriteError ? 'Please enter your Name' : 'Whats your name'}
+				</h3>
+
 				<input
-					placeholder="Whats your name"
+					style={{ color: nameError ? 'red' : undefined }}
+					placeholder={nameError ? 'Please enter your Name' : 'Whats your name'}
 					onChange={(e) =>
 						setNewSaveFile({ ...newSaveFile, username: e.target.value })
 					}
 				/>
 				<SpriteSelection
+					spriteError={spriteError}
 					newSaveFile={newSaveFile}
 					setNewSaveFile={setNewSaveFile}
 					currentOrientation={currentOrientation}
@@ -54,7 +78,7 @@ export const NewGameProcess = (): JSX.Element => {
 				<Pill
 					center={'Start Game'}
 					onClick={startGame}
-					disabled={!isValidSaveFile(newSaveFile)}
+					disabled={nameError || spriteError}
 					leftSide={
 						newSaveFile.sprite !== undefined ? (
 							<CharacterSprite

@@ -1,6 +1,5 @@
 .errorMessage {
-	padding: 1rem;
-	border: 3px solid red;
+	color: red;
 	font-weight: bolder;
 	font-size: larger;
 }

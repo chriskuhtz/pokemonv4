@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Pill } from '../Pill/Pill';
 import './modal.css';
 export const Modal = ({
 	open,
@@ -19,10 +20,10 @@ export const Modal = ({
 	}
 	return (
 		<div className="modal">
-			<div>
+			<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 				<div className="modalHeader">
 					{modalTitle && <div>{modalTitle}</div>}
-					{onCancel && <button onClick={onCancel}>X</button>}
+					{onCancel && <Pill onClick={onCancel} center={'X'} />}
 				</div>
 
 				{modalContent}

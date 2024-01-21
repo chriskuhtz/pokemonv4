@@ -1,6 +1,9 @@
+import { useMemo } from 'react';
 import { Combatant } from '../../../interfaces/Combatant';
 import { UseBattleScreen } from '../../../screens/BattleScreen/hooks/useBattleScreen';
 import { Modal } from '../../../ui_components/Modal/Modal';
+import { Pill } from '../../../ui_components/Pill/Pill';
+import { TwoByXGrid } from '../../../ui_components/TwoByXGrid/TwoByXGrid';
 
 export const ChooseTargetModal = ({
 	open,
@@ -17,30 +20,31 @@ export const ChooseTargetModal = ({
 	combatants: Combatant[];
 	combatant: Combatant;
 }) => {
+	const validTargets: Combatant[] = useMemo(() => {
+		return combatants;
+	}, [combatants]);
+
 	return (
 		<Modal
 			open={!!(actionName && open)}
 			onCancel={() => setOpen(false)}
 			modalTitle={`who is the target`}
 			modalContent={
-				<div>
-					{combatants.map((c) => (
-						<button
+				<TwoByXGrid>
+					{validTargets.map((c) => (
+						<Pill
 							key={c.id}
 							onClick={() => {
 								setOpen(false);
-
 								selectAction(combatant.id, {
 									name: actionName,
 									target: c.id,
 								});
-								//assign action to combatant
 							}}
-						>
-							{c.pokemon.name}
-						</button>
+							center={c.pokemon.name}
+						/>
 					))}
-				</div>
+				</TwoByXGrid>
 			}
 		/>
 	);

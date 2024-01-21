@@ -3,6 +3,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { useDispatch } from 'react-redux';
 import { loggerMiddleware } from '../middleware/logger';
+import { battleSlice } from '../slices/battleSlice';
 import { dialogueSlice } from '../slices/dialogueSlice';
 import { occupantsSlice } from '../slices/occupantsSlice';
 import { mapApi } from './mapApi';
@@ -17,6 +18,7 @@ export const store = configureStore({
 		[pokeApi.reducerPath]: pokeApi.reducer,
 		dialogueSlice: dialogueSlice.reducer,
 		occupantsSlice: occupantsSlice.reducer,
+		battleSlice: battleSlice.reducer,
 	},
 	// Adding the api middleware enables caching, invalidation, polling,
 	// and other useful features of `rtk-query`.
@@ -38,5 +40,6 @@ export const useAppDispatch: () => AppDispatch = useDispatch; // Export a hook t
 const rootReducer = combineReducers({
 	dialogueSlice: dialogueSlice.reducer,
 	occupantsSlice: occupantsSlice.reducer,
+	battleSlice: battleSlice.reducer,
 });
 export type RootState = ReturnType<typeof rootReducer>;

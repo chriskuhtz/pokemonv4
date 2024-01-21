@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Combatant } from '../../interfaces/Combatant';
 import { UseBattleScreen } from '../../screens/BattleScreen/hooks/useBattleScreen';
+import { Pill } from '../../ui_components/Pill/Pill';
 import { ChooseActionModal } from './components/ChooseActionModal';
 import { ChooseTargetModal } from './components/ChooseTargetModal';
 
@@ -17,7 +18,7 @@ export const ChooseActionAndTarget = ({
 	const [actionName, setActionName] = useState<string | undefined>('');
 
 	if (!open) {
-		return <button onClick={() => setOpen(true)}>Choose Action</button>;
+		return <Pill onClick={() => setOpen(true)} center={'Choose Action'} />;
 	}
 	if (!actionName) {
 		return (

@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { Combatant } from '../../../interfaces/Combatant';
 import { UseBattleScreen } from '../../../screens/BattleScreen/hooks/useBattleScreen';
 import { Modal } from '../../../ui_components/Modal/Modal';
@@ -20,10 +19,6 @@ export const ChooseTargetModal = ({
 	combatants: Combatant[];
 	combatant: Combatant;
 }) => {
-	const validTargets: Combatant[] = useMemo(() => {
-		return combatants;
-	}, [combatants]);
-
 	return (
 		<Modal
 			open={!!(actionName && open)}
@@ -31,7 +26,7 @@ export const ChooseTargetModal = ({
 			modalTitle={`who is the target`}
 			modalContent={
 				<TwoByXGrid>
-					{validTargets.map((c) => (
+					{combatants.map((c) => (
 						<Pill
 							key={c.id}
 							onClick={() => {

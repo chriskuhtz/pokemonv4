@@ -28,7 +28,9 @@ export const useLoadCombatants = (): Combatant[] | undefined => {
 		if (encounterData.length === 0) {
 			const fetchAll = async () =>
 				await Promise.all(
-					encounterIds.map((id) => getPokemonData(id).unwrap())
+					[...encounterIds, 244, 328, 734, 812, 69].map((id) =>
+						getPokemonData(id).unwrap()
+					)
 				).then((res) => setEncounterData(res));
 			fetchAll();
 		}

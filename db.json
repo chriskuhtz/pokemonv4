@@ -1,3 +1,94 @@
 {
-	"saveFiles": []
+	"saveFiles": [
+		{
+			"overworldPosition": {
+				"orientation": "Up",
+				"position": {
+					"x": 5,
+					"y": 3
+				},
+				"currentMapId": "starter-town"
+			},
+			"id": "3c15c402-fd79-45c4-8e3f-1d6c8cdb22c6",
+			"handledOccupants": {
+				"starter-town-ballMachine": false,
+				"starter-town-merchant": false,
+				"starter-town-nurse": false,
+				"starter-town-nurse-quest": false,
+				"starter-town-oak-after-selection": false,
+				"starter-town-oak-before-selection": true,
+				"starter-town-oak-during-selection": false
+			},
+			"money": 6000,
+			"inventory": {
+				"potion": 0,
+				"repel": 0,
+				"poke-ball": 5
+			},
+			"pokemon": [
+				{
+					"dexId": 1,
+					"id": "248499f7-3859-43a2-a8f5-5d7bc5550651",
+					"onTeam": true,
+					"xp": 100,
+					"damage": 0
+				},
+				{
+					"dexId": 165,
+					"id": "248499f7-3859-43a2-a8f5-5d7bc5550651",
+					"onTeam": true,
+					"xp": 100,
+					"damage": 0
+				},
+				{
+					"dexId": 73,
+					"id": "248499f7-3859-43a2-a8f5-5d7bc5550651",
+					"onTeam": true,
+					"xp": 100,
+					"damage": 0
+				},
+				{
+					"dexId": 578,
+					"id": "248499f7-3859-43a2-a8f5-5d7bc5550651",
+					"onTeam": true,
+					"xp": 100,
+					"damage": 0
+				},
+				{
+					"dexId": 691,
+					"id": "248499f7-3859-43a2-a8f5-5d7bc5550651",
+					"onTeam": true,
+					"xp": 100,
+					"damage": 0
+				},
+				{
+					"dexId": 213,
+					"id": "248499f7-3859-43a2-a8f5-5d7bc5550651",
+					"onTeam": true,
+					"xp": 100,
+					"damage": 0
+				}
+			],
+			"pokedex": [
+				{
+					"dexId": 1,
+					"status": "owned"
+				},
+				{
+					"dexId": 4,
+					"status": "seen"
+				},
+				{
+					"dexId": 7,
+					"status": "seen"
+				}
+			],
+			"quests": {
+				"pickStarter": "completed",
+				"talkToNurseJoy": "active"
+			},
+			"sprite": "006",
+			"username": "frwefgrte"
+		}
+	]
 }

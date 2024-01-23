@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { Modal } from '../../../../ui_components/Modal/Modal';
+import { Pill } from '../../../../ui_components/Pill/Pill';
 
 //might be the same as overworld dialogue
 export const MessageHandlerModal = ({
@@ -25,7 +26,7 @@ export const MessageHandlerModal = ({
 		<Modal
 			open={!!messages}
 			modalContent={
-				<button onClick={iterateThroughMessages}>{messages[index]}</button>
+				<Pill onClick={iterateThroughMessages} center={messages[index]} />
 			}
 		/>
 	);
